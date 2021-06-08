@@ -13,9 +13,8 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 	__FILE__,
 	'legendary-toolkit'
 );
-
-//Set the branch that contains the stable release.
 $myUpdateChecker->setBranch('master');
+$myUpdateChecker->getVcsApi()->enableReleaseAssets();
 
 if ( ! function_exists( 'wp_bootstrap_starter_setup' ) ) :
 /**
