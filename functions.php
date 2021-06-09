@@ -4,7 +4,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
- * @package WP_Bootstrap_Starter
+ * @package legendary_toolkit
  */
 
 require 'plugin-update-checker/plugin-update-checker.php';
@@ -16,7 +16,7 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 $myUpdateChecker->setBranch('master');
 $myUpdateChecker->getVcsApi()->enableReleaseAssets();
 
-if ( ! function_exists( 'wp_bootstrap_starter_setup' ) ) :
+if ( ! function_exists( 'legendary_toolkit_setup' ) ) :
 /**
  * Sets up theme defaults and registers support for various WordPress features.
  *
@@ -24,7 +24,7 @@ if ( ! function_exists( 'wp_bootstrap_starter_setup' ) ) :
  * runs before the init hook. The init hook is too late for some features, such
  * as indicating support for post thumbnails.
  */
-function wp_bootstrap_starter_setup() {
+function legendary_toolkit_setup() {
 	/*
 	 * Make theme available for translation.
 	 * Translations can be filed in the /languages/ directory.
@@ -67,7 +67,7 @@ function wp_bootstrap_starter_setup() {
 	) );
 
 	// Set up the WordPress core custom background feature.
-	add_theme_support( 'custom-background', apply_filters( 'wp_bootstrap_starter_custom_background_args', array(
+	add_theme_support( 'custom-background', apply_filters( 'legendary_toolkit_custom_background_args', array(
 		'default-color' => 'ffffff',
 		'default-image' => '',
 	) ) );
@@ -82,31 +82,31 @@ function wp_bootstrap_starter_setup() {
 
 }
 endif;
-add_action( 'after_setup_theme', 'wp_bootstrap_starter_setup' );
+add_action( 'after_setup_theme', 'legendary_toolkit_setup' );
 
 
 /**
  * Add Welcome message to dashboard
  */
-function wp_bootstrap_starter_reminder(){
-        $theme_page_url = 'https://afterimagedesigns.com/wp-bootstrap-starter/?dashboard=1';
+// function legendary_toolkit_reminder(){
+//         $theme_page_url = 'https://afterimagedesigns.com/wp-bootstrap-starter/?dashboard=1';
 
-            if(!get_option( 'triggered_welcomet')){
-                $message = sprintf(__( 'Welcome to WP Bootstrap Starter Theme! Before diving in to your new theme, please visit the <a style="color: #fff; font-weight: bold;" href="%1$s" target="_blank">theme\'s</a> page for access to dozens of tips and in-depth tutorials.', 'legendary-toolkit' ),
-                    esc_url( $theme_page_url )
-                );
+//             if(!get_option( 'triggered_welcomet')){
+//                 $message = sprintf(__( 'Welcome to WP Bootstrap Starter Theme! Before diving in to your new theme, please visit the <a style="color: #fff; font-weight: bold;" href="%1$s" target="_blank">theme\'s</a> page for access to dozens of tips and in-depth tutorials.', 'legendary-toolkit' ),
+//                     esc_url( $theme_page_url )
+//                 );
 
-                printf(
-                    '<div class="notice is-dismissible" style="background-color: #6C2EB9; color: #fff; border-left: none;">
-                        <p>%1$s</p>
-                    </div>',
-                    $message
-                );
-                add_option( 'triggered_welcomet', '1', '', 'yes' );
-            }
+//                 printf(
+//                     '<div class="notice is-dismissible" style="background-color: #6C2EB9; color: #fff; border-left: none;">
+//                         <p>%1$s</p>
+//                     </div>',
+//                     $message
+//                 );
+//                 add_option( 'triggered_welcomet', '1', '', 'yes' );
+//             }
 
-}
-add_action( 'admin_notices', 'wp_bootstrap_starter_reminder' );
+// }
+// add_action( 'admin_notices', 'legendary_toolkit_reminder' );
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -115,17 +115,17 @@ add_action( 'admin_notices', 'wp_bootstrap_starter_reminder' );
  *
  * @global int $content_width
  */
-function wp_bootstrap_starter_content_width() {
-	$GLOBALS['content_width'] = apply_filters( 'wp_bootstrap_starter_content_width', 1170 );
+function legendary_toolkit_content_width() {
+	$GLOBALS['content_width'] = apply_filters( 'legendary_toolkit_content_width', 1170 );
 }
-add_action( 'after_setup_theme', 'wp_bootstrap_starter_content_width', 0 );
+add_action( 'after_setup_theme', 'legendary_toolkit_content_width', 0 );
 
 /**
  * Register widget area.
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
-function wp_bootstrap_starter_widgets_init() {
+function legendary_toolkit_widgets_init() {
     register_sidebar( array(
         'name'          => esc_html__( 'Sidebar', 'legendary-toolkit' ),
         'id'            => 'sidebar-1',
@@ -163,13 +163,13 @@ function wp_bootstrap_starter_widgets_init() {
         'after_title'   => '</h3>',
     ) );
 }
-add_action( 'widgets_init', 'wp_bootstrap_starter_widgets_init' );
+add_action( 'widgets_init', 'legendary_toolkit_widgets_init' );
 
 
 /**
  * Enqueue scripts and styles.
  */
-function wp_bootstrap_starter_scripts() {
+function legendary_toolkit_scripts() {
 	// load bootstrap css
     if ( get_theme_mod( 'cdn_assets_setting' ) === 'yes' ) {
         wp_enqueue_style( 'wp-bootstrap-starter-bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css' );
@@ -240,14 +240,14 @@ function wp_bootstrap_starter_scripts() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'wp_bootstrap_starter_scripts' );
+add_action( 'wp_enqueue_scripts', 'legendary_toolkit_scripts' );
 
 
 
 /**
  * Add Preload for CDN scripts and stylesheet
  */
-function wp_bootstrap_starter_preload( $hints, $relation_type ){
+function legendary_toolkit_preload( $hints, $relation_type ){
     if ( 'preconnect' === $relation_type && get_theme_mod( 'cdn_assets_setting' ) === 'yes' ) {
         $hints[] = [
             'href'        => 'https://cdn.jsdelivr.net/',
@@ -261,20 +261,20 @@ function wp_bootstrap_starter_preload( $hints, $relation_type ){
     return $hints;
 } 
 
-add_filter( 'wp_resource_hints', 'wp_bootstrap_starter_preload', 10, 2 );
+add_filter( 'wp_resource_hints', 'legendary_toolkit_preload', 10, 2 );
 
 
 
-function wp_bootstrap_starter_password_form() {
+function legendary_toolkit_password_form() {
     global $post;
     $label = 'pwbox-'.( empty( $post->ID ) ? rand() : $post->ID );
     $o = '<form action="' . esc_url( home_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post">
-    <div class="d-block mb-3">' . __( "To view this protected post, enter the password below:", "wp-bootstrap-starter" ) . '</div>
-    <div class="form-group form-inline"><label for="' . $label . '" class="mr-2">' . __( "Password:", "wp-bootstrap-starter" ) . ' </label><input name="post_password" id="' . $label . '" type="password" size="20" maxlength="20" class="form-control mr-2" /> <input type="submit" name="Submit" value="' . esc_attr__( "Submit", "wp-bootstrap-starter" ) . '" class="btn btn-primary"/></div>
+    <div class="d-block mb-3">' . __( "To view this protected post, enter the password below:", "legendary-toolkit" ) . '</div>
+    <div class="form-group form-inline"><label for="' . $label . '" class="mr-2">' . __( "Password:", "legendary-toolkit" ) . ' </label><input name="post_password" id="' . $label . '" type="password" size="20" maxlength="20" class="form-control mr-2" /> <input type="submit" name="Submit" value="' . esc_attr__( "Submit", "legendary-toolkit" ) . '" class="btn btn-primary"/></div>
     </form>';
     return $o;
 }
-add_filter( 'the_password_form', 'wp_bootstrap_starter_password_form' );
+add_filter( 'the_password_form', 'legendary_toolkit_password_form' );
 
 
 
@@ -309,5 +309,8 @@ require get_template_directory() . '/inc/plugin-compatibility/plugin-compatibili
 if ( ! class_exists( 'wp_bootstrap_navwalker' )) {
     require_once(get_template_directory() . '/inc/wp_bootstrap_navwalker.php');
 }
+
+
+require get_template_directory() . '/inc/options.php';
 
 // TODO: Remove unwanted mods
