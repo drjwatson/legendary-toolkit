@@ -145,14 +145,16 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
 
             <style>
                 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
-
+                .wrap {
+                    margin: 0px 0px 0px -20px;
+                }
                 #options_header {
                     position:sticky;
                     top:32px;
                 }
                 #options_banner {
-                    padding: 15px 30px;
-                    background-color:#151515;
+                    padding: 0px 30px;
+                    background-color:#1d2327;
                     display:flex;
                     align-items: center;
                     justify-content: space-between;
@@ -166,9 +168,10 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                 }
                 #options_banner input#submit {
                     background-color: white;
-                    color: #151515;
-                    border-radius: 0px;
+                    color: #1d2327;
+                    border-radius: 3px;
                     border: 0px;
+                    font-weight: 600;
                 }
                 #logo_preview {
                     background-color: #fafafa;
@@ -178,14 +181,15 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                     height: 300px;
                     width: 300px;
                     border-radius: 0px;
-                    border: dashed 1px #151515;
+                    border: dashed 1px #1d2327;
                     display:block;
                     margin-bottom: 15px;
                 }
                 /* Style the tab */
                 .tab {
                     overflow: hidden;
-                    border: 1px solid #151515;
+                    /* border-bottom: 1px solid #1d2327; */
+                    box-shadow: 0px 1px 2px rgba(0,0,0,.1);
                     background-color: white;
                 }
 
@@ -200,21 +204,21 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                     transition: 0.3s;
                     font-size: 1.1em;
                     font-weight: 600;
-                    border-right: 1px solid #151515;
-                    color: #151515;
+                    border-right: 1px solid #eaeaea;
+                    color: #1d2327;
                     /* text-transform: uppercase; */
                     font-family: 'Poppins', sans-serif;
                 }
 
                 /* Change background color of buttons on hover */
                 .tab button:hover {
-                    background-color: #151515;
-                    color:white;
+                    background-color: #f5f5f5;
+                    /* color:white; */
                 }
 
                 /* Create an active/current tablink class */
                 .tab button.active {
-                    background-color: #151515;
+                    background-color: #1d2327;
                     color: white;
                 }
 
@@ -223,12 +227,12 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                     display: none;
                     background-color: white;
                     padding: 30px;
-                    border: 1px solid #151515;
+                    border-bottom: 1px solid #1d2327;
                     border-top: none;
                     font-family: 'Poppins', sans-serif;
                 }
                 .tabcontent {
-                    animation: fadeEffect .6s; /* Fading effect takes 1 second */
+                    /* animation: fadeEffect .6s; */
                 }
                 .tabcontent h3 {
                     font-weight: 600;
@@ -236,13 +240,14 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                     /* text-transform:uppercase; */
                 }
                 .tabcontent .button {
-                    border-radius: 0px;
-                    background-color: #151515;
+                    border-radius: 3px;
+                    background-color: #1d2327;
                     color: white;
-                    border: 1px solid #151515;
+                    border: 1px solid #1d2327;
+                    font-weight: 600;
                 }
                 .tabcontent .button:hover {
-                    color: #151515;
+                    color: #1d2327;
                     background-color:white;
                 }
 

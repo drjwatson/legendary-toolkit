@@ -9,7 +9,7 @@
 
 require 'plugin-update-checker/plugin-update-checker.php';
 $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-	'https://github.com/drjwatson/legendary-toolkit',
+	'https://github.com/legendary-lion/legendary-toolkit',
 	__FILE__,
 	'legendary-toolkit'
 );
