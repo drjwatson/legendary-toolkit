@@ -37,7 +37,13 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
             wp_register_script( 'legendary_toolkit_uploader', get_template_directory_uri() .'/inc/assets/js/uploader.js', array('jquery','media-upload','thickbox') );
             if ( 'toplevel_page_theme-settings' == get_current_screen()->id ) {
                 wp_enqueue_script('legendary_toolkit_uploader');
+                wp_enqueue_style( 'wp-color-picker' ); 
+                wp_enqueue_style( 'legendary_toolkit_admin_styles', get_template_directory_uri() . '/inc/assets/css/admin-styles.css' ); 
+                wp_enqueue_script( 'legendary_toolkit_color_picker', get_template_directory_uri() . '/inc/assets/js/color-picker.js', array( 'wp-color-picker' ), false, true ); 
+                wp_enqueue_script( 'legendary_toolkit_google_font_selector', get_template_directory_uri() . '/inc/assets/js/google-font-selector.js'); 
+                wp_enqueue_script( 'legendary_toolkit_admin_tabs', get_template_directory_uri() . '/inc/assets/js/admin-tabs.js', array('jquery'), false, true); 
             }
+
         }
 
 		/**
@@ -134,134 +140,111 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
 
 		}
 
+        public static function get_google_fonts() {
+            $google_api_key = "AIzaSyCzOdFDkLRrWOePEGIribIpUV3BM2SuO9s";
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, "https://www.googleapis.com/webfonts/v1/webfonts?key=" . $google_api_key. "&sort=popularity");
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                "Content-Type: application/json"
+            ));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);    
+            $fonts_list = json_decode(curl_exec($ch), true);
+            $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+            if($http_code != 200) 
+                exit('Error : Failed to get Google Fonts list');
+    
+            // echo out list of fonts
+            
+            $google_fonts = $fonts_list["items"];
+            return $google_fonts;
+        }
+
+        public static function typography_field($id, $has_size = true, $has_transform = false) {
+            
+            ob_start();
+            ?>
+            <table class="inner-form-table">
+                <tr valign="top">
+                    <td>
+                        <div class="legendary-toolkit-input-group">
+                            <?php $value = self::get_theme_option( $id . '_font_family' );?>
+                            <label class="prefix" for="theme_options[<?=$id;?>_font_family]">Family</label>
+                            <select data-type="<?=$id;?>" class="font-selector" name="theme_options[<?=$id;?>_font_family]">
+                                <option>Select Font Family</option>
+                                <?php foreach (self::get_google_fonts() as $i => $font) : ?>
+                                    <option value="<?=$font['family'];?>" <?php selected( $value, $font['family'], true );?>>
+                                        <?=$font['family'];?>
+                                    </option>
+                                <?php endforeach;?>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="legendary-toolkit-input-group">
+                            <?php $value = self::get_theme_option( $id . '_font_weight' );?>
+                            <label class="prefix" for="theme_options[<?=$id;?>_font_weight]">Weight</label>
+                            <select data-type="<?=$id;?>" data-selected="<?=esc_attr( $value );?>" name="theme_options[<?=$id;?>_font_weight]" class="font-selector-weight"></select>
+                        </div>
+                    </td>
+                    <td>
+                        <?php $value = self::get_theme_option( $id . '_font_color' );?>
+                        <input class="color-field" type="text" name="theme_options[<?=$id;?>_font_color]" value="<?=esc_attr( $value );?>">
+                    </td>
+                    
+                    <td>
+                        <?php if ($has_size) : ?>
+                            <div class="legendary-toolkit-input-group">
+                                <?php $value = self::get_theme_option( $id . '_font_size' );?>
+                                <label class="prefix" for="theme_options[<?=$id;?>_font_size]">Size</label>
+                                <input type="number" name="theme_options[<?=$id;?>_font_size]" value="<?=esc_attr($value);?>">
+                                <label class="suffix" for="theme_options[<?=$id;?>_font_size]">px</label>
+                            </div>
+                        <?php endif;?>
+                    </td>
+
+                    <td>
+                        <?php if ($has_transform) : ?>
+                            <div class="legendary-toolkit-input-group">
+                                <?php $value = self::get_theme_option( $id . '_font_transform' );?>
+                                <label class="prefix" for="theme_options[<?=$id;?>_font_transform]">Transform</label>
+                                <select name="theme_options[<?=$id;?>_font_transform]">
+                                    <option value="none">None</option>
+                                    <?php
+                                    $options = array(
+                                        'uppercase' => 'Uppercase',
+                                        'lowercase' => 'Lowercase',
+                                    );
+                                    foreach ( $options as $id => $label ) { ?>
+                                        <option value="<?=esc_attr( $id );?>" <?php selected( $value, $id, true );?>>
+                                            <?=strip_tags( $label );?>
+                                        </option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        <?php endif;?>
+                    </td>
+
+                </tr>
+            </table>
+            <?php
+            return ob_get_clean();
+        }
+
 		/**
 		 * Settings page output
 		 *
 		 * @since 1.0.0
 		 */
 		public static function create_admin_page() { 
-            // TODO: ENQUEUE ALL STYLES
             ?>
-
-            <style>
-                @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
-                .wrap {
-                    margin: 0px 0px 0px -20px;
-                }
-                #options_header {
-                    position:sticky;
-                    top:32px;
-                }
-                #options_banner {
-                    padding: 0px 30px;
-                    background-color:#1d2327;
-                    display:flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    font-family: 'Poppins', sans-serif;
-                }
-                #options_banner h1 {
-                    color: white;
-                    font-family: 'Poppins', sans-serif;
-                    font-weight: 800;
-                    text-transform: uppercase;
-                }
-                #options_banner input#submit {
-                    background-color: white;
-                    color: #1d2327;
-                    border-radius: 3px;
-                    border: 0px;
-                    font-weight: 600;
-                }
-                #logo_preview {
-                    background-color: #fafafa;
-                    background-repeat: no-repeat;
-                    background-size: contain;
-                    background-position: center center;
-                    height: 300px;
-                    width: 300px;
-                    border-radius: 0px;
-                    border: dashed 1px #1d2327;
-                    display:block;
-                    margin-bottom: 15px;
-                }
-                /* Style the tab */
-                .tab {
-                    overflow: hidden;
-                    /* border-bottom: 1px solid #1d2327; */
-                    box-shadow: 0px 1px 2px rgba(0,0,0,.1);
-                    background-color: white;
-                }
-
-                /* Style the buttons that are used to open the tab content */
-                .tab button {
-                    background-color: inherit;
-                    float: left;
-                    border: none;
-                    outline: none;
-                    cursor: pointer;
-                    padding: 14px 16px;
-                    transition: 0.3s;
-                    font-size: 1.1em;
-                    font-weight: 600;
-                    border-right: 1px solid #eaeaea;
-                    color: #1d2327;
-                    /* text-transform: uppercase; */
-                    font-family: 'Poppins', sans-serif;
-                }
-
-                /* Change background color of buttons on hover */
-                .tab button:hover {
-                    background-color: #f5f5f5;
-                    /* color:white; */
-                }
-
-                /* Create an active/current tablink class */
-                .tab button.active {
-                    background-color: #1d2327;
-                    color: white;
-                }
-
-                /* Style the tab content */
-                .tabcontent {
-                    display: none;
-                    background-color: white;
-                    padding: 30px;
-                    border-bottom: 1px solid #1d2327;
-                    border-top: none;
-                    font-family: 'Poppins', sans-serif;
-                }
-                .tabcontent {
-                    /* animation: fadeEffect .6s; */
-                }
-                .tabcontent h3 {
-                    font-weight: 600;
-                    font-size: 2em;
-                    /* text-transform:uppercase; */
-                }
-                .tabcontent .button {
-                    border-radius: 3px;
-                    background-color: #1d2327;
-                    color: white;
-                    border: 1px solid #1d2327;
-                    font-weight: 600;
-                }
-                .tabcontent .button:hover {
-                    color: #1d2327;
-                    background-color:white;
-                }
-
-                /* Go from zero to full opacity */
-                @keyframes fadeEffect {
-                    from {opacity: 0;}
-                    to {opacity: 1;}
-                }
-            </style>
 			<div class="wrap">
                 <div id="options_header">
                     <div id="options_banner">
-                        <h1><?php esc_html_e( 'Legendary Toolkit Options', 'legendary-toolkit' ); ?></h1>
-                        <?php submit_button( __( 'Save Changes', 'legendary-toolkit' ), 'primary', 'submit', true, array( 'form' => 'legendary_toolkit_form' ) ); ?>
+                        <h1><?php esc_html_e( 'Legendary Toolkit Options', 'legendary-toolkit' );?></h1>
+                        <?php submit_button( __( 'Save Changes', 'legendary-toolkit' ), 'primary', 'submit', true, array( 'form' => 'legendary_toolkit_form' ) );?>
                     </div>
                     <!-- Tab links -->
                     <div class="tab">
@@ -273,42 +256,32 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                 </div>
 				<form method="post" action="options.php" id="legendary_toolkit_form">
 
-					<?php settings_fields( 'theme_options' ); ?>
+					<?php settings_fields( 'theme_options' );?>
                     <!-- Tab content -->
                     <div id="legendary_toolkit_general" class="tabcontent">
                         <h3>General</h3>
                         <table class="form-table">
                             <tr valign="top">
-                                <th scope="row"><?php esc_html_e( 'Logo', 'legendary-toolkit' ); ?></th>
+                                <th scope="row"><?php esc_html_e( 'Logo', 'legendary-toolkit' );?></th>
                                 <td>
-                                    <?php $value = self::get_theme_option( 'logo' ); ?>
-                                    <a class="button" onclick="upload_image('logo');" id="logo_preview" style="background-image: url(<?php echo esc_attr( $value ); ?>);"></a>
-                                    <input type="hidden" name="theme_options[logo]" id="logo" value="<?php echo esc_attr( $value ); ?>">
+                                    <?php $value = self::get_theme_option( 'logo' );?>
+                                    <a class="button" onclick="upload_image('logo');" id="logo_preview" style="background-image: url(<?=esc_attr( $value );?>);"></a>
+                                    <input type="hidden" name="theme_options[logo]" id="logo" value="<?=esc_attr( $value );?>">
                                     <a class="button" onclick="upload_image('logo');">Change Logo</a> 
                                 </td>
                             </tr>
                             <tr valign="top">
-                                <th scope="row">Fill Space with this</th>
+                                <th scope="row"><?php esc_html_e( 'Primary Color', 'legendary-toolkit' );?></th>
                                 <td>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <?php $value = self::get_theme_option( 'primary_color' );?>
+                                    <input class="color-field" type="text" name="theme_options[primary_color]" value="<?=esc_attr( $value );?>">
                                 </td>
                             </tr>
                             <tr valign="top">
-                                <th scope="row">Fill Space with this</th>
+                                <th scope="row"><?php esc_html_e( 'Secondary Color', 'legendary-toolkit' );?></th>
                                 <td>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                </td>
-                            </tr>
-                            <tr valign="top">
-                                <th scope="row">Fill Space with this</th>
-                                <td>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                </td>
-                            </tr>
-                            <tr valign="top">
-                                <th scope="row">Fill Space with this</th>
-                                <td>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <?php $value = self::get_theme_option( 'secondary_color' );?>
+                                    <input class="color-field" type="text" name="theme_options[secondary_color]" value="<?=esc_attr( $value );?>">
                                 </td>
                             </tr>
                         </table>
@@ -318,28 +291,46 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                     </div>
                     <div id="legendary_toolkit_typography" class="tabcontent">
                         <h3>Typography</h3>
+                        <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Body', 'legendary-toolkit' );?></th>
+                                <td><?php echo self::typography_field('body');?></td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'All Headings', 'legendary-toolkit' );?></th>
+                                <td><?php echo self::typography_field('all', false);?></td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Heading 1', 'legendary-toolkit' );?></th>
+                                <td><?php echo self::typography_field('h1');?></td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Heading 2', 'legendary-toolkit' );?></th>
+                                <td><?php echo self::typography_field('h2');?></td>
+                            </tr>
+                        </table>
                     </div>
                     <div id="legendary_toolkit_examples" class="tabcontent">
                         <h3>Option Examples</h3>
                         <table class="form-table">
                             <tr valign="top">
-                                <th scope="row"><?php esc_html_e( 'Checkbox Example', 'legendary-toolkit' ); ?></th>
+                                <th scope="row"><?php esc_html_e( 'Checkbox Example', 'legendary-toolkit' );?></th>
                                 <td>
-                                    <?php $value = self::get_theme_option( 'checkbox_example' ); ?>
-                                    <input type="checkbox" name="theme_options[checkbox_example]" <?php checked( $value, 'on' ); ?>> <?php esc_html_e( 'Checkbox example description.', 'legendary-toolkit' ); ?>
+                                    <?php $value = self::get_theme_option( 'checkbox_example' );?>
+                                    <input type="checkbox" name="theme_options[checkbox_example]" <?php checked( $value, 'on' );?>> <?php esc_html_e( 'Checkbox example description.', 'legendary-toolkit' );?>
                                 </td>
                             </tr>
                             <tr valign="top">
-                                <th scope="row"><?php esc_html_e( 'Input Example', 'legendary-toolkit' ); ?></th>
+                                <th scope="row"><?php esc_html_e( 'Input Example', 'legendary-toolkit' );?></th>
                                 <td>
-                                    <?php $value = self::get_theme_option( 'input_example' ); ?>
-                                    <input type="text" name="theme_options[input_example]" value="<?php echo esc_attr( $value ); ?>">
+                                    <?php $value = self::get_theme_option( 'input_example' );?>
+                                    <input type="text" name="theme_options[input_example]" value="<?=esc_attr( $value );?>">
                                 </td>
                             </tr>
-                            <tr valign="top" class="legendary-toolkit-custom-admin-screen-background-section">
-                                <th scope="row"><?php esc_html_e( 'Select Example', 'legendary-toolkit' ); ?></th>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Select Example', 'legendary-toolkit' );?></th>
                                 <td>
-                                    <?php $value = self::get_theme_option( 'select_example' ); ?>
+                                    <?php $value = self::get_theme_option( 'select_example' );?>
                                     <select name="theme_options[select_example]">
                                         <?php
                                         $options = array(
@@ -348,45 +339,35 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                             '3' => esc_html__( 'Option 3', 'legendary-toolkit' ),
                                         );
                                         foreach ( $options as $id => $label ) { ?>
-                                            <option value="<?php echo esc_attr( $id ); ?>" <?php selected( $value, $id, true ); ?>>
-                                                <?php echo strip_tags( $label ); ?>
+                                            <option value="<?=esc_attr( $id );?>" <?php selected( $value, $id, true );?>>
+                                                <?=strip_tags( $label );?>
                                             </option>
                                         <?php } ?>
                                     </select>
                                 </td>
                             </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Input Example', 'legendary-toolkit' );?></th>
+                            </tr>                            
                         </table>
                     </div>
 				</form>
 
 			</div><!-- .wrap -->
-            <script>
-                function open_settings_tab(evt, tabName) {
-                    evt.preventDefault();
-                    // Declare all variables
-                    var i, tabcontent, tablinks;
+            <?php 
+            // =================
+            // Debug Console
+            // =================
+            // echo '<pre style="height:200px; width: 100%; overflow:scroll; white-space: pre-wrap; resize:vertical">';
 
-                    // Get all elements with class="tabcontent" and hide them
-                    tabcontent = document.getElementsByClassName("tabcontent");
-                    for (i = 0; i < tabcontent.length; i++) {
-                        tabcontent[i].style.display = "none";
-                    }
+            //     echo '<hr>get_theme_options()<hr>';
+            //     print_r(self::get_theme_options());
 
-                    // Get all elements with class="tablinks" and remove the class "active"
-                    tablinks = document.getElementsByClassName("tablinks");
-                    for (i = 0; i < tablinks.length; i++) {
-                        tablinks[i].className = tablinks[i].className.replace(" active", "");
-                    }
+            //     echo '<hr>get_google_fonts()<hr>';
+            //     print_r(self::get_google_fonts());
 
-                    // Show the current tab, and add an "active" class to the button that opened the tab
-                    document.getElementById(tabName).style.display = "block";
-                    evt.currentTarget.className += " active";
-                }
-
-                (function() {
-                    document.getElementById("legendary_toolkit_general_tab").click();
-                })();          
-            </script>
+            // echo '</pre>';
+            ?>
 		<?php 
         // TODO: ENQUEUE ALL SCRIPTS
         }
