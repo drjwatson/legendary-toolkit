@@ -1,0 +1,16 @@
+/*
+A temporary css style sheet to apply parent style overrides, which can be optimized with redundancy checks and minified if necessary prior to implementation
+*/
+
+a.post-edit-link, #vc_load-inline-editor {
+    background: grey;
+    padding: 4px 20px;
+    border-radius: 4px;
+    color: white;
+    font-size: 10px;
+    margin-right: 10px;
+}
+
+#menu-primary{
+    align-items:center;
+}

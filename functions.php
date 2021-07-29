@@ -203,11 +203,14 @@ function legendary_toolkit_scripts() {
     // parent styles
     wp_enqueue_style('legendary_toolkit_styles', get_template_directory_uri() . '/style.css');
 
-    // Append theme options stylesheet after parent theme styles
+    // append theme options stylesheet after parent theme styles
     wp_add_inline_style( 'legendary_toolkit_styles', legendary_toolkit_theme_options_css() );
 
     // theme styles from settings
     wp_enqueue_style('legendary_toolkit_theme_settings_styles', get_template_directory_uri() . '/inc/assets/css/theme-styles.css');
+
+    // temporary stylesheet for development
+    wp_enqueue_style('legendary_toolkit_development_css', get_template_directory_uri() . '/inc/assets/css/theme-styles-development.css');
 
 }
 add_action( 'wp_enqueue_scripts', 'legendary_toolkit_scripts' );
