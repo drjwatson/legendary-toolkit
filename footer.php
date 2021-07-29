@@ -17,6 +17,7 @@
 			</div><!-- .row -->
 		</div><!-- .container -->
 	</div><!-- #content -->
+	<div id="footer">
     <?php get_template_part( 'footer-widget' ); ?>
 	<?php if ($footer_column_count) : ?>
 		<section>
@@ -29,7 +30,6 @@
 					<?php endfor;?>
 				</div>
 			</div>
-
 		</section>
 	<?php endif;?>
 	<footer id="colophon" class="site-footer <?php echo wp_bootstrap_starter_bg_class(); ?>" role="contentinfo">
@@ -39,6 +39,7 @@
             </div><!-- close .site-info -->
 		</div>
 	</footer><!-- #colophon -->
+	</div><!--#footer-->
 <?php endif; ?>
 </div><!-- #page -->
 

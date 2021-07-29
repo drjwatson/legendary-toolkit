@@ -2,6 +2,12 @@
 A temporary css style sheet to apply parent style overrides, which can be optimized with redundancy checks and minified if necessary prior to implementation
 */
 
+
+/*
+FOR PRODUCTION
+*/
+
+
 a.post-edit-link, #vc_load-inline-editor {
     background: grey;
     padding: 4px 20px;
@@ -14,3 +20,59 @@ a.post-edit-link, #vc_load-inline-editor {
 #menu-primary{
     align-items:center;
 }
+
+
+header#masthead {
+    background-color: white;
+}
+
+nav.navbar a img {
+    max-height: 100px;
+}
+
+header#masthead {
+    padding: 0;
+}
+
+body:not(.theme-preset-active) #masthead .navbar-nav>li>a {
+    color:black;
+}
+
+body:not(.theme-preset-active) #masthead .navbar-nav>li>a:hover,
+body:not(.theme-preset-active) #masthead .navbar-nav>li.current_page_item>a{
+    color:#cdcdcd;
+}
+
+#page #content.site-content {
+    padding-bottom: 3.75rem;
+    padding-top: 4.125rem;
+}
+/*
+START footer always at bottom fix
+*/
+html, body{
+    height:100%;
+}
+
+#page {
+    min-height: 100%;
+    position: relative;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+/*
+END footer always at bottom fix
+*/
+
+
+
+/*
+NOT USED FOR PRODUCTION
+*/
+
