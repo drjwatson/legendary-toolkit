@@ -95,7 +95,6 @@ jQuery(function($) {
       data.url = url;
       data.thumbnail_url = url;
       data.timestamp = _.now();
-
       if (attachmentId) {
           data.attachment_id = attachmentId;
       }
@@ -108,16 +107,14 @@ jQuery(function($) {
           data.height = height;
       }
 
-      $("#logo").val( data.attachment_id );
+      $("#logo").val( attachmentId );
       $("#logo_preview").css("background-image", 'url(' + url +')');         
 
   }
 
   function legendary_toolkit_setImageFromAttachment(attachment) {
-
       $("#logo").val( attachment.id );
       $("#logo_preview").css("background-image", 'url(' + attachment.url +')');             
-
   }
 
   var mediaUploader;
@@ -213,7 +210,7 @@ jQuery(function($) {
       mediaUploader.on('cropped', function(croppedImage) {
 
           var url = croppedImage.url,
-              attachmentId = croppedImage.attachment_id,
+              attachmentId = croppedImage.id,
               w = croppedImage.width,
               h = croppedImage.height;
 

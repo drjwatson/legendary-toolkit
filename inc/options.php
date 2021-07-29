@@ -440,7 +440,6 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                 echo '</pre>';
             ?>
 		<?php 
-        // TODO: ENQUEUE ALL SCRIPTS
         }
 
 	}
