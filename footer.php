@@ -11,7 +11,7 @@
 
 	$theme_options = legendary_toolkit_get_theme_options();
 	$footer_column_count = intval($theme_options['footer_columns']);
-	$footer_column_class = 'col-sm-' . 12 / $footer_column_count;
+	$footer_column_class = ($footer_column_count) ? 'col-sm-' . 12 / $footer_column_count : 'col-sm-12';
 ?>
 <?php if(!is_page_template( 'blank-page.php' ) && !is_page_template( 'blank-page-with-container.php' )): ?>
 			</div><!-- .row -->
