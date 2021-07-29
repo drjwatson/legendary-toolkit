@@ -89,12 +89,11 @@
     font-family: 'Poppins', sans-serif;
 }
 .tabcontent {
-    /* animation: fadeEffect .6s; */
+    animation: fadeEffect 1s;
 }
 .tabcontent h3 {
     font-weight: 600;
     font-size: 2em;
-    /* text-transform:uppercase; */
 }
 .tabcontent .button {
     border-radius: 3px;

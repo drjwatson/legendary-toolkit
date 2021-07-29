@@ -41,7 +41,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                 wp_enqueue_style( 'legendary_toolkit_admin_styles', get_template_directory_uri() . '/inc/assets/css/admin-styles.css' ); 
                 wp_enqueue_script( 'legendary_toolkit_color_picker', get_template_directory_uri() . '/inc/assets/js/color-picker.js', array( 'wp-color-picker' ), false, true ); 
                 wp_enqueue_script( 'legendary_toolkit_google_font_selector', get_template_directory_uri() . '/inc/assets/js/google-font-selector.js'); 
-                wp_enqueue_script( 'legendary_toolkit_admin_tabs', get_template_directory_uri() . '/inc/assets/js/admin-tabs.js', array('jquery'), false, true); 
+                wp_enqueue_script( 'legendary_toolkit_admin_scripts', get_template_directory_uri() . '/inc/assets/js/admin-scripts.js', array('jquery'), false, true); 
             }
 
         }
@@ -166,7 +166,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
             
             ob_start();
             ?>
-            <table class="inner-form-table">
+            <table data-type="<?=$id;?>" class="inner-form-table">
                 <tr valign="top">
                     <td>
                         <div class="legendary-toolkit-input-group">
@@ -226,9 +226,11 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                             </div>
                         <?php endif;?>
                     </td>
-
                 </tr>
             </table>
+            
+            <?php $files = self::get_theme_option( 'font_files' );?>
+            <div class="files-field" style="display:none;" data-type="<?=$id;?>"></div>
             <?php
             return ob_get_clean();
         }
@@ -250,6 +252,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                     <div class="tab">
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_general')" id="legendary_toolkit_general_tab">General</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_header')">Header</button>
+                        <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_footer')">Footer</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_typography')">Typography</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_examples')">Examples</button>
                     </div>
@@ -264,10 +267,10 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Logo', 'legendary-toolkit' );?></th>
                                 <td>
-                                    <?php $value = self::get_theme_option( 'logo' );?>
-                                    <a class="button" onclick="upload_image('logo');" id="logo_preview" style="background-image: url(<?=esc_attr( $value );?>);"></a>
-                                    <input type="hidden" name="theme_options[logo]" id="logo" value="<?=esc_attr( $value );?>">
-                                    <a class="button" onclick="upload_image('logo');">Change Logo</a> 
+                                    <?php $value = self::get_theme_option( 'logo' ); ?>
+                                    <input type="hidden" name="theme_options[logo]" id="logo" value="<?php echo $value; ?>" />
+                                    <div id="logo_preview" class="logo btn_logo" style="background-image:url(<?php echo wp_get_attachment_image_url($value, 'medium'); ?>)" ></div>
+                                    <button id="btn_logo" class="button default btn_logo">Select Logo</button>
                                 </td>
                             </tr>
                             <tr valign="top">
@@ -289,6 +292,52 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                     <div id="legendary_toolkit_header" class="tabcontent">
                         <h3>Header</h3>
                     </div>
+                    <div id="legendary_toolkit_footer" class="tabcontent">
+                        <h3>Footer</h3>
+                        <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Footer Columns', 'legendary-toolkit' );?></th>
+                                <td style="display:flex; align-items: center; ">
+                                    <?php $value = self::get_theme_option( 'footer_columns' );?>
+                                    <input type="range" min="0" max="4" step="1" name="theme_options[footer_columns]" oninput="this.nextElementSibling.value = this.value" value="<?=(esc_attr( $value )) ? esc_attr($value) : 4;?>">
+                                    <output style="margin-left:10px;"><?=(esc_attr( $value )) ? esc_attr( $value ) : 4;?></output>
+                                </td>
+                            </tr>
+                            <?php $footer_column_count = self::get_theme_option('footer_columns');?>
+                            <?php $hidden = ( $footer_column_count < 1 ) ? 'hidden' : '';?>
+                            <tr valign="top" id="footer_column_row_1" class="<?=$hidden;?>">
+                                <th scope="row"><?php esc_html_e( 'Footer Column 1', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'footer_column_1' );?>
+                                    <?php echo wp_editor( $value, 'footer_column_1', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_column_1]') );?>
+                                </td>
+                            </tr>
+                            <?php $hidden = ( $footer_column_count < 2 ) ? 'hidden' : '';?>
+                            <tr valign="top" id="footer_column_row_2" class="<?=$hidden;?>">
+                                <th scope="row"><?php esc_html_e( 'Footer Column 2', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'footer_column_2' );?>
+                                    <?php echo wp_editor( $value, 'footer_column_2', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_column_2]') );?>
+                                </td>
+                            </tr>
+                            <?php $hidden = ( $footer_column_count < 3 ) ? 'hidden' : '';?>
+                            <tr valign="top" id="footer_column_row_3" class="<?=$hidden;?>">
+                                <th scope="row"><?php esc_html_e( 'Footer Column 3', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'footer_column_3' );?>
+                                    <?php echo wp_editor( $value, 'footer_column_3', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_column_3]') );?>
+                                </td>
+                            </tr>
+                            <?php $hidden = ( $footer_column_count < 4 ) ? 'hidden' : '';?>
+                            <tr valign="top" id="footer_column_row_4" class="<?=$hidden;?>">
+                                <th scope="row"><?php esc_html_e( 'Footer Column 4', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'footer_column_4' );?>
+                                    <?php echo wp_editor( $value, 'footer_column_4', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_column_4]') );?>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                     <div id="legendary_toolkit_typography" class="tabcontent">
                         <h3>Typography</h3>
                         <table class="form-table">
@@ -307,6 +356,22 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Heading 2', 'legendary-toolkit' );?></th>
                                 <td><?php echo self::typography_field('h2');?></td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Heading 3', 'legendary-toolkit' );?></th>
+                                <td><?php echo self::typography_field('h3');?></td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Heading 4', 'legendary-toolkit' );?></th>
+                                <td><?php echo self::typography_field('h4');?></td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Heading 5', 'legendary-toolkit' );?></th>
+                                <td><?php echo self::typography_field('h5');?></td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Heading 6', 'legendary-toolkit' );?></th>
+                                <td><?php echo self::typography_field('h6');?></td>
                             </tr>
                         </table>
                     </div>
@@ -347,8 +412,13 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 </td>
                             </tr>
                             <tr valign="top">
-                                <th scope="row"><?php esc_html_e( 'Input Example', 'legendary-toolkit' );?></th>
-                            </tr>                            
+                                <th scope="row"><?php esc_html_e( 'Range Example', 'legendary-toolkit' );?></th>
+                                <td style="display:flex; align-items: center; ">
+                                    <?php $value = self::get_theme_option( 'range_example' );?>
+                                    <input type="range" min="0" max="4" step="1" name="theme_options[range_example]" oninput="this.nextElementSibling.value = this.value" value="<?=(esc_attr( $value )) ? esc_attr($value) : 4;?>">
+                                    <output style="margin-left:10px;"><?=(esc_attr( $value )) ? esc_attr( $value ) : 4;?></output>
+                                </td>
+                            </tr>
                         </table>
                     </div>
 				</form>
@@ -358,15 +428,16 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
             // =================
             // Debug Console
             // =================
-            // echo '<pre style="height:200px; width: 100%; overflow:scroll; white-space: pre-wrap; resize:vertical">';
+                echo '<h3>Debug Console</h3>';
+                echo '<pre style="height:200px; width: 100%; overflow:scroll; white-space: pre-wrap; resize:vertical">';
 
-            //     echo '<hr>get_theme_options()<hr>';
-            //     print_r(self::get_theme_options());
+                    echo '<hr><strong>get_theme_options()</strong><hr>';
+                    print_r(self::get_theme_options());
 
-            //     echo '<hr>get_google_fonts()<hr>';
-            //     print_r(self::get_google_fonts());
+                    // echo '<hr><strong>get_google_fonts()</strong><hr>';
+                    // print_r(self::get_google_fonts());
 
-            // echo '</pre>';
+                echo '</pre>';
             ?>
 		<?php 
         // TODO: ENQUEUE ALL SCRIPTS
@@ -380,12 +451,16 @@ new Legendary_Toolkit_Theme_Options();
 function legendary_toolkit_get_theme_option( $id = '' ) {
 	return Legendary_Toolkit_Theme_Options::get_theme_option( $id );
 }
+function legendary_toolkit_get_theme_options() {
+	return Legendary_Toolkit_Theme_Options::get_theme_options();
+}
+
 
 global $enqueued_scripts;
 global $enqueued_styles;
 
-add_action( 'wp_print_scripts', 'cyb_list_scripts' );
-function cyb_list_scripts() {
+add_action( 'wp_print_scripts', 'legendary_toolkit_list_scripts' );
+function legendary_toolkit_list_scripts() {
     global $wp_scripts;
     global $enqueued_scripts;
     $enqueued_scripts = array();
@@ -394,8 +469,8 @@ function cyb_list_scripts() {
     }
 }
 
-add_action( 'wp_print_styles', 'cyb_list_styles' );
-function cyb_list_styles() {
+add_action( 'wp_print_styles', 'legendary_toolkit_list_styles' );
+function legendary_toolkit_list_styles() {
     global $wp_styles;
     global $enqueued_styles;
     $enqueued_styles = array();

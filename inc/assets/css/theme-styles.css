@@ -1,0 +1,55 @@
+body, p {
+    font-family : var(--body_font_family, sans-serif);
+    color       : var(--body_font_color, black);
+    font-style  : var(--body_font_style, normal);
+    font-weight : var(--body_font_weight, normal);
+    font-size   : var(--body_font_size, 16px);
+}
+h1, h2, h3, h4, h5, h6 {    
+    font-family : var(--all_font_family, sans-serif);
+    color       : var(--all_font_color, black);
+    font-style  : var(--all_font_style, normal);
+    font-weight : var(--all_font_weight, bold);
+}
+h1 {
+    font-family : var(--h1_font_family, var(--all_font_family), sans-serif);
+    color       : var(--h1_font_color, var(--all_font_color), black);
+    font-style  : var(--h1_font_style, var(--all_font_style), normal);
+    font-weight : var(--h1_font_weight, var(--all_font_weight), bold);
+    font-size   : var(--h1_font_size, 2em);
+}
+h2 {
+    font-family : var(--h2_font_family, var(--all_font_family), sans-serif);
+    color       : var(--h2_font_color, var(--all_font_color), black);
+    font-style  : var(--h2_font_style, var(--all_font_style), normal);
+    font-weight : var(--h2_font_weight, var(--all_font_weight), bold);
+    font-size   : var(--h2_font_size, 1.5em);
+}
+h3 {
+    font-family : var(--h3_font_family, var(--all_font_family), sans-serif);
+    color       : var(--h3_font_color, var(--all_font_color), black);
+    font-style  : var(--h3_font_style, var(--all_font_style), normal);
+    font-weight : var(--h3_font_weight, var(--all_font_weight), bold);
+    font-size   : var(--h3_font_size, 1.17em);
+}
+h4 {
+    font-family : var(--h4_font_family, var(--all_font_family), sans-serif);
+    color       : var(--h4_font_color, var(--all_font_color), black);
+    font-style  : var(--h4_font_style, var(--all_font_style), normal);
+    font-weight : var(--h4_font_weight, var(--all_font_weight), bold);
+    font-size   : var(--h4_font_size, 1em);
+}
+h5 {
+    font-family : var(--h5_font_family, var(--all_font_family), sans-serif);
+    color       : var(--h5_font_color, var(--all_font_color), black);
+    font-style  : var(--h5_font_style, var(--all_font_style), normal);
+    font-weight : var(--h5_font_weight, var(--all_font_weight), bold);
+    font-size   : var(--h5_font_size, .83em);
+}
+h6 {
+    font-family : var(--h6_font_family, var(--all_font_family), sans-serif);
+    color       : var(--h6_font_color, var(--all_font_color), black);
+    font-style  : var(--h6_font_style, var(--all_font_style), normal);
+    font-weight : var(--h6_font_weight, var(--all_font_weight), bold);
+    font-size   : var(--h6_font_size, .67em);
+}
