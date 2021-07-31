@@ -413,3 +413,23 @@ if ( ! class_exists( 'wp_bootstrap_navwalker' )) {
 require get_template_directory() . '/inc/options.php';
 
 // TODO: Remove unwanted mods
+
+
+// allow svg uploads
+function cc_mime_types($mimes) {
+  $mimes['svg'] = 'image/svg+xml';
+  return $mimes;
+}
+add_filter('upload_mimes', 'cc_mime_types');
+
+// skip cropping
+function logo_size_change(){
+	remove_theme_support( 'custom-logo' );
+	add_theme_support( 'custom-logo', array(
+	    'height'      => 100,
+	    'width'       => 400,
+	    'flex-height' => true,
+	    'flex-width'  => true,
+	) );
+}
+add_action( 'after_setup_theme', 'logo_size_change', 11 );
