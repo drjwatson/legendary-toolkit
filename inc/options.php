@@ -193,7 +193,6 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                         <?php $value = self::get_theme_option( $id . '_font_color' );?>
                         <input class="color-field" type="text" name="theme_options[<?=$id;?>_font_color]" value="<?=esc_attr( $value );?>">
                     </td>
-                    
                     <td>
                         <?php if ($has_size) : ?>
                             <div class="legendary-toolkit-input-group">
@@ -204,7 +203,6 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                             </div>
                         <?php endif;?>
                     </td>
-
                     <td>
                         <?php if ($has_transform) : ?>
                             <div class="legendary-toolkit-input-group">
@@ -217,11 +215,11 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                         'uppercase' => 'Uppercase',
                                         'lowercase' => 'Lowercase',
                                     );
-                                    foreach ( $options as $id => $label ) { ?>
-                                        <option value="<?=esc_attr( $id );?>" <?php selected( $value, $id, true );?>>
+                                    foreach ( $options as $option_id => $label ) : ?>
+                                        <option value="<?=esc_attr( $option_id );?>" <?php selected( $value, $option_id, true );?>>
                                             <?=strip_tags( $label );?>
                                         </option>
-                                    <?php } ?>
+                                    <?php endforeach ?>
                                 </select>
                             </div>
                         <?php endif;?>
@@ -291,6 +289,57 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                     </div>
                     <div id="legendary_toolkit_header" class="tabcontent">
                         <h3>Header</h3>
+                        <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Logo Height', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <div class="legendary-toolkit-input-group">
+                                        <?php $value = self::get_theme_option( 'logo_height' );?>
+                                        <input type="number" name="theme_options[logo_height]" value="<?=(esc_attr($value)) ? esc_attr($value) : '100';?>">
+                                        <label class="suffix" for="theme_options[logo_height]">px</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Mobile Menu Position', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'mobile_menu_position' );?>
+                                    <select name="theme_options[mobile_menu_position]">
+                                        <?php
+                                        $options = array(
+                                            'right' => esc_html__( 'Right', 'legendary-toolkit' ),
+                                            'left' => esc_html__( 'Left', 'legendary-toolkit' ),
+                                        );
+                                        foreach ( $options as $id => $label ) { ?>
+                                            <option value="<?=esc_attr( $id );?>" <?php selected( $value, $id, true );?>>
+                                                <?=strip_tags( $label );?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Mobile Menu Width', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <div class="legendary-toolkit-input-group">
+                                        <?php $value = self::get_theme_option( 'mobile_menu_width' );?>
+                                        <input type="number" name="theme_options[mobile_menu_width]" value="<?=(esc_attr($value)) ? esc_attr($value) : '300';?>">
+                                        <label class="suffix" for="theme_options[mobile_menu_width]">px</label>
+                                    </div>
+                                    <label for="theme_options[mobile_menu_width]"><small>Use "0" for 100% width</small></label>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Mobile Menu Breakpoint', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <div class="legendary-toolkit-input-group">
+                                        <?php $value = self::get_theme_option( 'mobile_menu_breakpoint' );?>
+                                        <input type="number" name="theme_options[mobile_menu_breakpoint]" value="<?=(esc_attr($value)) ? esc_attr($value) : '1200';?>">
+                                        <label class="suffix" for="theme_options[mobile_menu_breakpoint]">px</label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                     <div id="legendary_toolkit_footer" class="tabcontent">
                         <h3>Footer</h3>
@@ -299,8 +348,8 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <th scope="row"><?php esc_html_e( 'Footer Columns', 'legendary-toolkit' );?></th>
                                 <td style="display:flex; align-items: center; ">
                                     <?php $value = self::get_theme_option( 'footer_columns' );?>
-                                    <input type="range" min="0" max="4" step="1" name="theme_options[footer_columns]" oninput="this.nextElementSibling.value = this.value" value="<?=(esc_attr( $value )) ? esc_attr($value) : 4;?>">
-                                    <output style="margin-left:10px;"><?=(esc_attr( $value )) ? esc_attr( $value ) : 4;?></output>
+                                    <input type="range" min="0" max="4" step="1" name="theme_options[footer_columns]" oninput="this.nextElementSibling.value = this.value" value="<?=(esc_attr( $value )) ? esc_attr($value) : 0;?>">
+                                    <output style="margin-left:10px;"><?=(esc_attr( $value )) ? esc_attr( $value ) : 0;?></output>
                                 </td>
                             </tr>
                             <?php $footer_column_count = self::get_theme_option('footer_columns');?>
@@ -343,35 +392,35 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                         <table class="form-table">
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Body', 'legendary-toolkit' );?></th>
-                                <td><?php echo self::typography_field('body');?></td>
+                                <td><?php echo self::typography_field('body', true, true);?></td>
                             </tr>
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'All Headings', 'legendary-toolkit' );?></th>
-                                <td><?php echo self::typography_field('all', false);?></td>
+                                <td><?php echo self::typography_field('all', false, true);?></td>
                             </tr>
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Heading 1', 'legendary-toolkit' );?></th>
-                                <td><?php echo self::typography_field('h1');?></td>
+                                <td><?php echo self::typography_field('h1', true, true);?></td>
                             </tr>
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Heading 2', 'legendary-toolkit' );?></th>
-                                <td><?php echo self::typography_field('h2');?></td>
+                                <td><?php echo self::typography_field('h2', true, true);?></td>
                             </tr>
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Heading 3', 'legendary-toolkit' );?></th>
-                                <td><?php echo self::typography_field('h3');?></td>
+                                <td><?php echo self::typography_field('h3', true, true);?></td>
                             </tr>
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Heading 4', 'legendary-toolkit' );?></th>
-                                <td><?php echo self::typography_field('h4');?></td>
+                                <td><?php echo self::typography_field('h4', true, true);?></td>
                             </tr>
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Heading 5', 'legendary-toolkit' );?></th>
-                                <td><?php echo self::typography_field('h5');?></td>
+                                <td><?php echo self::typography_field('h5', true, true);?></td>
                             </tr>
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Heading 6', 'legendary-toolkit' );?></th>
-                                <td><?php echo self::typography_field('h6');?></td>
+                                <td><?php echo self::typography_field('h6', true, true);?></td>
                             </tr>
                         </table>
                     </div>

@@ -209,6 +209,10 @@ function legendary_toolkit_scripts() {
     // theme styles from settings
     wp_enqueue_style('legendary_toolkit_theme_settings_styles', get_template_directory_uri() . '/inc/assets/css/theme-styles.css');
 
+    // custom mobile menu
+    wp_enqueue_style('legendary_toolkit_mobile_menu_styles', get_template_directory_uri() . '/inc/assets/css/menu.css');
+    wp_enqueue_script('legendary_toolkit_mobile_menu_script', get_template_directory_uri() . '/inc/assets/js/menu.js', array(), '', true);
+
 }
 add_action( 'wp_enqueue_scripts', 'legendary_toolkit_scripts' );
 
@@ -268,6 +272,7 @@ function legendary_toolkit_theme_options_css() {
 
     $primary_color = $theme_options['primary_color'];
     $secondary_color = $theme_options['secondary_color'];
+    $logo_height = $theme_options['logo_height'] . 'px';
 
     function get_saved_font_family($option, $options) {
         if (!array_key_exists($option, $options)) { return; }
@@ -300,6 +305,12 @@ function legendary_toolkit_theme_options_css() {
         $option = $options[$option];
         return $option . 'px';
     }
+    function get_saved_font_transform($option, $options) {
+        if (!array_key_exists($option, $options)) { return; }
+        if (!$options[$option]) { return; }
+        $option = $options[$option];
+        return $option;
+    }
 
     function define_font_variables($id, $options) {
         $font_family = get_saved_font_family($id . '_font_family', $options);
@@ -307,6 +318,7 @@ function legendary_toolkit_theme_options_css() {
         $font_style = get_saved_font_style($id . '_font_style', $options);
         $font_weight = get_saved_font_weight($id . '_font_weight', $options);
         $font_size = get_saved_font_size($id . '_font_size', $options);
+        $font_transform = get_saved_font_transform($id . '_font_transform', $options);
 
         $style_return = "";
         $style_return .= ($font_family) ? "--".$id."_font_family : ".$font_family.";" : '';
@@ -314,6 +326,7 @@ function legendary_toolkit_theme_options_css() {
         $style_return .= ($font_style) ? "--".$id."_font_style : ".$font_style.";" : '';
         $style_return .= ($font_weight) ? "--".$id."_font_weight : ".$font_weight.";" : '';
         $style_return .= ($font_size) ? "--".$id."_font_size : ".$font_size.";" : '';
+        $style_return .= ($font_transform) ? "--".$id."_font_transform : ".$font_transform.";" : '';
 
         return $style_return;
     }
@@ -323,6 +336,7 @@ function legendary_toolkit_theme_options_css() {
         :root {
             --primary_color : $primary_color;
             --secondary_color : $secondary_color;
+            --logo_height : $logo_height;
             " . define_font_variables('body', $theme_options) . "
             " . define_font_variables('h1', $theme_options) . "
             " . define_font_variables('h2', $theme_options) . "
