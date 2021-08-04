@@ -37,17 +37,18 @@
     $mobile_menu_position = (array_key_exists('mobile_menu_position', $theme_options)) ? $theme_options['mobile_menu_position'] : 'right';
     $mobile_menu_width = (array_key_exists('mobile_menu_width', $theme_options) && $theme_options['mobile_menu_width'] != 0) ? $theme_options['mobile_menu_width'].'px' : '100%';
     $mobile_menu_breakpoint = (array_key_exists('mobile_menu_breakpoint', $theme_options)) ? $theme_options['mobile_menu_breakpoint'].'px' : '1200px';
+    $header_behavior_class = (array_key_exists('sticky_header', $theme_options) && $theme_options['sticky_header']) ? 'sticky-top' : '';
 ?>
 
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'wp-bootstrap-starter' ); ?></a>
     <?php if(!is_page_template( 'blank-page.php' ) && !is_page_template( 'blank-page-with-container.php' )): ?>
-	<header id="masthead" class="site-header navbar-static-top <?php echo wp_bootstrap_starter_bg_class(); ?> <?php if($theme_options['sticky_header']){echo 'sticky';}?>" role="banner">
-<?php if($theme_options['top_bar_content']):?>
-    <div class="top-bar-content">
-        <?php echo $theme_options['top_bar_content'];?>
-    </div>
-<?php endif; ?>
+	<header id="masthead" class="site-header navbar-static-top <?php echo wp_bootstrap_starter_bg_class(); ?> <?=$header_behavior_class;?>" role="banner">
+        <?php if(array_key_exists('top_bar_content', $theme_options) && $theme_options['top_bar_content']):?>
+            <div class="top-bar-content">
+                <?php echo $theme_options['top_bar_content'];?>
+            </div>
+        <?php endif; ?>
         <div class="container">
             <nav class="navbar navbar-expand-xl p-0">
                 <div class="navbar-brand">

@@ -298,15 +298,13 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                     <input type="checkbox" name="theme_options[sticky_header]" <?php checked( $value, 'on' );?>> <label><?php esc_html_e( 'Make header sticky?', 'legendary-toolkit' );?></label>
                                 </td>
                             </tr>
-                            <tr valign="top" id="footer_column_row_1" class="<?=$hidden;?>">
+                            <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Top Bar Content', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'top_bar_content' );?>
                                     <?php echo wp_editor( $value, 'top_bar_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[top_bar_content]') );?>
                                 </td>
                             </tr>
-                        </table>
-                        <table class="form-table">
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Logo Height', 'legendary-toolkit' );?></th>
                                 <td>
