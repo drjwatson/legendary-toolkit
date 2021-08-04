@@ -189,7 +189,6 @@ class SlideDrawer extends HTMLElement {
 		this.toggle.addEventListener('click', this.toggleDrawer)
 		
 		const items = Array.from(this.querySelectorAll('ul'))
-		console.log(items)
 		this.menuInit(items)
 		
 	}
