@@ -17,6 +17,7 @@
 			</div><!-- .row -->
 		</div><!-- .container -->
 	</div><!-- #content -->
+	<div id="footer">
     <?php get_template_part( 'footer-widget' ); ?>
 	<?php if ($footer_column_count) : ?>
 		<section>
@@ -29,16 +30,22 @@
 					<?php endfor;?>
 				</div>
 			</div>
-
 		</section>
 	<?php endif;?>
 	<footer id="colophon" class="site-footer <?php echo wp_bootstrap_starter_bg_class(); ?>" role="contentinfo">
 		<div class="container pt-3 pb-3">
             <div class="site-info">
-                &copy; <?php echo date('Y'); ?> <?php echo '<a href="'.home_url().'">'.get_bloginfo('name').'</a>'; ?>
+			<?php if($theme_options['footer_bottom_content']):?>
+				<div class="footer-bottom-content">
+					<?php echo $theme_options['footer_bottom_content'];?>
+				</div>
+			<?php endif; ?>
             </div><!-- close .site-info -->
 		</div>
 	</footer><!-- #colophon -->
+
+
+	</div><!--#footer-->
 <?php endif; ?>
 </div><!-- #page -->
 
