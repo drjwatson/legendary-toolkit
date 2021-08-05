@@ -229,7 +229,7 @@ function legendary_toolkit_theme_options_css() {
 
     // Add Google Fonts to stylesheet
 
-    $font_files = $theme_options['font_files'];
+    $font_files = (array_key_exists('font_files', $theme_options)) ? $theme_options['font_files'] : [];
 
     foreach ($font_files as $family => $files) {
         foreach ($files as $style => $file_url) {
@@ -273,9 +273,11 @@ function legendary_toolkit_theme_options_css() {
         }
     }
 
-    $primary_color = $theme_options['primary_color'];
-    $secondary_color = $theme_options['secondary_color'];
-    $logo_height = $theme_options['logo_height'] . 'px';
+    // Get options used for CSS variables
+
+    $primary_color   = (array_key_exists('primary_color', $theme_options)) ? $theme_options['primary_color'] : 'red';
+    $secondary_color = (array_key_exists('secondary_color', $theme_options)) ? $theme_options['secondary_color'] : 'blue';
+    $logo_height     = (array_key_exists('logo_height', $theme_options)) ? $theme_options['logo_height'] . 'px' : '100px';
 
     function get_saved_font_family($option, $options) {
         if (!array_key_exists($option, $options)) { return; }
