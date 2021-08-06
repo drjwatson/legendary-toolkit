@@ -278,6 +278,8 @@ function legendary_toolkit_theme_options_css() {
     $primary_color   = (array_key_exists('primary_color', $theme_options)) ? $theme_options['primary_color'] : 'red';
     $secondary_color = (array_key_exists('secondary_color', $theme_options)) ? $theme_options['secondary_color'] : 'blue';
     $logo_height     = (array_key_exists('logo_height', $theme_options)) ? $theme_options['logo_height'] . 'px' : '100px';
+    $header_background = (array_key_exists('header_background', $theme_options) && $theme_options['header_background']) ? $theme_options['header_background'] : 'black';
+    $top_bar_background = (array_key_exists('top_bar_background', $theme_options) && $theme_options['top_bar_background']) ? $theme_options['top_bar_background'] : '#111111';
 
     function get_saved_font_family($option, $options) {
         if (!array_key_exists($option, $options)) { return; }
@@ -342,6 +344,8 @@ function legendary_toolkit_theme_options_css() {
             --primary_color : $primary_color;
             --secondary_color : $secondary_color;
             --logo_height : $logo_height;
+            --header_background : $header_background;
+            --top_bar_background : $top_bar_background;
             " . define_font_variables('body', $theme_options) . "
             " . define_font_variables('h1', $theme_options) . "
             " . define_font_variables('h2', $theme_options) . "
@@ -350,6 +354,7 @@ function legendary_toolkit_theme_options_css() {
             " . define_font_variables('h5', $theme_options) . "
             " . define_font_variables('h6', $theme_options) . "
             " . define_font_variables('all', $theme_options) . "
+            " . define_font_variables('menu_items', $theme_options) . "
         }
     ";
     // print_r($custom_css);
@@ -427,8 +432,6 @@ if ( ! class_exists( 'wp_bootstrap_navwalker' )) {
 
 
 require get_template_directory() . '/inc/options.php';
-
-// TODO: Remove unwanted mods
 
 
 // allow svg uploads

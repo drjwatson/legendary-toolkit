@@ -289,20 +289,19 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                     </div>
                     <div id="legendary_toolkit_header" class="tabcontent">
                         <h3>Header</h3>
-
                         <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Header Background', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'header_background' );?>
+                                    <input class="color-field" type="text" name="theme_options[header_background]" value="<?=esc_attr( $value );?>">
+                                </td>
+                            </tr>
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Sticky Header?', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'sticky_header' );?>
                                     <input type="checkbox" name="theme_options[sticky_header]" <?php checked( $value, 'on' );?>> <label><?php esc_html_e( 'Make header sticky?', 'legendary-toolkit' );?></label>
-                                </td>
-                            </tr>
-                            <tr valign="top">
-                                <th scope="row"><?php esc_html_e( 'Top Bar Content', 'legendary-toolkit' );?></th>
-                                <td>
-                                    <?php $value = self::get_theme_option( 'top_bar_content' );?>
-                                    <?php echo wp_editor( $value, 'top_bar_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[top_bar_content]') );?>
                                 </td>
                             </tr>
                             <tr valign="top">
@@ -315,6 +314,32 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                     </div>
                                 </td>
                             </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Menu Items', 'legendary-toolkit' );?></th>
+                                <td><?php echo self::typography_field('menu_items', true, true);?></td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <h3>Top Bar</h3>
+                        <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Top Bar Background', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'top_bar_background' );?>
+                                    <input class="color-field" type="text" name="theme_options[top_bar_background]" value="<?=esc_attr( $value );?>">
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Top Bar Content', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'top_bar_content' );?>
+                                    <?php echo wp_editor( $value, 'top_bar_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[top_bar_content]') );?>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <h3>Mobile Menu</h3>
+                        <table class="form-table">
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Mobile Menu Position', 'legendary-toolkit' );?></th>
                                 <td>

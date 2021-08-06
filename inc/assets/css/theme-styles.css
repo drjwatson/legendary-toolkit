@@ -61,6 +61,28 @@ h6 {
     text-transform : var(--h6_font_transform, var(--all_font_weight), none);
     font-size      : var(--h6_font_size, .67em);
 }
+h6 {
+    font-family    : var(--h6_font_family, var(--all_font_family), sans-serif);
+    color          : var(--h6_font_color, var(--all_font_color), black);
+    font-style     : var(--h6_font_style, var(--all_font_style), normal);
+    font-weight    : var(--h6_font_weight, var(--all_font_weight), bold);
+    text-transform : var(--h6_font_transform, var(--all_font_weight), none);
+    font-size      : var(--h6_font_size, .67em);
+}
+#main-nav > ul.navbar-nav > li > a, body:not(.theme-preset-active) #masthead .navbar-nav > li > a, body:not(.theme-preset-active) #masthead .navbar-nav > li > a:hover, body:not(.theme-preset-active) #masthead .navbar-nav > li > a, body:not(.theme-preset-active) #masthead .navbar-nav > li > a:hover, body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a {
+    font-family    : var(--menu_items_font_family, var(--all_font_family), sans-serif);
+    color          : var(--menu_items_font_color, var(--all_font_color), black);
+    font-style     : var(--menu_items_font_style, var(--all_font_style), normal);
+    font-weight    : var(--menu_items_font_weight, var(--all_font_weight), bold);
+    text-transform : var(--menu_items_font_transform, var(--all_font_weight), none);
+    font-size      : var(--menu_items_font_size, .67em);
+}
 #site_logo {
     height         : var(--logo_height, 100px);
+}
+header#masthead {
+    background-color : var(--header_background);
+}
+.top-bar-content {
+    background-color: var(--top_bar_background);
 }

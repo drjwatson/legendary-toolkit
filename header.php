@@ -47,12 +47,12 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'wp-bootstrap-starter' ); ?></a>
     <?php if(!is_page_template( 'blank-page.php' ) && !is_page_template( 'blank-page-with-container.php' )): ?>
+    <?php if ($top_bar_content) :?>
+        <div class="top-bar-content">
+            <?php echo $top_bar_content;?>
+        </div>
+    <?php endif; ?>
 	<header id="masthead" class="site-header navbar-static-top <?php echo wp_bootstrap_starter_bg_class(); ?> <?=$header_behavior_class;?>" role="banner">
-        <?php if ($top_bar_content) :?>
-            <div class="top-bar-content">
-                <?php echo $top_bar_content;?>
-            </div>
-        <?php endif; ?>
         <div class="container">
             <nav class="navbar navbar-expand-xl p-0">
                 <div class="navbar-brand">
