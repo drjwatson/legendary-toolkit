@@ -159,6 +159,81 @@
 .wp-picker-container .iris-picker {
     z-index: 4;
 }
+#options_header.notice {
+    transition: all .3s;
+}
+#save_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: auto;
+    justify-content: flex-end;
+}
+#toast_container {
+    width:50px;
+    position:relative;
+    margin-top:-10px;
+}
+.save-toast {
+    position:absolute;
+    
+}
+.save-success {
+    top: -10px;
+    width: 10px;
+    border-bottom: 3px solid #47ce74;
+    height: 22px;
+    border-right: 3px solid #47ce74;
+    margin-left: 10px;
+    transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+}
+.save-error:after {
+    content:"\d7";
+    font-size: 60px;
+    color: rgb(151, 56, 56)
+}
+.save-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 20px;
+    width: 20px;
+    margin: -6px 0 0 -20px;
+    border: 4px rgba(255, 255, 255, 0) solid;
+    border-top: 4px white solid;
+    border-bottom: 4px white solid;
+    border-radius: 50%;
+    -webkit-animation: spin1 1s infinite linear;
+            animation: spin1 1s infinite linear;
+  }
+  
+  @-webkit-keyframes spin1 {
+    from {
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(359deg);
+              transform: rotate(359deg);
+    }
+  }
+  @keyframes spin1 {
+    from {
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(359deg);
+              transform: rotate(359deg);
+      -webkit-transform: rotate(359deg);
+              transform: rotate(359deg);
+    }
+  }
 /* @media screen and (max-width: 782px) {
     input[type=date], input[type=datetime-local], input[type=datetime], input[type=email], input[type=month], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week], .wp-admin .form-table select, .wp-core-ui select {
         min-height: 30px;

@@ -244,8 +244,21 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                 <div id="options_header">
                     <div id="options_banner">
                         <h1><?php esc_html_e( 'Legendary Toolkit Options', 'legendary-toolkit' );?></h1>
-                        <?php submit_button( __( 'Save Changes', 'legendary-toolkit' ), 'primary', 'submit', true, array( 'form' => 'legendary_toolkit_form' ) );?>
+                        <div id="save_container">
+                            <div id="toast_container">
+                                <div class="save-toast save-loading hidden"></div>
+                                <div class="save-toast save-success hidden"></div>
+                                <div class="save-toast save-error hidden"></div>
+                            </div>
+                            <?php submit_button( __( 'Save Changes', 'legendary-toolkit' ), 'primary', 'submit', true, array( 'form' => 'legendary_toolkit_form' ) );?>
+                        </div>
                     </div>
+                    <!-- <div class="updated notice inline hidden" style="margin:0px;">
+                        <p>Setting Saved!</p>
+                    </div>
+                    <div class="error notice inline hidden" style="margin:0px;">
+                        <p>Error Saving Settings.</p>
+                    </div> -->
                     <!-- Tab links -->
                     <div class="tab">
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_general')" id="legendary_toolkit_general_tab">General</button>
@@ -384,6 +397,13 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                     <div id="legendary_toolkit_footer" class="tabcontent">
                         <h3>Footer</h3>
                         <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Footer Background', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'footer_background' );?>
+                                    <input class="color-field" type="text" name="theme_options[footer_background]" value="<?=esc_attr( $value );?>">
+                                </td>
+                            </tr>
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Footer Columns', 'legendary-toolkit' );?></th>
                                 <td style="display:flex; align-items: center; ">

@@ -20,7 +20,7 @@
 	<div id="footer">
     <?php get_template_part( 'footer-widget' ); ?>
 	<?php if ($footer_column_count) : ?>
-		<section>
+		<section id="footer_columns">
 			<div class="container">
 				<div class="row">
 					<?php for ($i=0; $i < $footer_column_count; $i++) : ?>

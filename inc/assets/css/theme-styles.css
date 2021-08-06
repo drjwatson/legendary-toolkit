@@ -86,3 +86,9 @@ header#masthead {
 .top-bar-content {
     background-color: var(--top_bar_background);
 }
+#footer_columns {
+    background-color: var(--footer_background);
+}
+body:not(.theme-preset-active) footer#colophon {
+    background-color: var(--copyright_background);
+}
