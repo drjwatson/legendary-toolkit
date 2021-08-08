@@ -280,8 +280,17 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <td>
                                     <?php $value = self::get_theme_option( 'logo' ); ?>
                                     <input type="hidden" name="theme_options[logo]" id="logo" value="<?php echo $value; ?>" />
-                                    <div id="logo_preview" class="logo btn_logo" style="background-image:url(<?php echo wp_get_attachment_image_url($value, 'medium'); ?>)" ></div>
-                                    <button id="btn_logo" class="button default btn_logo">Select Logo</button>
+                                    <div id="logo_preview" class="logo btn_logo toolkit-media-upload" style="background-image:url(<?php echo wp_get_attachment_image_url($value, 'medium'); ?>)" ></div>
+                                    <button id="btn_logo" data-id="logo" class="button default btn_logo btn-upload">Select Logo</button>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Favicon', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'favicon' ); ?>
+                                    <input type="hidden" name="theme_options[favicon]" id="favicon" value="<?php echo $value; ?>" />
+                                    <div id="favicon_preview" class="favicon btn_favicon toolkit-media-upload" style="background-image:url(<?php echo wp_get_attachment_image_url($value, 'medium'); ?>)" ></div>
+                                    <button id="btn_favicon" data-id="favicon" class="button default btn_favicon btn-upload">Select Logo</button>
                                 </td>
                             </tr>
                             <tr valign="top">
@@ -311,10 +320,10 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 </td>
                             </tr>
                             <tr valign="top">
-                                <th scope="row"><?php esc_html_e( 'Sticky Header?', 'legendary-toolkit' );?></th>
+                                <th scope="row"><?php esc_html_e( 'Enable Sticky Header?', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'sticky_header' );?>
-                                    <input type="checkbox" name="theme_options[sticky_header]" <?php checked( $value, 'on' );?>> <label><?php esc_html_e( 'Make header sticky?', 'legendary-toolkit' );?></label>
+                                    <input type="checkbox" name="theme_options[sticky_header]" <?php checked( $value, 'on' );?>> <label><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
                                 </td>
                             </tr>
                             <tr valign="top">
@@ -390,6 +399,32 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                         <input type="number" name="theme_options[mobile_menu_breakpoint]" value="<?=(esc_attr($value)) ? esc_attr($value) : '1200';?>">
                                         <label class="suffix" for="theme_options[mobile_menu_breakpoint]">px</label>
                                     </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <h3>Page Header</h3>
+                        <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Enable Page Title?', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'page_title' );?>
+                                    <input type="checkbox" name="theme_options[page_title]" <?php checked( $value, 'on' );?>> <label><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                </td>
+                            </tr>
+                            <?php 
+                            $page_title = self::get_theme_option( 'page_title' );
+                            $hidden = ( !$page_title ) ? 'hidden' : '';?>
+                            <tr valign="top" id="page_title_content_row" class="<?=$hidden;?>">
+                                <th scope="row"><?php esc_html_e( 'page_title_content', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php 
+                                        $value = self::get_theme_option( 'page_title_content' );
+                                        if (!$value) {
+                                            $value = "<h1>[page_title]</h1><p>[breadcrumbs]</p>";
+                                        }
+                                    ?>
+                                    <?php echo wp_editor( $value, 'page_title_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[page_title_content]') );?>
                                 </td>
                             </tr>
                         </table>
@@ -549,6 +584,9 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
 
                     echo '<hr><strong>get_theme_options()</strong><hr>';
                     print_r(self::get_theme_options());
+
+                    echo '<hr><strong>Available Shortcodes</strong><hr>';
+                    print htmlspecialchars( print_r( $GLOBALS['shortcode_tags'], TRUE ) );
 
                     // echo '<hr><strong>get_google_fonts()</strong><hr>';
                     // print_r(self::get_google_fonts());

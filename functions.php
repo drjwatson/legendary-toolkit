@@ -61,8 +61,8 @@ function legendary_toolkit_setup() {
 	 * to output valid HTML5.
 	 */
 	add_theme_support( 'html5', array(
-		'comment-form',
-		'comment-list',
+		// 'comment-form',
+		// 'comment-list',
 		'caption',
 	) );
 
@@ -196,9 +196,9 @@ function legendary_toolkit_scripts() {
     wp_enqueue_script('legendary-toolkit-themejs', get_template_directory_uri() . '/inc/assets/js/theme-script.min.js', array(), '', true );
 	wp_enqueue_script( 'legendary-toolkit-skip-link-focus-fix', get_template_directory_uri() . '/inc/assets/js/skip-link-focus-fix.min.js', array(), '20151215', true );
 
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
-	}
+	// if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+	// 	wp_enqueue_script( 'comment-reply' );
+	// }
 
     // parent styles
     wp_enqueue_style('legendary_toolkit_styles', get_template_directory_uri() . '/style.css');
@@ -453,3 +453,170 @@ function logo_size_change(){
 	) );
 }
 add_action( 'after_setup_theme', 'logo_size_change', 11 );
+
+add_shortcode( 'page_title', 'legendary_toolkit_page_title' );
+function legendary_toolkit_page_title() {
+    return get_the_title();
+}
+
+add_shortcode('breadcrumbs', 'legendary_toolkit_breadcrumbs');
+function legendary_toolkit_breadcrumbs($atts) {
+    $args = shortcode_atts( array(
+        'sep' => '&raquo;', // string
+        'show_on_home' => 0, // intBool
+        'home_text' => 'Home', // string
+        'show_current' => 1, // intBool
+        'before_current' => '<span class="current">', // string (tag)
+        'after_current' => '</span>' // string (close tag)
+    ), $atts );
+    $showOnHome = $args['show_on_home']; // 1 - show breadcrumbs on the homepage, 0 - don't show
+    $delimiter = $args['sep']; // delimiter between crumbs
+    $home = $args['home_text']; // text for the 'Home' link
+    $showCurrent = $args['show_current']; // 1 - show current post/page title in breadcrumbs, 0 - don't show
+    $before = $args['before_current']; // tag before the current crumb
+    $after = $args['after_current']; // tag after the current crumb
+    $output = '';
+
+    global $post;
+    $homeLink = get_bloginfo('url');
+    if (is_home() || is_front_page()) {
+        if ($showOnHome == 1) {
+            echo '<div id="crumbs"><a href="' . $homeLink . '">' . $home . '</a></div>';
+        }
+    } else {
+        $output .= '<div id="crumbs"><a href="' . $homeLink . '">' . $home . '</a> ' . $delimiter . ' ';
+        if (is_category()) {
+            $thisCat = get_category(get_query_var('cat'), false);
+            if ($thisCat->parent != 0) {
+                $output .= get_category_parents($thisCat->parent, true, ' ' . $delimiter . ' ');
+            }
+            $output .= $before . 'Archive by category "' . single_cat_title('', false) . '"' . $after;
+        } elseif (is_search()) {
+            $output .= $before . 'Search results for "' . get_search_query() . '"' . $after;
+        } elseif (is_day()) {
+            $output .= '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a> ' . $delimiter . ' ';
+            $output .= '<a href="' . get_month_link(get_the_time('Y'), get_the_time('m')) . '">' . get_the_time('F') . '</a> ' . $delimiter . ' ';
+            $output .= $before . get_the_time('d') . $after;
+        } elseif (is_month()) {
+            $output .= '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a> ' . $delimiter . ' ';
+            $output .= $before . get_the_time('F') . $after;
+        } elseif (is_year()) {
+            $output .= $before . get_the_time('Y') . $after;
+        } elseif (is_single() && !is_attachment()) {
+            if (get_post_type() != 'post') {
+                $post_type = get_post_type_object(get_post_type());
+                $slug = $post_type->rewrite;
+                $output .= '<a href="' . $homeLink . '/' . $slug['slug'] . '/">' . $post_type->labels->singular_name . '</a>';
+                if ($showCurrent == 1) {
+                    $output .= ' ' . $delimiter . ' ' . $before . get_the_title() . $after;
+                }
+            } else {
+                $cat = get_the_category();
+                $cat = $cat[0];
+                $cats = get_category_parents($cat, true, ' ' . $delimiter . ' ');
+                if ($showCurrent == 0) {
+                    $cats = preg_replace("#^(.+)\s$delimiter\s$#", "$1", $cats);
+                }
+                $output .= $cats;
+                if ($showCurrent == 1) {
+                    $output .= $before . get_the_title() . $after;
+                }
+            }
+        } elseif (!is_single() && !is_page() && get_post_type() != 'post' && !is_404()) {
+            $post_type = get_post_type_object(get_post_type());
+            $output .= $before . $post_type->labels->singular_name . $after;
+        } elseif (is_attachment()) {
+            $parent = get_post($post->post_parent);
+            $cat = get_the_category($parent->ID);
+            $cat = $cat[0];
+            $output .= get_category_parents($cat, true, ' ' . $delimiter . ' ');
+            $output .= '<a href="' . get_permalink($parent) . '">' . $parent->post_title . '</a>';
+            if ($showCurrent == 1) {
+                $output .= ' ' . $delimiter . ' ' . $before . get_the_title() . $after;
+            }
+        } elseif (is_page() && !$post->post_parent) {
+            if ($showCurrent == 1) {
+                $output .= $before . get_the_title() . $after;
+            }
+        } elseif (is_page() && $post->post_parent) {
+            $parent_id  = $post->post_parent;
+            $breadcrumbs = array();
+            while ($parent_id) {
+                $page = get_page($parent_id);
+                $breadcrumbs[] = '<a href="' . get_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a>';
+                $parent_id  = $page->post_parent;
+            }
+            $breadcrumbs = array_reverse($breadcrumbs);
+            for ($i = 0; $i < count($breadcrumbs); $i++) {
+                $output .= $breadcrumbs[$i];
+                if ($i != count($breadcrumbs)-1) {
+                    $output .= ' ' . $delimiter . ' ';
+                }
+            }
+            if ($showCurrent == 1) {
+                $output .= ' ' . $delimiter . ' ' . $before . get_the_title() . $after;
+            }
+        } elseif (is_tag()) {
+            $output .= $before . 'Posts tagged "' . single_tag_title('', false) . '"' . $after;
+        } elseif (is_author()) {
+            global $author;
+            $userdata = get_userdata($author);
+            $output .= $before . 'Articles posted by ' . $userdata->display_name . $after;
+        } elseif (is_404()) {
+            $output .= $before . 'Error 404' . $after;
+        }
+        if (get_query_var('paged')) {
+            if (is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author()) {
+                $output .= ' (';
+            }
+            $output .= __('Page') . ' ' . get_query_var('paged');
+            if (is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author()) {
+                $output .= ')';
+            }
+        }
+        $output .= '</div>';
+    }
+    return $output;
+}
+
+// Disable Comments by Default
+add_action('admin_init', function () {
+    // Redirect any user trying to access comments page
+    global $pagenow;
+    
+    if ($pagenow === 'edit-comments.php') {
+        wp_redirect(admin_url());
+        exit;
+    }
+
+    // Remove comments metabox from dashboard
+    remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal');
+
+    // Disable support for comments and trackbacks in post types
+    foreach (get_post_types() as $post_type) {
+        if (post_type_supports($post_type, 'comments')) {
+            remove_post_type_support($post_type, 'comments');
+            remove_post_type_support($post_type, 'trackbacks');
+        }
+    }
+});
+
+// Close comments on the front-end
+add_filter('comments_open', '__return_false', 20, 2);
+add_filter('pings_open', '__return_false', 20, 2);
+
+// Hide existing comments
+add_filter('comments_array', '__return_empty_array', 10, 2);
+
+// Remove comments page in menu
+add_action('admin_menu', function () {
+    remove_menu_page('edit-comments.php');
+});
+
+// Remove comments links from admin bar
+add_action('init', function () {
+    if (is_admin_bar_showing()) {
+        remove_action('admin_bar_menu', 'wp_admin_bar_comments_menu', 60);
+    }
+});
+

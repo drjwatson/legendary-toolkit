@@ -92,3 +92,22 @@ header#masthead {
 body:not(.theme-preset-active) footer#colophon {
     background-color: var(--copyright_background);
 }
+/* Breadcrumbs */
+.🍞,
+.bread {
+  list-style-type: none;
+  margin:0;
+  padding:0;
+}
+
+.🍞 li,
+.bread li {
+  display: inline-block;
+}
+
+.🍞 li.crumb:last-child a,
+.bread li.crumb:last-child a {
+  text-decoration: none;
+  pointer-events: none;
+  color: inherit;
+}

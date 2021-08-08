@@ -9,27 +9,6 @@
  * @package WP_Bootstrap_Starter
  */
 
-?><!DOCTYPE html>
-<html <?php language_attributes(); ?>>
-<head>
-    <meta charset="<?php bloginfo( 'charset' ); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="profile" href="http://gmpg.org/xfn/11">
-<?php wp_head(); ?>
-</head>
-
-<body <?php body_class(); ?>>
-
-<?php 
-
-    // WordPress 5.2 wp_body_open implementation
-    if ( function_exists( 'wp_body_open' ) ) {
-        wp_body_open();
-    } else {
-        do_action( 'wp_body_open' );
-    }
-
     // Get Theme Options
     $theme_options          = legendary_toolkit_get_theme_options();
     $logo                   = (array_key_exists('logo', $theme_options)) ? $theme_options['logo'] : '';
@@ -42,6 +21,34 @@
     $mobile_menu_width      = (array_key_exists('mobile_menu_width', $theme_options) && $theme_options['mobile_menu_width'] != 0) ? $theme_options['mobile_menu_width'].'px' : '300px';
     $mobile_menu_breakpoint = (array_key_exists('mobile_menu_breakpoint', $theme_options)) ? $theme_options['mobile_menu_breakpoint'].'px' : '1200px';
     $header_behavior_class  = (array_key_exists('sticky_header', $theme_options) && $theme_options['sticky_header']) ? 'sticky-top' : '';
+    $favicon                   = (array_key_exists('favicon', $theme_options)) ? $theme_options['favicon'] : '';
+    $favicon_url               = ($favicon) ? esc_url(wp_get_attachment_image_url($favicon, 'medium')) : '';
+    $page_title = (array_key_exists('page_title', $theme_options)) ? $theme_options['page_title'] : 0;
+    $page_title_content = (array_key_exists('page_title_content', $theme_options) && $theme_options['page_title_content']) ? $theme_options['page_title_content'] : '';
+
+?><!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+    <meta charset="<?php bloginfo( 'charset' ); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <?php wp_head(); ?>
+    <?php if ( $favicon ) : ?>
+      <link rel="shortcut icon" href="<?php echo $favicon_url; ?>" />
+    <?php endif; ?>
+</head>
+
+<body <?php body_class(); ?>>
+
+<?php 
+
+    // WordPress 5.2 wp_body_open implementation
+    if ( function_exists( 'wp_body_open' ) ) {
+        wp_body_open();
+    } else {
+        do_action( 'wp_body_open' );
+    }
 ?>
 
 <div id="page" class="site">
@@ -110,6 +117,17 @@
             </nav>
         </div>
 	</header><!-- #masthead -->
+    <?php if ($page_title) : ?>
+        <div id="page_title">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <?php echo do_shortcode($page_title_content);?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endif;?>
 	<div id="content" class="site-content">
 		<div class="container">
 			<div class="row">

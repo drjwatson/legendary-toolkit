@@ -40,6 +40,15 @@ jQuery(document).ready(function( $ ) {
             
         });
     });
+    $('[name="theme_options[page_title]"]').on('click', function(ev) {
+        if ($(this).is(':checked')) {
+            $('#page_title_content_row').removeClass('hidden');
+        }
+        else {
+            $('#page_title_content_row').addClass('hidden');
+        }
+    });
+
 
     $(document).on("submit", "form#legendary_toolkit_form", function(event) {
         $('.save-toast.save-loading').fadeIn();
