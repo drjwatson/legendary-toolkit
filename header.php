@@ -14,10 +14,11 @@
     $logo                      = (array_key_exists('logo', $theme_options)) ? $theme_options['logo'] : '';
     $logo_url                  = ($logo) ? esc_url(wp_get_attachment_image_url($logo, 'medium')) : '';
     $logo_height               = (array_key_exists('logo_height', $theme_options) && $theme_options['logo_height']) ? $theme_options['logo_height'] : 100;
+    $transparent_class         = (array_key_exists('transparent_header', $theme_options) && $theme_options['transparent_header']) ? ' is_transparent' : '';
     $top_bar_content           = (array_key_exists('top_bar_content', $theme_options) && $theme_options['top_bar_content']) ? $theme_options['top_bar_content'] : '';
     $mobile_menu_position      = (array_key_exists('mobile_menu_position', $theme_options)) ? $theme_options['mobile_menu_position'] : 'right';
     $mobile_menu_width         = (array_key_exists('mobile_menu_width', $theme_options) && $theme_options['mobile_menu_width'] != 0) ? $theme_options['mobile_menu_width'].'px' : '100%';
-    $mobile_menu_breakpoint    = (array_key_exists('mobile_menu_breakpoint', $theme_options)) ? $theme_options['mobile_menu_breakpoint'] : 5000;
+    $mobile_menu_breakpoint    = (array_key_exists('mobile_menu_breakpoint', $theme_options)) ? $theme_options['mobile_menu_breakpoint'] : 1200;
     $header_behavior_class     = (array_key_exists('sticky_header', $theme_options) && $theme_options['sticky_header']) ? 'sticky-top' : '';
     $favicon                   = (array_key_exists('favicon', $theme_options)) ? $theme_options['favicon'] : '';
     $favicon_url               = ($favicon) ? esc_url(wp_get_attachment_image_url($favicon, 'medium')) : '';
@@ -57,7 +58,7 @@
             <?php echo $top_bar_content;?>
         </div>
     <?php endif; ?>
-	<header id="masthead" class="site-header navbar-static-top <?php echo wp_bootstrap_starter_bg_class(); ?> <?=$header_behavior_class;?>" role="banner">
+	<header id="masthead" class="site-header navbar-static-top <?php echo wp_bootstrap_starter_bg_class(); ?> <?=$header_behavior_class;?><?=$transparent_class;?>" role="banner">
         <div class="container">
             <nav class="navbar navbar-expand-xl p-0">
                 <div class="navbar-brand">

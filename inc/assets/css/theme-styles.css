@@ -100,7 +100,7 @@ header#masthead:not(.is-stuck) {
 header#masthead.sticky-top.is-stuck {
     background-color: var(--scrolling_header_background);
 }
-header#masthead.sticky-top + #content {
+header#masthead.is_transparent + #content {
     margin-top: calc(var(--logo_height, 100px) * -1);
 }
 header#masthead #site_logo {
@@ -113,7 +113,6 @@ header#masthead.is-stuck #site_logo {
 body.admin-bar header#masthead.is-stuck {
     top: 32px;
 }
-
 
 /* Breadcrumbs */
 .🍞,

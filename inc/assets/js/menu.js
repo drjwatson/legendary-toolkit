@@ -158,16 +158,12 @@ class SlideDrawer extends HTMLElement {
 		this.overlay = shadowRoot.getElementById('overlay')
 		this.grab = shadowRoot.getElementById('grab')
 		this.drawer = shadowRoot.getElementById('drawer')
-		// this.toggle = shadowRoot.getElementById('toggle')
 		this.toggles = shadowRoot.querySelectorAll('.tkmm-toggle')
-		// this.toggleClose = shadowRoot.getElementById('toggle_clo')
 		
 		// Grab and set all options
 		this.right = this.hasAttribute('right')
 		this.drawer_position = 'left';
-		if(this.right){this.drawer_position = 'right'};
-		this.topOffset = this.getAttribute('toggleTopOffset') + 'px'
-		
+		if(this.right){this.drawer_position = 'right'};		
 		this.overlayOpacity = this.getAttribute('overlayOpacity') || .5
 		this.overlay.style.background = `rgba(0,0,0,${this.overlayOpacity})`
 		this.mobileWidth = this.getAttribute('mobileWidth') || '100%'
@@ -437,8 +433,9 @@ class SlideDrawer extends HTMLElement {
 	
 	menuInit = items => {
 		let drawer_position = this.drawer_position
-		// this.toggle.style.top = this.topOffset
-		// this.toggle.style.display = this.toggleDisplay
+		this.toggles.forEach(toggle => {
+			window.innerWidth < this.mobileBreak ? toggle.style.display = 'block' : toggle.style.display = 'none'
+		})
 		items.forEach(item => {
 			item.style.width = this.drawer.offsetWidth + 'px'
 			if (item.parentNode.tagName != "DIV") item.style.position = 'absolute'
