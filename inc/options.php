@@ -313,10 +313,28 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                         <h3>Header</h3>
                         <table class="form-table">
                             <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Enable Transparent Header?', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'transparent_header' );?>
+                                    <input type="checkbox" name="theme_options[transparent_header]" <?php checked( $value, 'on' );?>> <label><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                </td>
+                            </tr>
+                            <?php
+                                $transparent_background = self::get_theme_option( 'transparent_header' );
+                                $hidden = ( $transparent_background ) ? 'hidden' : '';
+                            ?>
+                            <tr valign="top" id="header_background_row" class="<?php echo $hidden;?>">
                                 <th scope="row"><?php esc_html_e( 'Header Background', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'header_background' );?>
                                     <input class="color-field" type="text" name="theme_options[header_background]" value="<?=esc_attr( $value );?>">
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Scrolling Header Background', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'scrolling_header_background' );?>
+                                    <input class="color-field" type="text" name="theme_options[scrolling_header_background]" value="<?=esc_attr( $value );?>">
                                 </td>
                             </tr>
                             <tr valign="top">
@@ -339,6 +357,16 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Menu Items', 'legendary-toolkit' );?></th>
                                 <td><?php echo self::typography_field('menu_items', true, true);?></td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Scrolling Header Height', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <div class="legendary-toolkit-input-group">
+                                        <?php $value = self::get_theme_option( 'scrolling_header_height' );?>
+                                        <input type="number" name="theme_options[scrolling_header_height]" value="<?=esc_attr($value);?>">
+                                        <label class="suffix" for="theme_options[scrolling_header_height]">px</label>
+                                    </div>
+                                </td>
                             </tr>
                         </table>
                         <hr>
@@ -416,7 +444,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                             $page_title = self::get_theme_option( 'page_title' );
                             $hidden = ( !$page_title ) ? 'hidden' : '';?>
                             <tr valign="top" id="page_title_content_row" class="<?=$hidden;?>">
-                                <th scope="row"><?php esc_html_e( 'page_title_content', 'legendary-toolkit' );?></th>
+                                <th scope="row"><?php esc_html_e( 'Page Title Content', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php 
                                         $value = self::get_theme_option( 'page_title_content' );
@@ -425,6 +453,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                         }
                                     ?>
                                     <?php echo wp_editor( $value, 'page_title_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[page_title_content]') );?>
+                                    <label for="theme_options[mobile_menu_width]"><small><strong>Default:</strong><code>&lt;h1&gt;[page_title]&lt;/h1&gt;&lt;p&gt;[breadcrumbs]&lt;/p&gt;</code></small></label>
                                 </td>
                             </tr>
                         </table>

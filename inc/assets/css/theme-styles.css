@@ -92,6 +92,29 @@ header#masthead {
 body:not(.theme-preset-active) footer#colophon {
     background-color: var(--copyright_background);
 }
+
+/* Header Behavior */
+header#masthead:not(.is-stuck) {
+    box-shadow: none;
+}
+header#masthead.sticky-top.is-stuck {
+    background-color: var(--scrolling_header_background);
+}
+header#masthead.sticky-top + #content {
+    margin-top: calc(var(--logo_height, 100px) * -1);
+}
+header#masthead #site_logo {
+    height: var(--logo_height, 100px);
+    transition: height 200ms ease-in-out;
+}
+header#masthead.is-stuck #site_logo {
+    height: var(--scrolling_logo_height);
+}
+body.admin-bar header#masthead.is-stuck {
+    top: 32px;
+}
+
+
 /* Breadcrumbs */
 .🍞,
 .bread {

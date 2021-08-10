@@ -48,8 +48,14 @@ jQuery(document).ready(function( $ ) {
             $('#page_title_content_row').addClass('hidden');
         }
     });
-
-
+    $('[name="theme_options[transparent_header]"]').on('click', function(ev) {
+        if ($(this).is(':checked')) {
+            $('#header_background_row').addClass('hidden');
+        }
+        else {
+            $('#header_background_row').removeClass('hidden');
+        }
+    });
     $(document).on("submit", "form#legendary_toolkit_form", function(event) {
         $('.save-toast.save-loading').fadeIn();
         var btn = $(document.activeElement);

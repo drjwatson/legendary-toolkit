@@ -33,12 +33,13 @@ template.innerHTML = `
 		  transition: all ease .25s;
 		}
 
-		#toggle {
+		.tkmm-toggle {
             width: 20px;
             z-index: 9999;
             height: 30px;
             position: absolute;
-            top: 15px;
+            top: 55px;
+			left: 5px;
             -webkit-transform: rotate(0deg);
             -moz-transform: rotate(0deg);
             -o-transform: rotate(0deg);
@@ -51,8 +52,11 @@ template.innerHTML = `
             transition: left ease .25s;
             cursor: pointer;
 		}
-
-		#toggle span {
+		.tkmm-toggle:not(.close){
+			position: relative;
+			top: 5px;
+		}
+		.tkmm-toggle span {
             display: block;
             position: absolute;
             height: 2px;
@@ -70,20 +74,20 @@ template.innerHTML = `
             -o-transition: .25s ease-in-out;
             transition: .25s ease-in-out;
 		}
-		#toggle.left {
-            right: -55px;
-		}
-		#toggle.right {
-            left: -55px;
-		}
-		#toggle.leftOpen {
+		// .tkmm-toggle.left {
+        //     right: -55px;
+		// }
+		// .tkmm-toggle.right {
+        //     left: -55px;
+		// }
+		.tkmm-toggle.leftOpen {
             right: 10px;
 		}
-		#toggle.rightOpen {
+		.tkmm-toggle.rightOpen {
             left: 10px;
 		}
 
-		#toggle span:nth-child(1) {
+		.tkmm-toggle span:nth-child(1) {
             top: 0px;
             -webkit-transform-origin: center;
             -moz-transform-origin: center;
@@ -91,7 +95,7 @@ template.innerHTML = `
             transform-origin: center;
 		}
 
-		#toggle span:nth-child(2) {
+		.tkmm-toggle span:nth-child(2) {
             top: 7px;
             -webkit-transform-origin: left center;
             -moz-transform-origin: left center;
@@ -99,7 +103,7 @@ template.innerHTML = `
             transform-origin: left center;
 		}
 
-		#toggle span:nth-child(3) {
+		.tkmm-toggle span:nth-child(3) {
             top: 14px;
             -webkit-transform-origin: center;
             -moz-transform-origin: center;
@@ -107,7 +111,7 @@ template.innerHTML = `
             transform-origin: center;
 		}
 
-		#toggle.open span:nth-child(1) {
+		.tkmm-toggle.close span:nth-child(1) {
             -webkit-transform: rotate(45deg);
             -moz-transform: rotate(45deg);
             -o-transform: rotate(45deg);
@@ -115,12 +119,12 @@ template.innerHTML = `
             top: 10px;
 		}
 
-		#toggle.open span:nth-child(2) {
+		.tkmm-toggle.close span:nth-child(2) {
             width: 0%;
             opacity: 0;
 		}
 
-		#toggle.open span:nth-child(3) {
+		.tkmm-toggle.close span:nth-child(3) {
             -webkit-transform: rotate(-45deg);
             -moz-transform: rotate(-45deg);
             -o-transform: rotate(-45deg);
@@ -128,9 +132,14 @@ template.innerHTML = `
             top: 10px;
 		}
 	</style>
+	<div id="toggle" class="tkmm-toggle">
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
     <div id="drawer">
 		<div id="grab"></div>
-		<div id="toggle">
+		<div id="toggle_close" class="tkmm-toggle open close">
 			<span></span>
 			<span></span>
 			<span></span>
@@ -149,7 +158,9 @@ class SlideDrawer extends HTMLElement {
 		this.overlay = shadowRoot.getElementById('overlay')
 		this.grab = shadowRoot.getElementById('grab')
 		this.drawer = shadowRoot.getElementById('drawer')
-		this.toggle = shadowRoot.getElementById('toggle')
+		// this.toggle = shadowRoot.getElementById('toggle')
+		this.toggles = shadowRoot.querySelectorAll('.tkmm-toggle')
+		// this.toggleClose = shadowRoot.getElementById('toggle_clo')
 		
 		// Grab and set all options
 		this.right = this.hasAttribute('right')
@@ -171,11 +182,11 @@ class SlideDrawer extends HTMLElement {
 		if(this.right) {
 			this.drawer.style.left = window.innerWidth + 'px'
 			this.grab.style.left = '-10px'
-			this.toggle.classList.add('right')
+			// this.toggle.classList.add('right')
 		} else {
 			this.drawer.style.left = -this.drawer.offsetWidth + 'px'
 			this.grab.style.right = '-10px'
-			this.toggle.classList.add('left')
+			// this.toggle.classList.add('left')
 		}
 		this.resizeId
     }
@@ -186,7 +197,9 @@ class SlideDrawer extends HTMLElement {
 		this.grab.addEventListener('mousedown', this.handleMouseDown)
 		this.grab.addEventListener('touchstart', this.handleMouseDown)
 		window.addEventListener('resize', this.handleResize)
-		this.toggle.addEventListener('click', this.toggleDrawer)
+		this.toggles.forEach(toggle => {
+			toggle.addEventListener('click', this.toggleDrawer)
+		})
 		
 		const items = Array.from(this.querySelectorAll('ul'))
 		this.menuInit(items)
@@ -197,14 +210,18 @@ class SlideDrawer extends HTMLElement {
 	
 	handleResize = e => {
 		this.drawer.classList.remove('animate')
+		this.toggles.forEach(toggle => {
+			window.innerWidth < this.mobileBreak ? toggle.style.display = 'block' : toggle.style.display = 'none'
+		})
+		
 		if(this.right) {
-			if(this.toggle.classList.contains('open')) {
+			if(this.drawer.classList.contains('open')) {
 				this.drawer.style.left = window.innerWidth - this.drawer.offsetWidth + 'px'
 			} else {
 				this.drawer.style.left = window.innerWidth + 'px'
 			}
 		} else {
-			if(this.toggle.classList.contains('open')) {
+			if(this.drawer.classList.contains('open')) {
 				this.drawer.style.left = 0
 			} else {
 				this.drawer.style.left = -this.drawer.offsetWidth + 'px'
@@ -315,24 +332,26 @@ class SlideDrawer extends HTMLElement {
 	// adds all classes to open drawer and overlay, adds listener to overlay for closing with outside drawer click
 	
 	open = () => {
+		document.body.style.overflow = 'hidden'
 		this.drawer.classList.add('animate')
-		this.right ? this.toggle.classList.add('rightOpen') : this.toggle.classList.add('leftOpen')
-		this.toggle.classList.add('open')
+		this.drawer.classList.add('open')
+		// this.right ? this.toggle.classList.add('rightOpen') : this.toggle.classList.add('leftOpen')
+		// this.toggle.classList.add('open')
 		this.overlay.classList.add('on', 'animate')
 		this.right ? 
 			this.drawer.style.left = window.innerWidth - this.drawer.offsetWidth + 'px' : this.drawer.style.left = 0
 		this.overlay.style.opacity = 1
 		this.overlay.addEventListener('mousedown', this.handleOpenMouseDown)
 		this.overlay.addEventListener('touchstart', this.handleOpenMouseDown)
-		document.body.style.overflow = 'hidden'
 	}
 	
 	// removes all classes to close drawer and overlay, sets drawer back to closed position
 	
 	close = () => {
 		this.drawer.classList.add('animate')
-		this.right ? this.toggle.classList.remove('rightOpen') : this.toggle.classList.remove('leftOpen')
-		this.toggle.classList.remove('open')
+		this.drawer.classList.remove('open')
+		// this.right ? this.toggle.classList.remove('rightOpen') : this.toggle.classList.remove('leftOpen')
+		// this.toggle.classList.remove('open')
 		this.overlay.style.opacity = 0
 		this.overlay.classList.remove('on', 'animate')
 		this.right ? 
@@ -418,8 +437,8 @@ class SlideDrawer extends HTMLElement {
 	
 	menuInit = items => {
 		let drawer_position = this.drawer_position
-		this.toggle.style.top = this.topOffset
-		this.toggle.style.display = this.toggleDisplay
+		// this.toggle.style.top = this.topOffset
+		// this.toggle.style.display = this.toggleDisplay
 		items.forEach(item => {
 			item.style.width = this.drawer.offsetWidth + 'px'
 			if (item.parentNode.tagName != "DIV") item.style.position = 'absolute'
@@ -483,3 +502,26 @@ class SlideDrawer extends HTMLElement {
 }
 
 window.customElements.define('slide-drawer', SlideDrawer)
+
+
+apply_stickies()
+
+window.addEventListener('scroll', function() {
+    apply_stickies()
+})
+
+function apply_stickies() {
+    var _$stickies = [].slice.call(document.querySelectorAll('header#masthead'))
+    _$stickies.forEach(function(_$sticky) {
+        if (CSS.supports && CSS.supports('position', 'sticky')) {
+            apply_sticky_class(_$sticky)
+        }
+    })
+}
+
+function apply_sticky_class(_$sticky) {
+    var currentOffset = _$sticky.getBoundingClientRect().top
+    var stickyOffset = parseInt(getComputedStyle(_$sticky).top.replace('px', ''))
+    var isStuck = currentOffset <= stickyOffset
+    _$sticky.classList.toggle('is-stuck', isStuck)
+}

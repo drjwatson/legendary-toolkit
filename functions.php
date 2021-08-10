@@ -275,13 +275,16 @@ function legendary_toolkit_theme_options_css() {
 
     // Get options used for CSS variables
 
-    $primary_color   = (array_key_exists('primary_color', $theme_options) && $theme_options['primary_color']) ? $theme_options['primary_color'] : 'red';
-    $secondary_color = (array_key_exists('secondary_color', $theme_options) && $theme_options['secondary_color']) ? $theme_options['secondary_color'] : 'blue';
-    $logo_height     = (array_key_exists('logo_height', $theme_options) && $theme_options['logo_height']) ? $theme_options['logo_height'] . 'px' : '100px';
-    $header_background = (array_key_exists('header_background', $theme_options) && $theme_options['header_background']) ? $theme_options['header_background'] : 'black';
-    $top_bar_background = (array_key_exists('top_bar_background', $theme_options) && $theme_options['top_bar_background']) ? $theme_options['top_bar_background'] : '#111111';
-    $footer_background = (array_key_exists('footer_background', $theme_options) && $theme_options['footer_background']) ? $theme_options['footer_background'] : '#111111';
-    $copyright_background = (array_key_exists('copyright_background', $theme_options) && $theme_options['copyright_background']) ? $theme_options['copyright_background'] : 'black';
+    $primary_color                = (array_key_exists('primary_color', $theme_options) && $theme_options['primary_color']) ? $theme_options['primary_color'] : 'red';
+    $secondary_color              = (array_key_exists('secondary_color', $theme_options) && $theme_options['secondary_color']) ? $theme_options['secondary_color'] : 'blue';
+    $logo_height                  = (array_key_exists('logo_height', $theme_options) && $theme_options['logo_height']) ? $theme_options['logo_height'] . 'px' : '100px';
+    $scrolling_logo_height        = (array_key_exists('scrolling_header_height', $theme_options) && $theme_options['scrolling_header_height']) ? $theme_options['scrolling_header_height'] . 'px' : $logo_height;
+    $header_background            = (array_key_exists('header_background', $theme_options) && $theme_options['header_background']) ? $theme_options['header_background'] : 'black';
+    $scrolling_header_background  = (array_key_exists('scrolling_header_background', $theme_options) && $theme_options['scrolling_header_background']) ? $theme_options['scrolling_header_background'] : 'white';
+    $header_background            = (array_key_exists('transparent_header', $theme_options) && $theme_options['transparent_header']) ? 'transparent' : $header_background;
+    $top_bar_background           = (array_key_exists('top_bar_background', $theme_options) && $theme_options['top_bar_background']) ? $theme_options['top_bar_background'] : '#111111';
+    $footer_background            = (array_key_exists('footer_background', $theme_options) && $theme_options['footer_background']) ? $theme_options['footer_background'] : '#111111';
+    $copyright_background         = (array_key_exists('copyright_background', $theme_options) && $theme_options['copyright_background']) ? $theme_options['copyright_background'] : 'black';
 
     function get_saved_font_family($option, $options) {
         if (!array_key_exists($option, $options)) { return; }
@@ -346,6 +349,8 @@ function legendary_toolkit_theme_options_css() {
             --primary_color : $primary_color;
             --secondary_color : $secondary_color;
             --logo_height : $logo_height;
+            --scrolling_logo_height : $scrolling_logo_height;
+            --scrolling_header_background : $scrolling_header_background;
             --header_background : $header_background;
             --top_bar_background : $top_bar_background;
             --footer_background : $footer_background;

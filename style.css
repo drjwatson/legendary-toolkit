@@ -290,7 +290,7 @@ header#masthead {
   margin-bottom: 0;
   background-color: #563d7c ;
   box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
-  padding: .74rem 1rem;
+  padding: 0rem 1rem;
 }
 
 .navbar-brand > a {
@@ -381,6 +381,8 @@ body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a 
 
 .navbar-brand {
   height: auto;
+  padding-top: 0px;
+  padding-bottom:0px;
 }
 
 .navbar-toggle .icon-bar {
