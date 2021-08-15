@@ -38,8 +38,8 @@ template.innerHTML = `
             z-index: 9999;
             height: 30px;
             position: absolute;
-            top: 55px;
-			left: 5px;
+            top: 40px;
+			left: 20px;
             -webkit-transform: rotate(0deg);
             -moz-transform: rotate(0deg);
             -o-transform: rotate(0deg);
@@ -55,13 +55,14 @@ template.innerHTML = `
 		.tkmm-toggle:not(.close){
 			position: relative;
 			top: 5px;
+			left: 5px;
 		}
 		.tkmm-toggle span {
             display: block;
             position: absolute;
             height: 2px;
             width: 100%;
-            background: black;
+			background: var(--menu_items_font_color, var(--all_font_color), black);
             border-radius: 2px;
             opacity: 1;
             left: 0;
@@ -74,12 +75,12 @@ template.innerHTML = `
             -o-transition: .25s ease-in-out;
             transition: .25s ease-in-out;
 		}
-		// .tkmm-toggle.left {
-        //     right: -55px;
-		// }
-		// .tkmm-toggle.right {
-        //     left: -55px;
-		// }
+		.tkmm-toggle.left {
+            right: -55px;
+		}
+		.tkmm-toggle.right {
+           left: -55px;
+		}
 		.tkmm-toggle.leftOpen {
             right: 10px;
 		}
@@ -464,7 +465,7 @@ class SlideDrawer extends HTMLElement {
 				title.style.fontSize = '14px'
 				title.style.fontWeight = 'bold'
 				title.style.transform = 'translateX(-50%)'
-				item.parentNode.firstChild.onclick = () => {
+				item.parentNode.firstChild.onclick = (e) => {
                     item.style[drawer_position] = 0
 					item.parentNode.style.position = 'absolute'
 					item.parentNode.style.top = '0'
@@ -522,3 +523,11 @@ function apply_sticky_class(_$sticky) {
     var isStuck = currentOffset <= stickyOffset
     _$sticky.classList.toggle('is-stuck', isStuck)
 }
+
+jQuery(document).ready(function($) {
+	$('.navbar .dropdown').hover(function() {
+		$(this).find('.dropdown-menu').first().slideDown(300);
+	}, function() {
+		$(this).find('.dropdown-menu').first().slideUp(300)
+	});
+});

@@ -713,7 +713,7 @@ a img.aligncenter {
 /*--------------------------------------------------------------
 ## Posts and pages
 --------------------------------------------------------------*/
-#content.site-content {
+body:not(.home) #content.site-content {
   padding-bottom: 3.75rem;
   padding-top: 4.125rem;
 }
@@ -740,7 +740,7 @@ a img.aligncenter {
 .page-content,
 .entry-content,
 .entry-summary {
-  margin: 1.5em 0 0;
+  margin: 0;
 }
 
 .page-links {

@@ -1,94 +1,149 @@
-body, p {
-    font-family    : var(--body_font_family, sans-serif);
-    color          : var(--body_font_color, black);
-    font-style     : var(--body_font_style, normal);
-    font-weight    : var(--body_font_weight, normal);
-    text-transform : var(--body_font_transform, none);
-    font-size      : var(--body_font_size, 16px);
+body,
+p {
+    font-family: var(--body_font_family, sans-serif);
+    color: var(--body_font_color, black);
+    font-style: var(--body_font_style, normal);
+    font-weight: var(--body_font_weight, normal);
+    text-transform: var(--body_font_transform, none);
+    font-size: var(--body_font_size, 16px);
 }
-h1, h2, h3, h4, h5, h6 {    
-    font-family    : var(--all_font_family, sans-serif);
-    color          : var(--all_font_color, black);
-    font-style     : var(--all_font_style, normal);
-    font-weight    : var(--all_font_weight, bold);
-    text-transform : var(--all_font_transform, none);
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--all_font_family, sans-serif);
+    color: var(--all_font_color, black);
+    font-style: var(--all_font_style, normal);
+    font-weight: var(--all_font_weight, bold);
+    text-transform: var(--all_font_transform, none);
 }
+
 h1 {
-    font-family    : var(--h1_font_family, var(--all_font_family), sans-serif);
-    color          : var(--h1_font_color, var(--all_font_color), black);
-    font-style     : var(--h1_font_style, var(--all_font_style), normal);
-    font-weight    : var(--h1_font_weight, var(--all_font_weight), bold);
-    text-transform : var(--h1_font_transform, var(--all_font_transform), none);
-    font-size      : var(--h1_font_size, 2em);
+    font-family: var(--h1_font_family, var(--all_font_family), sans-serif);
+    color: var(--h1_font_color, var(--all_font_color), black);
+    font-style: var(--h1_font_style, var(--all_font_style), normal);
+    font-weight: var(--h1_font_weight, var(--all_font_weight), bold);
+    text-transform: var(--h1_font_transform, var(--all_font_transform), none);
+    font-size: var(--h1_font_size, 2em);
 }
+
 h2 {
-    font-family    : var(--h2_font_family, var(--all_font_family), sans-serif);
-    color          : var(--h2_font_color, var(--all_font_color), black);
-    font-style     : var(--h2_font_style, var(--all_font_style), normal);
-    font-weight    : var(--h2_font_weight, var(--all_font_weight), bold);
-    text-transform : var(--h2_font_transform, var(--all_font_transform), none);
-    font-size      : var(--h2_font_size, 1.5em);
+    font-family: var(--h2_font_family, var(--all_font_family), sans-serif);
+    color: var(--h2_font_color, var(--all_font_color), black);
+    font-style: var(--h2_font_style, var(--all_font_style), normal);
+    font-weight: var(--h2_font_weight, var(--all_font_weight), bold);
+    text-transform: var(--h2_font_transform, var(--all_font_transform), none);
+    font-size: var(--h2_font_size, 1.5em);
 }
+
 h3 {
-    font-family    : var(--h3_font_family, var(--all_font_family), sans-serif);
-    color          : var(--h3_font_color, var(--all_font_color), black);
-    font-style     : var(--h3_font_style, var(--all_font_style), normal);
-    font-weight    : var(--h3_font_weight, var(--all_font_weight), bold);
-    text-transform : var(--h3_font_transform, var(--all_font_transform), none);
-    font-size      : var(--h3_font_size, 1.17em);
+    font-family: var(--h3_font_family, var(--all_font_family), sans-serif);
+    color: var(--h3_font_color, var(--all_font_color), black);
+    font-style: var(--h3_font_style, var(--all_font_style), normal);
+    font-weight: var(--h3_font_weight, var(--all_font_weight), bold);
+    text-transform: var(--h3_font_transform, var(--all_font_transform), none);
+    font-size: var(--h3_font_size, 1.17em);
 }
+
 h4 {
-    font-family    : var(--h4_font_family, var(--all_font_family), sans-serif);
-    color          : var(--h4_font_color, var(--all_font_color), black);
-    font-style     : var(--h4_font_style, var(--all_font_style), normal);
-    font-weight    : var(--h4_font_weight, var(--all_font_weight), bold);
-    text-transform : var(--h4_font_transform, var(--all_font_transform), none);
-    font-size      : var(--h4_font_size, 1em);
+    font-family: var(--h4_font_family, var(--all_font_family), sans-serif);
+    color: var(--h4_font_color, var(--all_font_color), black);
+    font-style: var(--h4_font_style, var(--all_font_style), normal);
+    font-weight: var(--h4_font_weight, var(--all_font_weight), bold);
+    text-transform: var(--h4_font_transform, var(--all_font_transform), none);
+    font-size: var(--h4_font_size, 1em);
 }
+
 h5 {
-    font-family    : var(--h5_font_family, var(--all_font_family), sans-serif);
-    color          : var(--h5_font_color, var(--all_font_color), black);
-    font-style     : var(--h5_font_style, var(--all_font_style), normal);
-    font-weight    : var(--h5_font_weight, var(--all_font_weight), bold);
-    text-transform : var(--h5_font_transform, var(--all_font_transform), none);
-    font-size      : var(--h5_font_size, .83em);
+    font-family: var(--h5_font_family, var(--all_font_family), sans-serif);
+    color: var(--h5_font_color, var(--all_font_color), black);
+    font-style: var(--h5_font_style, var(--all_font_style), normal);
+    font-weight: var(--h5_font_weight, var(--all_font_weight), bold);
+    text-transform: var(--h5_font_transform, var(--all_font_transform), none);
+    font-size: var(--h5_font_size, .83em);
 }
+
 h6 {
-    font-family    : var(--h6_font_family, var(--all_font_family), sans-serif);
-    color          : var(--h6_font_color, var(--all_font_color), black);
-    font-style     : var(--h6_font_style, var(--all_font_style), normal);
-    font-weight    : var(--h6_font_weight, var(--all_font_weight), bold);
-    text-transform : var(--h6_font_transform, var(--all_font_weight), none);
-    font-size      : var(--h6_font_size, .67em);
+    font-family: var(--h6_font_family, var(--all_font_family), sans-serif);
+    color: var(--h6_font_color, var(--all_font_color), black);
+    font-style: var(--h6_font_style, var(--all_font_style), normal);
+    font-weight: var(--h6_font_weight, var(--all_font_weight), bold);
+    text-transform: var(--h6_font_transform, var(--all_font_weight), none);
+    font-size: var(--h6_font_size, .67em);
 }
+
 h6 {
-    font-family    : var(--h6_font_family, var(--all_font_family), sans-serif);
-    color          : var(--h6_font_color, var(--all_font_color), black);
-    font-style     : var(--h6_font_style, var(--all_font_style), normal);
-    font-weight    : var(--h6_font_weight, var(--all_font_weight), bold);
-    text-transform : var(--h6_font_transform, var(--all_font_weight), none);
-    font-size      : var(--h6_font_size, .67em);
+    font-family: var(--h6_font_family, var(--all_font_family), sans-serif);
+    color: var(--h6_font_color, var(--all_font_color), black);
+    font-style: var(--h6_font_style, var(--all_font_style), normal);
+    font-weight: var(--h6_font_weight, var(--all_font_weight), bold);
+    text-transform: var(--h6_font_transform, var(--all_font_weight), none);
+    font-size: var(--h6_font_size, .67em);
 }
-#main-nav > ul.navbar-nav > li > a, body:not(.theme-preset-active) #masthead .navbar-nav > li > a, body:not(.theme-preset-active) #masthead .navbar-nav > li > a:hover, body:not(.theme-preset-active) #masthead .navbar-nav > li > a, body:not(.theme-preset-active) #masthead .navbar-nav > li > a:hover, body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a {
-    font-family    : var(--menu_items_font_family, var(--all_font_family), sans-serif);
-    color          : var(--menu_items_font_color, var(--all_font_color), black);
-    font-style     : var(--menu_items_font_style, var(--all_font_style), normal);
-    font-weight    : var(--menu_items_font_weight, var(--all_font_weight), bold);
-    text-transform : var(--menu_items_font_transform, var(--all_font_weight), none);
-    font-size      : var(--menu_items_font_size, .67em);
+
+#main-nav>ul.navbar-nav>li>a,
+body:not(.theme-preset-active) #masthead .navbar-nav>li>a,
+body:not(.theme-preset-active) #masthead .navbar-nav>li>a:hover,
+body:not(.theme-preset-active) #masthead .navbar-nav>li>a,
+body:not(.theme-preset-active) #masthead .navbar-nav>li>a:hover,
+body:not(.theme-preset-active) #masthead .navbar-nav>li.current_page_item>a {
+    font-family: var(--menu_items_font_family, var(--all_font_family), sans-serif);
+    color: var(--menu_items_font_color, var(--all_font_color), black);
+    font-style: var(--menu_items_font_style, var(--all_font_style), normal);
+    font-weight: var(--menu_items_font_weight, var(--all_font_weight), bold);
+    text-transform: var(--menu_items_font_transform, var(--all_font_weight), none);
+    font-size: var(--menu_items_font_size, .67em);
+}
+
+#main-nav>ul.navbar-nav>li>a,
+body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a,
+body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:hover,
+body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a,
+body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:hover,
+body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li.current_page_item>a {
+    line-height: var(--logo_height, 100px);
+}
+
+#main-nav>ul.navbar-nav>li>a,
+body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a,
+body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:hover,
+body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a,
+body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:hover,
+body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li.current_page_item>a {
+    line-height: var(--scrolling_logo_height, 100px);
+}
+.dropdown-menu .dropdown-item {
+    font-family: var(--menu_items_font_family, var(--all_font_family), sans-serif);
+    font-style: var(--menu_items_font_style, var(--all_font_style), normal);
+    font-weight: var(--menu_items_font_weight, var(--all_font_weight), bold);
+    text-transform: var(--menu_items_font_transform, var(--all_font_weight), none);
+    font-size: var(--menu_items_font_size, .67em);
 }
 #site_logo {
-    height         : var(--logo_height, 100px);
+    height: var(--logo_height, 100px);
+    padding: 15px 0px;
 }
+
+body:not(.theme-preset-active) #masthead .navbar-nav>li>a {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 header#masthead {
-    background-color : var(--header_background);
+    background-color: var(--header_background);
 }
+
 .top-bar-content {
     background-color: var(--top_bar_background);
 }
+
 #footer_columns {
     background-color: var(--footer_background);
 }
+
 body:not(.theme-preset-active) footer#colophon {
     background-color: var(--copyright_background);
 }
@@ -97,39 +152,89 @@ body:not(.theme-preset-active) footer#colophon {
 header#masthead:not(.is-stuck) {
     box-shadow: none;
 }
+
 header#masthead.sticky-top.is-stuck {
     background-color: var(--scrolling_header_background);
+    top: 0;
 }
-header#masthead.is_transparent + #content {
+
+header#masthead.is_transparent+#content {
     margin-top: calc(var(--logo_height, 100px) * -1);
 }
+
 header#masthead #site_logo {
     height: var(--logo_height, 100px);
     transition: height 200ms ease-in-out;
 }
+
 header#masthead.is-stuck #site_logo {
     height: var(--scrolling_logo_height);
 }
+
 body.admin-bar header#masthead.is-stuck {
     top: 32px;
+}
+slide-drawer::shadow .tkmm-toggle:not(.close) span {
+    background-color: white!important;
+}
+
+#page_title {
+    border-bottom: 1px solid #dddddd;
+    padding-bottom: 30px;
+}
+.dropdown-menu {
+    margin: 0;
+    border: 1px solid #dddddd;
+    border-top-width: 0px;
+    border-radius: 0px;
+}
+.dropdown:hover .dropdown-menu {
+    margin-top: 0;
+}
+.top-bar-content {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.top-bar-content p {
+    margin-bottom: 0px;
 }
 
 /* Breadcrumbs */
 .🍞,
 .bread {
-  list-style-type: none;
-  margin:0;
-  padding:0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .🍞 li,
 .bread li {
-  display: inline-block;
+    display: inline-block;
 }
 
 .🍞 li.crumb:last-child a,
 .bread li.crumb:last-child a {
-  text-decoration: none;
-  pointer-events: none;
-  color: inherit;
+    text-decoration: none;
+    pointer-events: none;
+    color: inherit;
+}
+
+@media screen and (max-width: 600px) {
+    #wpadminbar {
+        position: fixed;
+    }
+
+    body.admin-bar header#masthead.is-stuck {
+        top: 46px;
+    }
+}
+
+a {
+    color: var(--primary_color);
+    transition: .3s;
+}
+a:hover {
+    color: var(--primary_color);
+    text-decoration: none;
+    opacity: .8;
 }

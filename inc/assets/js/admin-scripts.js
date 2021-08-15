@@ -57,6 +57,7 @@ jQuery(document).ready(function( $ ) {
         }
     });
     $(document).on("submit", "form#legendary_toolkit_form", function(event) {
+        $('.save-toast').hide();
         $('.save-toast.save-loading').fadeIn();
         var btn = $(document.activeElement);
         var name =  btn.attr("name");
@@ -65,11 +66,13 @@ jQuery(document).ready(function( $ ) {
            var settings = $(this).serialize();
            $.post( 'options.php', settings ).error( 
             function() {
+                    $('.save-toast').hide();
                     $('.save-toast.save-loading').fadeOut();
                     $('.save-toast.save-success').hide();
                     $('.save-toast.save-error').fadeIn();
                     $('.save-toast.save-error').delay(3000).fadeOut();
             }).success( function() {
+                    $('.save-toast').hide();
                     $('.save-toast.save-loading').fadeOut();
                     $('.save-toast.save-error').hide();
                     $('.save-toast.save-success').fadeIn();
@@ -77,6 +80,5 @@ jQuery(document).ready(function( $ ) {
             });
             return false; 
         }
-   });
-	
+   });	
 });

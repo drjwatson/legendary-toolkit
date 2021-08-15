@@ -116,7 +116,7 @@
             </nav>
         </div>
 	</header><!-- #masthead -->
-    <?php if ($page_title) : ?>
+    <?php if ($page_title && !is_front_page()) : ?>
         <div id="page_title">
             <div class="container">
                 <div class="row">

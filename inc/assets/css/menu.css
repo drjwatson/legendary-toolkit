@@ -12,7 +12,7 @@
 	position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
 }
 #menu-wrapper ul {
@@ -32,8 +32,7 @@
     background-color: rgba(0,0,0,0.05);
 }
 #menu-wrapper > div {
-    padding-left: 30px;
-    padding-right: 30px;
+	padding: 30px;
 }
 #menu_top *, #menu_bottom * {
     max-width: 100%;
@@ -41,16 +40,27 @@
 #menu-wrapper ul ul {
     height: 100%;
 }
-#menu-wrapper li a {
-    display:block;
+#menu-wrapper li a, #menu-wrapper li {
+	display:flex;
+    flex-direction: row;
+    justify-content: space-between;
     padding-left: 30px;
     padding-right: 30px;
 	cursor: pointer;
-	padding: 10px 30px;
-	font-size:16px;
+	padding: 5px 30px;
+	font-family: var(--menu_items_font_family, var(--all_font_family), sans-serif);
+    color: var(--menu_items_font_color, var(--all_font_color), black);
+    font-style: var(--menu_items_font_style, var(--all_font_style), normal);
+    font-weight: var(--menu_items_font_weight, var(--all_font_weight), bold);
+    text-transform: var(--menu_items_font_transform, var(--all_font_weight), none);
+    font-size: var(--menu_items_font_size, .67em);
 }
-#menu-wrapper li a {
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
+#menu-wrapper, #menu-wrapper li a, #menu-wrapper ul {
+	background-color: var(--header_background);
+}
+#mobile_menu {
+	overflow: auto;
+}
+#mobile_site_logo {
+	padding: 15px;
 }
