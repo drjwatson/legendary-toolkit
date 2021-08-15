@@ -441,11 +441,16 @@ class SlideDrawer extends HTMLElement {
 			item.style.width = this.drawer.offsetWidth + 'px'
 			if (item.parentNode.tagName != "DIV") item.style.position = 'absolute'
 			if (item.parentNode.tagName == "LI") {
+				let dropdownArrow = '<span class="fas fa-caret-down"></span>'
+				item.parentNode.classList.contains('menu-item-has-children') 
+					? item.parentNode.firstChild.innerHTML += dropdownArrow
+					: null
+
 				let back = document.createElement('li')
 				let home = document.createElement('li')
 				let title = document.createElement('li')
-				home.append('<< Go Home')
-				back.append('< Back')
+				home.innerHTML = '<span class="fas fa-angle-double-left"></span> Go Home' + home.innerHTML
+				back.innerHTML = '<span class="fas fa-angle-left"></span> Back' + back.innerHTML
 				item.style[drawer_position] = -item.offsetWidth + 'px'
 				item.style.top = 0
 				item.prepend(back)
@@ -466,6 +471,7 @@ class SlideDrawer extends HTMLElement {
 				title.style.fontWeight = 'bold'
 				title.style.transform = 'translateX(-50%)'
 				item.parentNode.firstChild.onclick = (e) => {
+					e.preventDefault()
                     item.style[drawer_position] = 0
 					item.parentNode.style.position = 'absolute'
 					item.parentNode.style.top = '0'

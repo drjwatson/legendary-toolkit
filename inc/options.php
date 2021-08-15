@@ -28,9 +28,9 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                 add_action( 'admin_enqueue_scripts', array( 'Legendary_Toolkit_Theme_Options' , 'legendary_toolkit_options_enqueue_scripts' ) );
 				add_action( 'admin_menu', array( 'Legendary_Toolkit_Theme_Options', 'add_admin_menu' ) );
 				add_action( 'admin_init', array( 'Legendary_Toolkit_Theme_Options', 'register_settings' ) );
-
 			}
-
+            add_action( 'admin_bar_menu', array( 'Legendary_Toolkit_Theme_Options', 'add_toolbar_items' ), 50, 2);
+            add_action( 'wp_before_admin_bar_render', array( 'Legendary_Toolkit_Theme_Options', 'remove_customize') ); 
 		}
 
         public static function legendary_toolkit_options_enqueue_scripts() {
@@ -81,7 +81,21 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
 				array( 'Legendary_Toolkit_Theme_Options', 'create_admin_page' )
 			);
 		}
-
+        public static function add_toolbar_items( $admin_bar ) {
+            $admin_bar->add_menu( array(
+                'id'    => 'legendary-toolkit-settings',
+                'title' => '<span class="ab-icon dashicons dashicons-admin-generic"></span>' . 'Theme Settings',
+                'href'  => admin_url('admin.php?page=theme-settings'),
+                'meta'  => array(
+                    'title' => __('Theme Settings'),            
+                ),
+            ));
+        }
+        public static function remove_customize() {
+            global $wp_admin_bar;
+            $wp_admin_bar->remove_menu('customize');
+            $wp_admin_bar->remove_menu('comments');
+        }
 		/**
 		 * Register a setting and its sanitization callback.
 		 *
@@ -263,6 +277,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                     <div class="tab">
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_general')" id="legendary_toolkit_general_tab">General</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_header')">Header</button>
+                        <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_menu')">Menu</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_footer')">Footer</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_typography')">Typography</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_examples')">Examples</button>
@@ -355,10 +370,6 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 </td>
                             </tr>
                             <tr valign="top">
-                                <th scope="row"><?php esc_html_e( 'Menu Items', 'legendary-toolkit' );?></th>
-                                <td><?php echo self::typography_field('menu_items', true, true);?></td>
-                            </tr>
-                            <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Scrolling Header Height', 'legendary-toolkit' );?></th>
                                 <td>
                                     <div class="legendary-toolkit-input-group">
@@ -385,6 +396,42 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                     <?php $value = self::get_theme_option( 'top_bar_content' );?>
                                     <?php echo wp_editor( $value, 'top_bar_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[top_bar_content]') );?>
                                 </td>
+                            </tr>
+                        </table>
+                        <hr>
+                        <h3>Page Header</h3>
+                        <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Enable Page Title?', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'page_title' );?>
+                                    <input type="checkbox" name="theme_options[page_title]" <?php checked( $value, 'on' );?>> <label><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                </td>
+                            </tr>
+                            <?php 
+                            $page_title = self::get_theme_option( 'page_title' );
+                            $hidden = ( !$page_title ) ? 'hidden' : '';?>
+                            <tr valign="top" id="page_title_content_row" class="<?=$hidden;?>">
+                                <th scope="row"><?php esc_html_e( 'Page Title Content', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php 
+                                        $value = self::get_theme_option( 'page_title_content' );
+                                        if (!$value) {
+                                            $value = "<h1>[page_title]</h1><p>[breadcrumbs]</p>";
+                                        }
+                                    ?>
+                                    <?php echo wp_editor( $value, 'page_title_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[page_title_content]') );?>
+                                    <label for="theme_options[mobile_menu_width]"><small><strong>Default:</strong><code>&lt;h1&gt;[page_title]&lt;/h1&gt;&lt;p&gt;[breadcrumbs]&lt;/p&gt;</code></small></label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="legendary_toolkit_menu" class="tabcontent">
+                        <h3>Menu</h3>
+                        <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Menu Items', 'legendary-toolkit' );?></th>
+                                <td><?php echo self::typography_field('menu_items', true, true);?></td>
                             </tr>
                         </table>
                         <hr>
@@ -427,33 +474,6 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                         <input type="number" name="theme_options[mobile_menu_breakpoint]" value="<?=(esc_attr($value)) ? esc_attr($value) : '1200';?>">
                                         <label class="suffix" for="theme_options[mobile_menu_breakpoint]">px</label>
                                     </div>
-                                </td>
-                            </tr>
-                        </table>
-                        <hr>
-                        <h3>Page Header</h3>
-                        <table class="form-table">
-                            <tr valign="top">
-                                <th scope="row"><?php esc_html_e( 'Enable Page Title?', 'legendary-toolkit' );?></th>
-                                <td>
-                                    <?php $value = self::get_theme_option( 'page_title' );?>
-                                    <input type="checkbox" name="theme_options[page_title]" <?php checked( $value, 'on' );?>> <label><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
-                                </td>
-                            </tr>
-                            <?php 
-                            $page_title = self::get_theme_option( 'page_title' );
-                            $hidden = ( !$page_title ) ? 'hidden' : '';?>
-                            <tr valign="top" id="page_title_content_row" class="<?=$hidden;?>">
-                                <th scope="row"><?php esc_html_e( 'Page Title Content', 'legendary-toolkit' );?></th>
-                                <td>
-                                    <?php 
-                                        $value = self::get_theme_option( 'page_title_content' );
-                                        if (!$value) {
-                                            $value = "<h1>[page_title]</h1><p>[breadcrumbs]</p>";
-                                        }
-                                    ?>
-                                    <?php echo wp_editor( $value, 'page_title_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[page_title_content]') );?>
-                                    <label for="theme_options[mobile_menu_width]"><small><strong>Default:</strong><code>&lt;h1&gt;[page_title]&lt;/h1&gt;&lt;p&gt;[breadcrumbs]&lt;/p&gt;</code></small></label>
                                 </td>
                             </tr>
                         </table>

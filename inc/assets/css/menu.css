@@ -40,14 +40,20 @@
 #menu-wrapper ul ul {
     height: 100%;
 }
-#menu-wrapper li a, #menu-wrapper li {
+#menu-wrapper li a {
 	display:flex;
     flex-direction: row;
     justify-content: space-between;
-    padding-left: 30px;
-    padding-right: 30px;
 	cursor: pointer;
-	padding: 5px 30px;
+	padding: 10px 30px;
+	font-family: var(--menu_items_font_family, var(--all_font_family), sans-serif);
+    color: var(--menu_items_font_color, var(--all_font_color), black);
+    font-style: var(--menu_items_font_style, var(--all_font_style), normal);
+    font-weight: var(--menu_items_font_weight, var(--all_font_weight), bold);
+    text-transform: var(--menu_items_font_transform, var(--all_font_weight), none);
+    font-size: var(--menu_items_font_size, .67em);
+}
+#menu-wrapper li {
 	font-family: var(--menu_items_font_family, var(--all_font_family), sans-serif);
     color: var(--menu_items_font_color, var(--all_font_color), black);
     font-style: var(--menu_items_font_style, var(--all_font_style), normal);
