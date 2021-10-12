@@ -61,8 +61,17 @@ jQuery( function ( $ ) {
         });
     }
     fullWidthSection();
+
+    function page_full_height() {
+        var non_content_height = $('.top-bar-content').outerHeight() + $('#masthead').outerHeight() + $('#page_title').outerHeight() + $('#footer').outerHeight() + $('#wpadminbar').outerHeight();
+        var content_height = $(window).height() - non_content_height;
+        content_height = (content_height < 0 ) ? 0 : content_height;
+        $('#content').css('min-height', `${content_height}px`);
+    }
+    page_full_height();
     $( window ).resize(function() {
         fullWidthSection();
+        page_full_height();
     });
 
     // Allow smooth scroll

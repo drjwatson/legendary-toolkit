@@ -116,7 +116,7 @@ add_action( 'after_setup_theme', 'legendary_toolkit_setup' );
  * @global int $content_width
  */
 function legendary_toolkit_content_width() {
-	$GLOBALS['content_width'] = apply_filters( 'legendary_toolkit_content_width', 1170 );
+	$GLOBALS['content_width'] = apply_filters( 'legendary_toolkit_content_width', 1320 );
 }
 add_action( 'after_setup_theme', 'legendary_toolkit_content_width', 0 );
 
@@ -193,7 +193,8 @@ function legendary_toolkit_scripts() {
     wp_enqueue_script('legendary-toolkit-bootstrapjs', get_template_directory_uri() . '/inc/assets/js/bootstrap.min.js', array(), '', true );
     
     // theme js
-    wp_enqueue_script('legendary-toolkit-themejs', get_template_directory_uri() . '/inc/assets/js/theme-script.min.js', array(), '', true );
+    wp_enqueue_script('legendary-toolkit-themejs', get_template_directory_uri() . '/inc/assets/js/theme-script.js', array(), '', true );
+    // wp_enqueue_script('legendary-toolkit-themejs', get_template_directory_uri() . '/inc/assets/js/theme-script.min.js', array(), '', true );
 	wp_enqueue_script( 'legendary-toolkit-skip-link-focus-fix', get_template_directory_uri() . '/inc/assets/js/skip-link-focus-fix.min.js', array(), '20151215', true );
 
 	// if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -275,8 +276,8 @@ function legendary_toolkit_theme_options_css() {
 
     // Get options used for CSS variables
 
-    $primary_color                = (array_key_exists('primary_color', $theme_options) && $theme_options['primary_color']) ? $theme_options['primary_color'] : 'red';
-    $secondary_color              = (array_key_exists('secondary_color', $theme_options) && $theme_options['secondary_color']) ? $theme_options['secondary_color'] : 'blue';
+    $primary_color                = (array_key_exists('primary_color', $theme_options) && $theme_options['primary_color']) ? $theme_options['primary_color'] : '#0f8bf5';
+    $secondary_color              = (array_key_exists('secondary_color', $theme_options) && $theme_options['secondary_color']) ? $theme_options['secondary_color'] : '#f56f0f';
     $logo_height                  = (array_key_exists('logo_height', $theme_options) && $theme_options['logo_height']) ? $theme_options['logo_height'] . 'px' : '100px';
     $scrolling_logo_height        = (array_key_exists('scrolling_header_height', $theme_options) && $theme_options['scrolling_header_height']) ? $theme_options['scrolling_header_height'] . 'px' : $logo_height;
     $header_background            = (array_key_exists('header_background', $theme_options) && $theme_options['header_background']) ? $theme_options['header_background'] : 'black';
@@ -624,4 +625,105 @@ add_action('init', function () {
         remove_action('admin_bar_menu', 'wp_admin_bar_comments_menu', 60);
     }
 });
+/**
+ * Control excerpt length by theme options
+ */
+add_filter( 'excerpt_length', function($length) {
+    $custom_limit = legendary_toolkit_get_theme_option('excerpt_length_limit');
+    if ($custom_limit) {
+        return $custom_limit;
+    }
+    return 40;
+}, PHP_INT_MAX );
 
+/**
+ * Filter the "read more" excerpt string link to the post.
+ *
+ * @param string $more "Read more" excerpt string.
+ * @return string (Maybe) modified "read more" excerpt string.
+ */
+add_filter( 'excerpt_more', 'wpdocs_excerpt_more' );
+function wpdocs_excerpt_more( $more ) {
+    if ( ! is_single() ) {
+        $more = sprintf( '<a class="read-more" href="%1$s">%2$s</a>',
+            get_permalink( get_the_ID() ),
+            __( '<br/>Continue reading <span class="meta-nav">&rarr;</span>', 'wp-bootstrap-starter' )
+        );
+    }
+    return $more;
+}
+
+/**
+ * Custom WooCommerce Cart in Menu
+ */
+
+add_filter( 'wp_nav_menu_items', 'legendary_cart_in_menu', 10, 2 );
+
+function legendary_cart_in_menu ( $items, $args ) {
+    if (!class_exists( 'woocommerce' )) {
+        return $items;
+    }
+    $show_cart_in_menu = legendary_toolkit_get_theme_option('show_cart_in_menu');
+    if (!$show_cart_in_menu) {
+        return $items;
+    }
+    global $woocommerce;
+    $cart_items = $woocommerce->cart->get_cart();
+    $item_display = '';
+    if ($cart_items) {
+        foreach($cart_items as $item => $values) { 
+            $_product_id = $values['data']->get_id();
+            $_product =  wc_get_product($_product_id); 
+            $link = $_product->get_permalink($_product_id);
+            $image = $_product->get_image('woocommerce_thumbnail', ['class' => 'menu-cart-image']);
+            $item_display .= '<tr><th><a href="'. $link .'">'. $image . $_product->get_title() . '</a></th><td align="right">'. $values['quantity'] .'</td>';
+        }
+    }
+
+    $items_count = count($cart_items);
+    $count_badge = '
+        <span style="top:calc(50% - 15px);" class="position-absolute badge rounded-pill bg-danger">
+            '. $items_count .'
+            <span class="d-none">Items in Cart</span>
+        </span>
+    ';
+    if ($args->theme_location == 'primary') {
+        $items .= '
+        <li class="menu-item nav-item menu-item-has-children dropdown menu-cart">
+            <a class="tester" id="menu-item-woocommerce-cart" href="' . wc_get_cart_url() . '" title="View your shopping cart"><i class="fas fa-shopping-cart"></i>'. $count_badge .'</a>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="menu-item-woocommerce-cart">
+                <li class="menu-item nav-item">
+                    <div class="dropdown-item">
+                        <table border="1" cellpadding="40">
+                            <thead>
+                                <tr>
+                                    <th style="min-width: 400px; max-width:80%vw;">Product</th>
+                                    <th>Qty.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            ' . $item_display . '
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>
+                                        Total:
+                                    </th>
+                                    <td align="right">
+                                ' . WC()->cart->get_cart_total() . '
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div style="text-align:center;">
+                            <a class="btn btn-primary">View Cart</a>
+                            <a class="btn btn-outline-primary">Checkout</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        ';
+    }
+    return $items;
+}

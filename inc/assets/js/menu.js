@@ -508,32 +508,20 @@ class SlideDrawer extends HTMLElement {
 window.customElements.define('slide-drawer', SlideDrawer)
 
 
-apply_stickies()
+// get the sticky element
+const stickyElm = document.querySelector('header#masthead')
 
-window.addEventListener('scroll', function() {
-    apply_stickies()
-})
+const observer = new IntersectionObserver( 
+  ([e]) => e.target.classList.toggle('is-stuck', e.intersectionRatio < 1),
+  {threshold: [1]}
+);
 
-function apply_stickies() {
-    var _$stickies = [].slice.call(document.querySelectorAll('header#masthead'))
-    _$stickies.forEach(function(_$sticky) {
-        if (CSS.supports && CSS.supports('position', 'sticky')) {
-            apply_sticky_class(_$sticky)
-        }
-    })
-}
+observer.observe(stickyElm)
 
-function apply_sticky_class(_$sticky) {
-    var currentOffset = _$sticky.getBoundingClientRect().top
-    var stickyOffset = parseInt(getComputedStyle(_$sticky).top.replace('px', ''))
-    var isStuck = currentOffset <= stickyOffset
-    _$sticky.classList.toggle('is-stuck', isStuck)
-}
-
-jQuery(document).ready(function($) {
+jQuery(document).ready(function($) { 
 	$('.navbar .dropdown').hover(function() {
-		$(this).find('.dropdown-menu').first().slideDown(300);
+		$(this).find('.dropdown-menu').first().show(); // use slideDown(300) for animation
 	}, function() {
-		$(this).find('.dropdown-menu').first().slideUp(300)
+		$(this).find('.dropdown-menu').first().hide() // use slideUp(300) for animation
 	});
 });

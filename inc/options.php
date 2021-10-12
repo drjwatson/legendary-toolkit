@@ -280,6 +280,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_menu')">Menu</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_footer')">Footer</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_typography')">Typography</button>
+                        <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_blog')">Blog</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_examples')">Examples</button>
                     </div>
                 </div>
@@ -331,7 +332,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <th scope="row"><?php esc_html_e( 'Enable Transparent Header?', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'transparent_header' );?>
-                                    <input type="checkbox" name="theme_options[transparent_header]" <?php checked( $value, 'on' );?>> <label><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                    <label><input type="checkbox" name="theme_options[transparent_header]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
                                 </td>
                             </tr>
                             <?php
@@ -356,7 +357,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <th scope="row"><?php esc_html_e( 'Enable Sticky Header?', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'sticky_header' );?>
-                                    <input type="checkbox" name="theme_options[sticky_header]" <?php checked( $value, 'on' );?>> <label><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                    <label><input type="checkbox" name="theme_options[sticky_header]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
                                 </td>
                             </tr>
                             <tr valign="top">
@@ -405,7 +406,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <th scope="row"><?php esc_html_e( 'Enable Page Title?', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'page_title' );?>
-                                    <input type="checkbox" name="theme_options[page_title]" <?php checked( $value, 'on' );?>> <label><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                    <label><input type="checkbox" name="theme_options[page_title]" <?php checked( $value, 'on' );?>> <?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
                                 </td>
                             </tr>
                             <?php 
@@ -429,6 +430,13 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                     <div id="legendary_toolkit_menu" class="tabcontent">
                         <h3>Menu</h3>
                         <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Show Cart in Menu?', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'show_cart_in_menu' );?>
+                                    <label><input type="checkbox" name="theme_options[show_cart_in_menu]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                </td>
+                            </tr>
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Menu Items', 'legendary-toolkit' );?></th>
                                 <td><?php echo self::typography_field('menu_items', true, true);?></td>
@@ -575,59 +583,91 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                             </tr>
                         </table>
                     </div>
-                    <div id="legendary_toolkit_examples" class="tabcontent">
-                        <h3>Option Examples</h3>
+                    <div id="legendary_toolkit_blog" class="tabcontent">
+                        <h3>Blog</h3>
                         <table class="form-table">
                             <tr valign="top">
-                                <th scope="row"><?php esc_html_e( 'Checkbox Example', 'legendary-toolkit' );?></th>
+                                <th scope="row"><?php esc_html_e( 'Excerpt Length', 'legendary-toolkit' );?></th>
                                 <td>
-                                    <?php $value = self::get_theme_option( 'checkbox_example' );?>
-                                    <input type="checkbox" name="theme_options[checkbox_example]" <?php checked( $value, 'on' );?>> <label><?php esc_html_e( 'Checkbox example description.', 'legendary-toolkit' );?></label>
+                                    <div class="legendary-toolkit-input-group">
+                                        <?php $value = self::get_theme_option( 'excerpt_length_limit' );?>
+                                        <input type="number" name="theme_options[excerpt_length_limit]" value="<?=(esc_attr($value)) ? esc_attr($value) : '40';?>">
+                                        <label class="suffix" for="theme_options[excerpt_length_limit]">Words</label>
+                                    </div>
                                 </td>
                             </tr>
                             <tr valign="top">
-                                <th scope="row"><?php esc_html_e( 'Input Example', 'legendary-toolkit' );?></th>
+                                <th scope="row"><?php esc_html_e( 'Show Sidebar on Single Posts?', 'legendary-toolkit' );?></th>
                                 <td>
-                                    <?php $value = self::get_theme_option( 'input_example' );?>
-                                    <input type="text" name="theme_options[input_example]" value="<?=esc_attr( $value );?>">
+                                    <?php $value = self::get_theme_option( 'show_sidebar_single' );?>
+                                    <label><input type="checkbox" name="theme_options[show_sidebar_single]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
                                 </td>
                             </tr>
                             <tr valign="top">
-                                <th scope="row"><?php esc_html_e( 'Select Example', 'legendary-toolkit' );?></th>
+                                <th scope="row"><?php esc_html_e( 'Show Sidebar on Archive Pages?', 'legendary-toolkit' );?></th>
                                 <td>
-                                    <?php $value = self::get_theme_option( 'select_example' );?>
-                                    <select name="theme_options[select_example]">
-                                        <?php
-                                        $options = array(
-                                            '1' => esc_html__( 'Option 1', 'legendary-toolkit' ),
-                                            '2' => esc_html__( 'Option 2', 'legendary-toolkit' ),
-                                            '3' => esc_html__( 'Option 3', 'legendary-toolkit' ),
-                                        );
-                                        foreach ( $options as $id => $label ) { ?>
-                                            <option value="<?=esc_attr( $id );?>" <?php selected( $value, $id, true );?>>
-                                                <?=strip_tags( $label );?>
-                                            </option>
-                                        <?php } ?>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr valign="top">
-                                <th scope="row"><?php esc_html_e( 'Range Example', 'legendary-toolkit' );?></th>
-                                <td style="display:flex; align-items: center; ">
-                                    <?php $value = self::get_theme_option( 'range_example' );?>
-                                    <input type="range" min="0" max="4" step="1" name="theme_options[range_example]" oninput="this.nextElementSibling.value = this.value" value="<?=(esc_attr( $value )) ? esc_attr($value) : 4;?>">
-                                    <output style="margin-left:10px;"><?=(esc_attr( $value )) ? esc_attr( $value ) : 4;?></output>
+                                    <?php $value = self::get_theme_option( 'show_sidebar_archive' );?>
+                                    <label><input type="checkbox" name="theme_options[show_sidebar_archive]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
                                 </td>
                             </tr>
                         </table>
                     </div>
+                    <?php if (defined('TOOLKIT_DEBUG') && TOOLKIT_DEBUG) : ?>
+                        <div id="legendary_toolkit_examples" class="tabcontent">
+                            <h3>Option Examples</h3>
+                            <table class="form-table">
+                                <tr valign="top">
+                                    <th scope="row"><?php esc_html_e( 'Checkbox Example', 'legendary-toolkit' );?></th>
+                                    <td>
+                                        <?php $value = self::get_theme_option( 'checkbox_example' );?>
+                                        <input type="checkbox" name="theme_options[checkbox_example]" <?php checked( $value, 'on' );?>> <label><?php esc_html_e( 'Checkbox example description.', 'legendary-toolkit' );?></label>
+                                    </td>
+                                </tr>
+                                <tr valign="top">
+                                    <th scope="row"><?php esc_html_e( 'Input Example', 'legendary-toolkit' );?></th>
+                                    <td>
+                                        <?php $value = self::get_theme_option( 'input_example' );?>
+                                        <input type="text" name="theme_options[input_example]" value="<?=esc_attr( $value );?>">
+                                    </td>
+                                </tr>
+                                <tr valign="top">
+                                    <th scope="row"><?php esc_html_e( 'Select Example', 'legendary-toolkit' );?></th>
+                                    <td>
+                                        <?php $value = self::get_theme_option( 'select_example' );?>
+                                        <select name="theme_options[select_example]">
+                                            <?php
+                                            $options = array(
+                                                '1' => esc_html__( 'Option 1', 'legendary-toolkit' ),
+                                                '2' => esc_html__( 'Option 2', 'legendary-toolkit' ),
+                                                '3' => esc_html__( 'Option 3', 'legendary-toolkit' ),
+                                            );
+                                            foreach ( $options as $id => $label ) { ?>
+                                                <option value="<?=esc_attr( $id );?>" <?php selected( $value, $id, true );?>>
+                                                    <?=strip_tags( $label );?>
+                                                </option>
+                                            <?php } ?>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr valign="top">
+                                    <th scope="row"><?php esc_html_e( 'Range Example', 'legendary-toolkit' );?></th>
+                                    <td style="display:flex; align-items: center; ">
+                                        <?php $value = self::get_theme_option( 'range_example' );?>
+                                        <input type="range" min="0" max="4" step="1" name="theme_options[range_example]" oninput="this.nextElementSibling.value = this.value" value="<?=(esc_attr( $value )) ? esc_attr($value) : 4;?>">
+                                        <output style="margin-left:10px;"><?=(esc_attr( $value )) ? esc_attr( $value ) : 4;?></output>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    <?php endif;?>
 				</form>
 
 			</div><!-- .wrap -->
             <?php 
-            // =================
-            // Debug Console
-            // =================
+            if (defined('TOOLKIT_DEBUG') && TOOLKIT_DEBUG) {
+                // =================
+                // Debug Console
+                // =================
                 echo '<h3>Debug Console</h3>';
                 echo '<pre style="height:200px; width: 100%; overflow:scroll; white-space: pre-wrap; resize:vertical">';
 
@@ -641,8 +681,8 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                     // print_r(self::get_google_fonts());
 
                 echo '</pre>';
-            ?>
-		<?php 
+            }
+
         }
 
 	}
@@ -654,7 +694,11 @@ function legendary_toolkit_get_theme_option( $id = '' ) {
 	return Legendary_Toolkit_Theme_Options::get_theme_option( $id );
 }
 function legendary_toolkit_get_theme_options() {
-	return Legendary_Toolkit_Theme_Options::get_theme_options();
+    $options = Legendary_Toolkit_Theme_Options::get_theme_options();
+    if (is_array($options)) {
+        return Legendary_Toolkit_Theme_Options::get_theme_options();    
+    }
+	return [];
 }
 
 

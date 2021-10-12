@@ -6,10 +6,12 @@
  *
  * @package WP_Bootstrap_Starter
  */
-
+$theme_options = legendary_toolkit_get_theme_options();
+$show_sidebar_single = (array_key_exists('show_sidebar_single', $theme_options) && $theme_options['show_sidebar_single']) ? $theme_options['show_sidebar_single'] : false;
+$container_column_class = ($show_sidebar_single) ? 'col-lg-8' : 'col-lg-12';
 get_header(); ?>
 
-	<section id="primary" class="content-area col-sm-12 col-lg-8">
+	<section id="primary" class="content-area col-sm-12 <?=$container_column_class;?>">
 		<div id="main" class="site-main" role="main">
 
 		<?php
@@ -18,7 +20,9 @@ get_header(); ?>
 			get_template_part( 'template-parts/content', get_post_format() );
 
 			    the_post_navigation();
-
+				?><div class="widget_shopping_cart_content"><?php
+				woocommerce_mini_cart();
+				?></div><?php
 			// If comments are open or we have at least one comment, load up the comment template.
 			// if ( comments_open() || get_comments_number() ) :
 			// 	comments_template();
@@ -31,5 +35,7 @@ get_header(); ?>
 	</section><!-- #primary -->
 
 <?php
-get_sidebar();
+if ($show_sidebar_single) {
+	get_sidebar();
+}
 get_footer();
