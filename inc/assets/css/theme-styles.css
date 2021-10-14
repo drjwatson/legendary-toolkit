@@ -98,8 +98,17 @@ body:not(.theme-preset-active) #masthead .navbar-nav>li.current_page_item>a {
     font-size: var(--menu_items_font_size, 14px);
 }
 
+a.nav-link{
+    padding:0 16px;
+}
+
 .navbar-nav{
     align-items: center;
+}
+
+.menu-cart {
+    width: 100px;
+    text-align: center;
 }
 
 #main-nav>ul.navbar-nav>li>a:not(li.btn a),
@@ -132,8 +141,7 @@ body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li.current_page_it
 }
 
 body:not(.theme-preset-active) #masthead .navbar-nav>li>a {
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding:0 14px;
 }
 
 header#masthead {
