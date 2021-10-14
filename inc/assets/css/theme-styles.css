@@ -126,7 +126,7 @@ body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(li.btn a)
 body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(li.btn a),
 body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(li.btn a):hover,
 body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li.current_page_item>a {
-    height: var(--scrolling_logo_height, 100px);
+    line-height: var(--scrolling_logo_height, 100px);
 }
 .dropdown-menu .dropdown-item {
     font-family: var(--menu_items_font_family, var(--all_font_family), sans-serif);
