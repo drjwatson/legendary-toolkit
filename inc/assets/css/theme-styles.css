@@ -162,6 +162,10 @@ body:not(.theme-preset-active) footer#colophon {
     background-color: var(--copyright_background);
 }
 
+/* body:not(.theme-preset-active) footer#colophon {
+    background-color: var(--copyright_background);
+} */
+
 /* Header Behavior */
 header#masthead:not(.is-stuck) {
     box-shadow: none;

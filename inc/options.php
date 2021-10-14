@@ -497,6 +497,13 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 </td>
                             </tr>
                             <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Copyright Background', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'copyright_background' );?>
+                                    <input class="color-field" type="text" name="theme_options[copyright_background]" value="<?=esc_attr( $value );?>">
+                                </td>
+                            </tr>
+                            <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Footer Columns', 'legendary-toolkit' );?></th>
                                 <td style="display:flex; align-items: center; ">
                                     <?php $value = self::get_theme_option( 'footer_columns' );?>
