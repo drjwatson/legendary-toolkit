@@ -98,22 +98,26 @@ body:not(.theme-preset-active) #masthead .navbar-nav>li.current_page_item>a {
     font-size: var(--menu_items_font_size, 14px);
 }
 
-#main-nav>ul.navbar-nav>li>a:not(.btn),
-body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(.btn),
-body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(.btn):hover,
-body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(.btn),
-body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(.btn):hover,
+.navbar-nav{
+    align-items: center;
+}
+
+#main-nav>ul.navbar-nav>li>a:not(li.btn a),
+body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(li.btn a),
+body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(li.btn a):hover,
+body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(li.btn a),
+body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(li.btn a):hover,
 body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li.current_page_item>a {
     line-height: var(--logo_height, 100px);
 }
 
-#main-nav>ul.navbar-nav>li>a:not(.btn),
-body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(.btn),
-body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(.btn):hover,
-body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(.btn),
-body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(.btn):hover,
+#main-nav>ul.navbar-nav>li>a:not(li.btn a),
+body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(li.btn a),
+body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(li.btn a):hover,
+body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(li.btn a),
+body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(li.btn a):hover,
 body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li.current_page_item>a {
-    line-height: var(--scrolling_logo_height, 100px);
+    height: var(--scrolling_logo_height, 100px);
 }
 .dropdown-menu .dropdown-item {
     font-family: var(--menu_items_font_family, var(--all_font_family), sans-serif);
