@@ -174,8 +174,8 @@ header#masthead.sticky-top.is-stuck {
     background-color: var(--scrolling_header_background);
 }
 
-header#masthead.is_transparent+#content {
-    margin-top: calc(var(--logo_height, 100px));
+.home header#masthead.is_transparent+#content {
+    margin-top: calc(var(--logo_height, 100px) * -1);
 }
 
 header#masthead #site_logo {
