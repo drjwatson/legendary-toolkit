@@ -163,6 +163,9 @@ body:not(.theme-preset-active) footer#colophon {
 }
 
 /* Header Behavior */
+header#masthead{
+    transition:.5s;
+}
 header#masthead:not(.is-stuck) {
     box-shadow: none;
 }
@@ -172,7 +175,7 @@ header#masthead.sticky-top.is-stuck {
 }
 
 header#masthead.is_transparent+#content {
-    margin-top: calc(var(--logo_height, 100px) * -1);
+    margin-top: calc(var(--logo_height, 100px));
 }
 
 header#masthead #site_logo {
