@@ -69,6 +69,8 @@
 	background-color: var(--scrolling_header_background);
 }
 
+
+
 #mobile_menu {
 	overflow: auto;
 }
@@ -76,14 +78,11 @@
 	padding: 15px;
 }
 
-
 #mobile_menu li.btn {
 	display: inline-block;
 	width: 90%;
 	margin: 20px auto;
 }
-
-
 #mobile_menu .btn a {
 	display: inline-block;
 	width: 90%;

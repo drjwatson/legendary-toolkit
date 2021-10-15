@@ -74,6 +74,7 @@ jQuery( function ( $ ) {
         if($('#masthead').length){
             non_content_height += $('#masthead').outerHeight();
             
+            // account for transparent masthead
             if($('#masthead.is_transparent').length){
                 non_content_height -= $('#masthead').outerHeight();
             }

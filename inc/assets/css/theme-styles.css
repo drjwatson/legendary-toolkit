@@ -167,6 +167,7 @@ header#masthead{
     transition:.25s;
     padding:0;
 }
+
 header#masthead:not(.is-stuck) {
     box-shadow: none;
 }
@@ -177,6 +178,10 @@ header#masthead.sticky-top.is-stuck {
 
 .home header#masthead.is_transparent+#content {
     margin-top: calc(var(--logo_height, 100px) * -1);
+}
+
+body:not(.home) header#masthead {
+    background-color: var(--scrolling_header_background);
 }
 
 header#masthead #site_logo {
