@@ -3,6 +3,34 @@ A temporary css style sheet to apply parent style overrides, which can be optimi
 */
 
 
+.hero h1{
+    font-weight:900;
+    color:white;
+    text-transform:uppercase;
+}
+
+.vc_parallax-inner:before {
+    /* background: rgb(0, 0, 0); */
+    content: "";
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.5625) 0%, rgba(0, 0, 0, 0.0375) 100%);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+@media all and (max-width: 1470px) and (min-width:1000px) {}
+
+@media all and (max-width: 999px) and (min-width:600px) {}
+
+@media all and (max-width: 600px) and (min-width:200px) {
+    .menu-cart{
+        display:none;
+    }
+}
+
 /*
 FOR PRODUCTION
 */

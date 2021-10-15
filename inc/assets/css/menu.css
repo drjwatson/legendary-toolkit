@@ -64,9 +64,29 @@
 #menu-wrapper, #menu-wrapper li a, #menu-wrapper ul {
 	background-color: var(--header_background);
 }
+
+#menu-wrapper, #menu-wrapper li a, #menu-wrapper ul {
+	background-color: var(--scrolling_header_background);
+}
+
 #mobile_menu {
 	overflow: auto;
 }
 #mobile_site_logo {
 	padding: 15px;
+}
+
+
+#mobile_menu li.btn {
+	display: inline-block;
+	width: 90%;
+	margin: 20px auto;
+}
+
+
+#mobile_menu .btn a {
+	display: inline-block;
+	width: 90%;
+	padding: 0;
+	background: inherit;
 }
