@@ -164,7 +164,8 @@ body:not(.theme-preset-active) footer#colophon {
 
 /* Header Behavior */
 header#masthead{
-    transition:.5s;
+    transition:.25s;
+    padding:0;
 }
 header#masthead:not(.is-stuck) {
     box-shadow: none;
