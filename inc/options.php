@@ -281,7 +281,6 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_footer')">Footer</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_typography')">Typography</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_blog')">Blog</button>
-                        <!-- <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_examples')">Examples</button> -->
                     </div>
                 </div>
 				<form method="post" action="options.php" id="legendary_toolkit_form">

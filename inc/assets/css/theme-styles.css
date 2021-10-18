@@ -196,6 +196,7 @@ header#masthead.is-stuck #site_logo {
 body.admin-bar header#masthead.is-stuck {
     padding-top: 32px;
 }
+
 slide-drawer::shadow .tkmm-toggle:not(.close) span {
     background-color: white!important;
 }

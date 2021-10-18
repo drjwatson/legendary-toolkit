@@ -1,8 +1,6 @@
 /*
 A temporary css style sheet to apply parent style overrides, which can be optimized with redundancy checks and minified if necessary prior to implementation
 */
-
-
 .hero h1{
     font-weight:900;
     color:white;
@@ -19,6 +17,24 @@ A temporary css style sheet to apply parent style overrides, which can be optimi
     top: 0;
     left: 0;
 }
+
+
+.dropdown-toggle::after {
+    border-top: .2em solid;
+    border-right: .2em solid transparent;
+    border-left: .2em solid transparent;
+    position: relative;
+    top: 2px;
+    left: 1px;
+}
+
+li:not(.btn) a.nav-link {
+    padding-right: 40px !important;
+}
+
+/* header#masthead.is_transparent {
+    background: rgba(0, 0, 0, 0.5);
+} */
 
 
 @media all and (max-width: 1470px) and (min-width:1000px) {}
