@@ -116,7 +116,7 @@ body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(li.
 body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(li.btn a):hover,
 body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(li.btn a),
 body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(li.btn a):hover,
-body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li.current_page_item>a {
+body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li.current_page_item>a:not(li.btn a) {
     line-height: var(--logo_height, 100px);
 }
 
