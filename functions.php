@@ -215,7 +215,7 @@ function legendary_toolkit_scripts() {
     wp_enqueue_script('legendary_toolkit_mobile_menu_script', get_template_directory_uri() . '/inc/assets/js/menu.js', array(), '', true);
 
     // temporary stylesheet for development
-    wp_enqueue_style('legendary_toolkit_development_css', get_template_directory_uri() . '/inc/assets/css/theme-styles-development.css');
+    // wp_enqueue_style('legendary_toolkit_development_css', get_template_directory_uri() . '/inc/assets/css/theme-styles-development.css');
 
 }
 add_action( 'wp_enqueue_scripts', 'legendary_toolkit_scripts' );
