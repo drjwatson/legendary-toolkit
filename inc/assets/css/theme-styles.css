@@ -98,20 +98,33 @@ body:not(.theme-preset-active) #masthead .navbar-nav>li.current_page_item>a {
     font-size: var(--menu_items_font_size, 14px);
 }
 
-#main-nav>ul.navbar-nav>li>a:not(.btn),
-body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(.btn),
-body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(.btn):hover,
-body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(.btn),
-body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(.btn):hover,
+a.nav-link{
+    padding:0 16px;
+}
+
+.navbar-nav{
+    align-items: center;
+}
+
+.menu-cart {
+    width: 100px;
+    text-align: center;
+}
+
+#main-nav>ul.navbar-nav>li>a:not(li.btn a),
+body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(li.btn a),
+body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(li.btn a):hover,
+body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(li.btn a),
+body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(li.btn a):hover,
 body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li.current_page_item>a {
     line-height: var(--logo_height, 100px);
 }
 
-#main-nav>ul.navbar-nav>li>a:not(.btn),
-body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(.btn),
-body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(.btn):hover,
-body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(.btn),
-body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(.btn):hover,
+#main-nav>ul.navbar-nav>li>a:not(li.btn a),
+body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(li.btn a),
+body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(li.btn a):hover,
+body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(li.btn a),
+body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(li.btn a):hover,
 body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li.current_page_item>a {
     line-height: var(--scrolling_logo_height, 100px);
 }
@@ -128,8 +141,7 @@ body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li.current_page_it
 }
 
 body:not(.theme-preset-active) #masthead .navbar-nav>li>a {
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding:0 14px;
 }
 
 header#masthead {
@@ -151,6 +163,11 @@ body:not(.theme-preset-active) footer#colophon {
 }
 
 /* Header Behavior */
+header#masthead{
+    transition:.25s;
+    padding:0;
+}
+
 header#masthead:not(.is-stuck) {
     box-shadow: none;
 }
@@ -159,8 +176,12 @@ header#masthead.sticky-top.is-stuck {
     background-color: var(--scrolling_header_background);
 }
 
-header#masthead.is_transparent+#content {
+.home header#masthead.is_transparent+#content {
     margin-top: calc(var(--logo_height, 100px) * -1);
+}
+
+body:not(.home) header#masthead {
+    background-color: var(--scrolling_header_background);
 }
 
 header#masthead #site_logo {
@@ -175,6 +196,7 @@ header#masthead.is-stuck #site_logo {
 body.admin-bar header#masthead.is-stuck {
     padding-top: 32px;
 }
+
 slide-drawer::shadow .tkmm-toggle:not(.close) span {
     background-color: white!important;
 }

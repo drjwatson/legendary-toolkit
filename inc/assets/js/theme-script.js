@@ -63,12 +63,38 @@ jQuery( function ( $ ) {
     fullWidthSection();
 
     function page_full_height() {
-        var non_content_height = $('.top-bar-content').outerHeight() + $('#masthead').outerHeight() + $('#page_title').outerHeight() + $('#footer').outerHeight() + $('#wpadminbar').outerHeight();
+
+        // set a variable to hold the content height
+        var non_content_height = 0;
+
+        // check each main element for the height to calculate away from the content area min-height
+        if($('.top-bar-content').length){
+            non_content_height += $('.top-bar-content').outerHeight();
+        }
+        if($('#masthead').length){
+            non_content_height += $('#masthead').outerHeight();
+            
+            // account for transparent masthead
+            if($('#masthead.is_transparent').length){
+                non_content_height -= $('#masthead').outerHeight();
+            }
+            // console.log($('#masthead').outerHeight());
+        }
+        if($('#page_title').length){
+            non_content_height += $('#page_title').outerHeight();
+        }
+        if($('#footer').length){
+            non_content_height += $('#footer').outerHeight();
+        }
+        if($('#wpadminbar').length){
+            non_content_height += $('#wpadminbar').outerHeight();
+        }
         var content_height = $(window).height() - non_content_height;
         content_height = (content_height < 0 ) ? 0 : content_height;
         $('#content').css('min-height', `${content_height}px`);
     }
     page_full_height();
+    
     $( window ).resize(function() {
         fullWidthSection();
         page_full_height();

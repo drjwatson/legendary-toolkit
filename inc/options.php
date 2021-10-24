@@ -281,7 +281,6 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_footer')">Footer</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_typography')">Typography</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_blog')">Blog</button>
-                        <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_examples')">Examples</button>
                     </div>
                 </div>
 				<form method="post" action="options.php" id="legendary_toolkit_form">
@@ -494,6 +493,13 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <td>
                                     <?php $value = self::get_theme_option( 'footer_background' );?>
                                     <input class="color-field" type="text" name="theme_options[footer_background]" value="<?=esc_attr( $value );?>">
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Copyright Background', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'copyright_background' );?>
+                                    <input class="color-field" type="text" name="theme_options[copyright_background]" value="<?=esc_attr( $value );?>">
                                 </td>
                             </tr>
                             <tr valign="top">
