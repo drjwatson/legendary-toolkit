@@ -242,10 +242,6 @@ slide-drawer::shadow .tkmm-toggle:not(.close) span {
     #wpadminbar {
         position: fixed;
     }
-
-    body.admin-bar header#masthead.is-stuck {
-        /* top: 46px; */
-    }
 }
 
 a {
