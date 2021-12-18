@@ -15,8 +15,9 @@ get_header(); ?>
 		<div id="main" class="site-main" role="main">
 
 		<?php
+		// echo $show_sidebar_archive;
 		if ( have_posts() ) : ?>
-
+		
 			<header class="page-header">
 				<?php
 					the_archive_title( '<h1 class="page-title">', '</h1>' );

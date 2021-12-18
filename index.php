@@ -1,33 +1,24 @@
 <?php
 /**
- * The main template file
- *
- * This is the most generic template file in a WordPress theme
- * and one of the two required files for a theme (the other being style.css).
- * It is used to display a page when nothing more specific matches a query.
- * E.g., it puts together the home page when no home.php file exists.
+ * The template for displaying archive pages
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
  * @package WP_Bootstrap_Starter
  */
-
+$theme_options = legendary_toolkit_get_theme_options();
+$show_sidebar_archive = (array_key_exists('show_sidebar_archive', $theme_options) && $theme_options['show_sidebar_archive']) ? $theme_options['show_sidebar_archive'] : false;
+$container_column_class = ($show_sidebar_archive) ? 'col-lg-8' : 'col-lg-12';
 get_header(); ?>
 
-	<section id="primary" class="content-area col-sm-12 col-md-12 col-lg-8">
+	<section id="primary" class="content-area col-sm-12 <?=$container_column_class;?>">
 		<div id="main" class="site-main" role="main">
 
 		<?php
-		if ( have_posts() ) :
-
-			if ( is_home() && ! is_front_page() ) : ?>
-				<header>
-					<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
-				</header>
+		// echo $show_sidebar_archive;
+		if ( have_posts() ) : ?>
 
 			<?php
-			endif;
-
 			/* Start the Loop */
 			while ( have_posts() ) : the_post();
 
@@ -52,5 +43,8 @@ get_header(); ?>
 	</section><!-- #primary -->
 
 <?php
-get_sidebar();
+if ($show_sidebar_archive) {
+	get_sidebar();
+}
+
 get_footer();

@@ -124,6 +124,23 @@ body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(li.btn a)
 body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li.current_page_item>a:not(li.btn a) {
     line-height: var(--scrolling_logo_height, 100px);
 }
+
+.btn:not(:disabled):not(.disabled),
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show>.btn-primary.dropdown-toggle {
+     background: var(--primary_color);
+}
+
+.frm_style_formidable-style.with_frm_style .frm_compact .frm_dropzone.dz-clickable .dz-message,
+.frm_style_formidable-style.with_frm_style input[type=submit],
+.frm_style_formidable-style.with_frm_style .frm_submit input[type=button],
+.frm_style_formidable-style.with_frm_style .frm_submit button,
+.frm_form_submit_style,
+.frm_style_formidable-style.with_frm_style .frm-edit-page-btn{
+    background: var(--primary_color);
+}
+
 .dropdown-menu .dropdown-item {
     font-family: var(--menu_items_font_family, var(--all_font_family), sans-serif);
     font-style: var(--menu_items_font_style, var(--all_font_style), normal);
@@ -133,11 +150,21 @@ body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li.current_page_it
 }
 #site_logo {
     height: var(--logo_height, 100px);
-    padding: 15px 0px;
+    padding: 0px 0px;
 }
 
 body:not(.theme-preset-active) #masthead .navbar-nav>li>a {
     padding:0 14px;
+}
+
+blockquote p {
+    margin: 0 0 1rem;
+    margin-left: 40px;
+    border-left: 2px solid var(--primary_color);
+    padding-left: 20px;
+    font-size:1.5rem;
+    margin-top:80px;
+    margin-bottom:80px;
 }
 
 header#masthead {

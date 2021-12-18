@@ -650,8 +650,9 @@ add_filter( 'excerpt_length', function($length) {
     $custom_limit = legendary_toolkit_get_theme_option('excerpt_length_limit');
     if ($custom_limit) {
         return $custom_limit;
+    } else {
+        return 2;
     }
-    return 40;
 }, PHP_INT_MAX );
 
 /**
