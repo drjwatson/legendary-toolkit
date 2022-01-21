@@ -14,7 +14,7 @@ template.innerHTML = `
 			left: 0;
 			width: 100vw;
 			height: 100vh;
-			z-index: 999;
+			z-index: 9996;
 			//background: rgba(0,0,0,.5);
 			opacity: 0;
 			visibility: hidden;
@@ -24,10 +24,10 @@ template.innerHTML = `
 		}
 		#grab {
             position: absolute;
-            z-index: 9999;
+            z-index: 9997;
             top: 0;
             height: 100vh;
-            width: 30px;
+            width: 20px;
 		}
 		.animate {
 		  transition: all ease .25s;
@@ -35,7 +35,7 @@ template.innerHTML = `
 
 		.tkmm-toggle {
             width: 20px;
-            z-index: 9999;
+            z-index: 9998;
             height: 30px;
             position: absolute;
             top: 40px;
@@ -56,6 +56,7 @@ template.innerHTML = `
 			position: relative;
 			top: 5px;
 			left: 5px;
+			z-index:9999;
 		}
 		.tkmm-toggle span {
             display: block;
@@ -229,32 +230,36 @@ class SlideDrawer extends HTMLElement {
 	// handles mouse down and drag on drawer
 	
 	handleMouseDown = e => {
+		console.log(e);
 		this.drawer.classList.remove('animate')
 		this.overlay.classList.add('on')
 		
 		// moves drawer with mouse position during drag
-	
+		
+		let count_thing = 0;
 		const moveAt = e => {
-			
-
-			let pageX = e.type == 'touch' ?  e.pageX : e.touches[0].clientX
-			
-			
-			if(this.right) {
-				if(pageX > window.innerWidth - this.drawer.offsetWidth && this.drawer.getBoundingClientRect().left <= window.innerWidth + 20) {
-					this.drawer.style.left = pageX + 'px'
+				
+				let pageX = e.type == 'touch' ?  e.pageX : e.touches[0].clientX
+				
+				count_thing++;
+				console.log('mousedown:' + count_thing)
+				
+				if(this.right) {
+					if(pageX > window.innerWidth - this.drawer.offsetWidth && this.drawer.getBoundingClientRect().left <= window.innerWidth + 10) {
+						this.drawer.style.left = pageX + 'px'
+						console.log(pageX)
+					}
+				} else {
+					if(pageX < this.drawer.offsetWidth && this.drawer.getBoundingClientRect().right >= -10) {
+						this.drawer.style.left = pageX - this.drawer.offsetWidth + 'px'
+					}
 				}
-			} else {
-				if(pageX < this.drawer.offsetWidth && this.drawer.getBoundingClientRect().right >= -20) {
-					this.drawer.style.left = pageX - this.drawer.offsetWidth + 'px'
-				}
-			}
 		}
 		
 		// checks current position of drawer converts to percentage completed and sets overlay opacity as such
 		
 		const overlayPercentage = e => {
-			let pageX = e.type == 'touch' ? e.touches[0].clientX : e.pageX
+			let pageX = e.type == 'touch' ? e.pageX : e.touches[0].clientX
 			
 			if(this.right) {
 				let percentage = 1 - ((pageX - (window.innerWidth - this.drawer.offsetWidth)) / this.drawer.offsetWidth)
@@ -280,14 +285,14 @@ class SlideDrawer extends HTMLElement {
 		
 		// event listener added on mouse down for dragging
 		
-		document.addEventListener('mousemove', onMouseMove)
-		document.addEventListener('touchmove', onMouseMove)
+		this.grab.addEventListener('mousemove', onMouseMove)
+		this.grab.addEventListener('touchmove', onMouseMove)
 
 		// on mouse up checks current drawer position for open/close threshold and kills mouse move listener
 		
-		document.onmouseup = () => {
-			document.removeEventListener('mousemove', onMouseMove)
-			document.onmouseup = null
+		this.grab.onmouseup = () => {
+			this.grab.removeEventListener('mousemove', onMouseMove)
+			this.grab.onmouseup = null
 			if(this.right) {
 				this.drawer.getBoundingClientRect().left < window.innerWidth - (this.drawer.offsetWidth / 4) ? 
 				this.open() : this.close()
@@ -297,9 +302,9 @@ class SlideDrawer extends HTMLElement {
 			}
 		}
 		
-		document.ontouchend = () => {
-			document.removeEventListener('mousemove', onMouseMove)
-			document.onmouseup = null
+		this.grab.ontouchend = () => {
+			this.grab.removeEventListener('mousemove', onMouseMove)
+			this.grab.onmouseup = null
 			if(this.right) {
 				this.drawer.getBoundingClientRect().left < window.innerWidth - (this.drawer.offsetWidth / 4) ? 
 				this.open() : this.close()
@@ -314,6 +319,7 @@ class SlideDrawer extends HTMLElement {
 		this.grab.ondragstart = () => {
   			return false
 		}
+
 	}
 	
 	// checks if drawer is open/closed when the menu button is clicked and toggles it
@@ -373,7 +379,7 @@ class SlideDrawer extends HTMLElement {
 	handleOpenMouseDown = e => {
 		
 		const handleOpenMove = e => {
-			let pageX = e.type == 'touch' ? e.touches[0].clientX : e.pageX
+			let pageX = e.type == 'touch' ? e.pageX : e.touches[0].clientX
 			
 			if(this.right) {
 				if(pageX + this.distance > window.innerWidth - this.drawer.offsetWidth && this.drawer.getBoundingClientRect().left <= window.innerWidth + 10) {
@@ -388,7 +394,7 @@ class SlideDrawer extends HTMLElement {
 		}
 		
 		const overlayPercentage = e => {
-			let pageX = e.type == 'touch' ? e.touches[0].clientX : e.pageX
+			let pageX = e.type == 'touch' ? e.pageX : e.touches[0].clientX
 			
 			if(this.right) {
 				let percentage = 1 - (((pageX + this.distance ) - (window.innerWidth - this.drawer.offsetWidth)) / this.drawer.offsetWidth)
@@ -414,8 +420,8 @@ class SlideDrawer extends HTMLElement {
 			this.distance = this.right ? x2 - x1 : x1 - x2
 			this.drawer.classList.remove('animate')
 			
-			document.addEventListener('mousemove', onMove)
-			document.addEventListener('touchmove', onMove)
+			this.grab.addEventListener('mousemove', onMove)
+			this.grab.addEventListener('touchmove', onMove)
 			
 			this.overlay.removeEventListener('mousedown', this.handleOpenMouseDown)
 			this.overlay.removeEventListener('touchstart', this.handleOpenMouseDown)
