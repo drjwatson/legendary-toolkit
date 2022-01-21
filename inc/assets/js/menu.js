@@ -27,7 +27,7 @@ template.innerHTML = `
             z-index: 9999;
             top: 0;
             height: 100vh;
-            width: 10px;
+            width: 30px;
 		}
 		.animate {
 		  transition: all ease .25s;
@@ -178,11 +178,11 @@ class SlideDrawer extends HTMLElement {
 		
 		if(this.right) {
 			this.drawer.style.left = window.innerWidth + 'px'
-			this.grab.style.left = '-10px'
+			this.grab.style.left = '-20px'
 			// this.toggle.classList.add('right')
 		} else {
 			this.drawer.style.left = -this.drawer.offsetWidth + 'px'
-			this.grab.style.right = '-10px'
+			this.grab.style.right = '-20px'
 			// this.toggle.classList.add('left')
 		}
 		this.resizeId
@@ -233,16 +233,19 @@ class SlideDrawer extends HTMLElement {
 		this.overlay.classList.add('on')
 		
 		// moves drawer with mouse position during drag
-		
+	
 		const moveAt = e => {
-			let pageX = e.type == 'touch' ? e.touches[0].clientX : e.pageX
+			
+
+			let pageX = e.type == 'touch' ?  e.pageX : e.touches[0].clientX
+			
 			
 			if(this.right) {
-				if(pageX > window.innerWidth - this.drawer.offsetWidth && this.drawer.getBoundingClientRect().left <= window.innerWidth + 10) {
+				if(pageX > window.innerWidth - this.drawer.offsetWidth && this.drawer.getBoundingClientRect().left <= window.innerWidth + 20) {
 					this.drawer.style.left = pageX + 'px'
 				}
 			} else {
-				if(pageX < this.drawer.offsetWidth && this.drawer.getBoundingClientRect().right >= -10) {
+				if(pageX < this.drawer.offsetWidth && this.drawer.getBoundingClientRect().right >= -20) {
 					this.drawer.style.left = pageX - this.drawer.offsetWidth + 'px'
 				}
 			}
@@ -516,7 +519,7 @@ const observer = new IntersectionObserver(
   {threshold: [1]}
 );
 
-observer.observe(stickyElm)
+observer.observe(stickyElm)        
 
 jQuery(document).ready(function($) { 
 	$('.navbar .dropdown').hover(function() {
