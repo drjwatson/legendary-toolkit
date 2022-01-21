@@ -3,7 +3,7 @@ template.innerHTML = `
 	<style>
 		#drawer {
             position: fixed;
-            z-index: 9999;
+            z-index: 9998;
             top: 0;
             bottom: 0;
             user-select: none;
@@ -14,7 +14,7 @@ template.innerHTML = `
 			left: 0;
 			width: 100vw;
 			height: 100vh;
-			z-index: 9996;
+			z-index: 9991;
 			//background: rgba(0,0,0,.5);
 			opacity: 0;
 			visibility: hidden;
@@ -24,7 +24,7 @@ template.innerHTML = `
 		}
 		#grab {
             position: absolute;
-            z-index: 9997;
+            z-index: 9993;
             top: 0;
             height: 100vh;
             width: 20px;
@@ -32,11 +32,11 @@ template.innerHTML = `
 		.animate {
 		  transition: all ease .25s;
 		}
-
 		.tkmm-toggle {
             width: 20px;
-            z-index: 9998;
-            height: 30px;
+            z-index: 9994;
+            height: 40px;
+            width: 40px;
             position: absolute;
             top: 40px;
 			left: 20px;
@@ -56,12 +56,14 @@ template.innerHTML = `
 			position: relative;
 			top: 5px;
 			left: 5px;
-			z-index:9999;
 		}
 		.tkmm-toggle span {
-            display: block;
+			margin: 0 auto;
+			right: 0;
             position: absolute;
             height: 2px;
+			width:20px !important;
+			display:block;
             width: 100%;
 			background: var(--menu_items_font_color, var(--all_font_color), black);
             border-radius: 2px;
@@ -187,6 +189,8 @@ class SlideDrawer extends HTMLElement {
 			// this.toggle.classList.add('left')
 		}
 		this.resizeId
+
+		document.getElementById("menu-wrapper").style.display = "block";
     }
 	
 	// Add event listeners once web component mounts
@@ -230,24 +234,24 @@ class SlideDrawer extends HTMLElement {
 	// handles mouse down and drag on drawer
 	
 	handleMouseDown = e => {
-		console.log(e);
+		// console.log(e);
 		this.drawer.classList.remove('animate')
 		this.overlay.classList.add('on')
 		
 		// moves drawer with mouse position during drag
 		
-		let count_thing = 0;
+		// let count_thing = 0;
 		const moveAt = e => {
+			
+			let pageX = e.type == 'touch' ?  e.pageX : e.touches[0].clientX
+			// count_thing++;
+			// console.log('mousedown:' + count_thing)
 				
-				let pageX = e.type == 'touch' ?  e.pageX : e.touches[0].clientX
-				
-				count_thing++;
-				console.log('mousedown:' + count_thing)
 				
 				if(this.right) {
 					if(pageX > window.innerWidth - this.drawer.offsetWidth && this.drawer.getBoundingClientRect().left <= window.innerWidth + 10) {
 						this.drawer.style.left = pageX + 'px'
-						console.log(pageX)
+						// console.log(pageX)
 					}
 				} else {
 					if(pageX < this.drawer.offsetWidth && this.drawer.getBoundingClientRect().right >= -10) {
@@ -347,8 +351,11 @@ class SlideDrawer extends HTMLElement {
 		this.right ? 
 			this.drawer.style.left = window.innerWidth - this.drawer.offsetWidth + 'px' : this.drawer.style.left = 0
 		this.overlay.style.opacity = 1
+		
+
 		this.overlay.addEventListener('mousedown', this.handleOpenMouseDown)
 		this.overlay.addEventListener('touchstart', this.handleOpenMouseDown)
+		
 	}
 	
 	// removes all classes to close drawer and overlay, sets drawer back to closed position

@@ -89,7 +89,7 @@
                 ?>
                 <!-- Mobile Menu -->
                 <slide-drawer width="<?=$mobile_menu_width;?>" overlayOpacity=".7" mobileWidth="<?=$mobile_menu_width;?>" mobileBreak="<?=$mobile_menu_breakpoint;?>" <?=$mobile_menu_position;?>>
-                    <div id="menu-wrapper">
+                    <div id="menu-wrapper" style="display:none";>
                         <div id="menu_top">
                             <?php if ($logo) : ?>
                             <a href="<?php echo esc_url( home_url( '/' )); ?>">
