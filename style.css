@@ -447,6 +447,12 @@ body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a 
     border-radius: 6px 0 6px 6px;
 }
 
+#mobile_site_logo {
+  padding: 15px;
+  margin: 20px auto;
+  display: block;
+}
+
 /* Small menu. */
 .menu-toggle,
 .main-navigation.toggled ul {
