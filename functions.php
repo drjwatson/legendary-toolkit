@@ -172,16 +172,14 @@ add_action( 'widgets_init', 'legendary_toolkit_widgets_init' );
 function legendary_toolkit_scripts() {
 	// load bootstrap css
     if ( get_theme_mod( 'cdn_assets_setting' ) === 'yes' ) {
-        wp_enqueue_style( 'legendary-toolkit-bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css' );
+        wp_enqueue_style( 'legendary-toolkit-bootstrap-cdn', 'https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css' );
         wp_enqueue_style( 'legendary-toolkit-fontawesome-cdn', 'https://use.fontawesome.com/releases/v5.15.1/css/all.css' );
     } else {
-        wp_enqueue_style( 'legendary-toolkit-bootstrap-css', get_template_directory_uri() . '/inc/assets/css/bootstrap.min.css' );
-        wp_enqueue_style( 'legendary-toolkit-fontawesome-cdn', get_template_directory_uri() . '/inc/assets/css/fontawesome.min.css' );
+        wp_enqueue_style( 'legendary-toolkit-bootstrap', get_template_directory_uri() . '/inc/assets/css/bootstrap.min.css' );
+        wp_enqueue_style( 'legendary-toolkit-fontawesome', get_template_directory_uri() . '/inc/assets/css/fontawesome.min.css' );
     }
+    
 	// load bootstrap css
-	// load AItheme styles
-	// load Legendary Toolkit styles
-	wp_enqueue_style( 'legendary-toolkit-style', get_stylesheet_uri() );
 	wp_enqueue_script('jquery');
     
     // Internet Explorer HTML5 support
@@ -201,21 +199,22 @@ function legendary_toolkit_scripts() {
 	// 	wp_enqueue_script( 'comment-reply' );
 	// }
 
-    // parent styles
-    wp_enqueue_style('legendary_toolkit_styles', get_template_directory_uri() . '/style.css');
-
-    // append theme options stylesheet after parent theme styles
-    wp_add_inline_style( 'legendary_toolkit_styles', legendary_toolkit_theme_options_css() );
-
-    // theme styles from settings
-    wp_enqueue_style('legendary_toolkit_theme_settings_styles', get_template_directory_uri() . '/inc/assets/css/theme-styles.css');
-
+    
     // custom mobile menu
     wp_enqueue_style('legendary_toolkit_mobile_menu_styles', get_template_directory_uri() . '/inc/assets/css/menu.css');
     wp_enqueue_script('legendary_toolkit_mobile_menu_script', get_template_directory_uri() . '/inc/assets/js/menu.js', array(), '', true);
+    
+	// load Legendary Toolkit styles
+	// wp_enqueue_style( 'legendary-toolkit-style', get_stylesheet_uri() );
+    
+    // parent styles
+    wp_enqueue_style('legendary-toolkit', get_template_directory_uri() . '/style.css');
 
-    // temporary stylesheet for development
-    // wp_enqueue_style('legendary_toolkit_development_css', get_template_directory_uri() . '/inc/assets/css/theme-styles-development.css');
+    // theme styles from settings
+    wp_enqueue_style('legendary_toolkit_theme_settings_styles', get_template_directory_uri() . '/inc/assets/css/theme-styles.css');
+    
+    // append theme options stylesheet after parent theme styles
+    wp_add_inline_style( 'legendary-toolkit', legendary_toolkit_theme_options_css() );    
 
 }
 add_action( 'wp_enqueue_scripts', 'legendary_toolkit_scripts' );
