@@ -745,3 +745,4 @@ function legendary_cart_in_menu ( $items, $args ) {
     }
     return $items;
 }
+

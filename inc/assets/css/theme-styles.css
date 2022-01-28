@@ -129,7 +129,7 @@ body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li.current_page_it
 .btn-primary:not(:disabled):not(.disabled).active,
 .btn-primary:not(:disabled):not(.disabled):active,
 .show>.btn-primary.dropdown-toggle {
-     background: var(--primary_color);
+     /* background: var(--primary_color); */
 }
 
 .frm_style_formidable-style.with_frm_style .frm_compact .frm_dropzone.dz-clickable .dz-message,

@@ -532,7 +532,7 @@ const observer = new IntersectionObserver(
   {threshold: [1]}
 );
 
-observer.observe(stickyElm)        
+observer.observe(stickyElm)
 
 jQuery(document).ready(function($) { 
 	$('.navbar .dropdown').hover(function() {
