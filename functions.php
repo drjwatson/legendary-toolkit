@@ -349,14 +349,14 @@ function legendary_toolkit_theme_options_css() {
         $font_weight = get_saved_font_weight($id . '_font_weight', $options);
         $font_size = get_saved_font_size($id . '_font_size', $options);
         $font_transform = get_saved_font_transform($id . '_font_transform', $options);
-
+        $spacer = "              ";
         $style_return = "";
-        $style_return .= ($font_family) ? "--".$id."_font_family : ".$font_family.";" : '';
-        $style_return .= ($font_color) ? "--".$id."_font_color : ".$font_color.";" : '';
-        $style_return .= ($font_style) ? "--".$id."_font_style : ".$font_style.";" : '';
-        $style_return .= ($font_weight) ? "--".$id."_font_weight : ".$font_weight.";" : '';
-        $style_return .= ($font_size) ? "--".$id."_font_size : ".$font_size.";" : '';
-        $style_return .= ($font_transform) ? "--".$id."_font_transform : ".$font_transform.";" : '';
+        $style_return .= ($font_family) ? "--".$id."_font_family : ".$font_family.";\n"  : '';
+        $style_return .= ($font_color) ? $spacer . "--".$id."_font_color : ".$font_color.";\n" : '';
+        $style_return .= ($font_style) ? $spacer . "--".$id."_font_style : ".$font_style.";\n" : '';
+        $style_return .= ($font_weight) ? $spacer . "--".$id."_font_weight : ".$font_weight.";\n" : '';
+        $style_return .= ($font_size) ? $spacer . "--".$id."_font_size : ".$font_size.";\n" : '';
+        $style_return .= ($font_transform) ? $spacer . "--".$id."_font_transform : ".$font_transform.";" : '';
 
         return $style_return;
     }
@@ -373,15 +373,15 @@ function legendary_toolkit_theme_options_css() {
             --top_bar_background : $top_bar_background;
             --footer_background : $footer_background;
             --copyright_background : $copyright_background;
-            " . define_font_variables('body', $theme_options) . "
-            " . define_font_variables('h1', $theme_options) . "
-            " . define_font_variables('h2', $theme_options) . "
-            " . define_font_variables('h3', $theme_options) . "
-            " . define_font_variables('h4', $theme_options) . "
-            " . define_font_variables('h5', $theme_options) . "
-            " . define_font_variables('h6', $theme_options) . "
-            " . define_font_variables('all', $theme_options) . "
-            " . define_font_variables('menu_items', $theme_options) . "
+            " . define_font_variables('all', $theme_options) . " \n
+            " . define_font_variables('body', $theme_options) . " \n
+            " . define_font_variables('h1', $theme_options) . " \n
+            " . define_font_variables('h2', $theme_options) . " \n
+            " . define_font_variables('h3', $theme_options) . " \n
+            " . define_font_variables('h4', $theme_options) . " \n
+            " . define_font_variables('h5', $theme_options) . " \n
+            " . define_font_variables('h6', $theme_options) . " \n
+            " . define_font_variables('menu_items', $theme_options) . " \n
         }
     ";
     // print_r($custom_css);

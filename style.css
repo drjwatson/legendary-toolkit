@@ -260,6 +260,8 @@ h3.widget-title {
   margin-bottom:14px;
 }
 
+
+
 /*--------------------------------------------------------------
 # Elements
 --------------------------------------------------------------*/
@@ -345,6 +347,10 @@ a.page-scroller {
   margin-top: 2rem;
 }
 
+.navbar li.btn {
+  margin-left: 30px;
+}
+
 @media screen and (min-width: 768px) {
   body:not(.theme-preset-active) #page-sub-header h1 {
     font-size: 3.750rem;
@@ -394,10 +400,19 @@ body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a 
   background: #000 none repeat scroll 0 0;
 }
 
+.dropdown-toggle::after{
+  content: '\f0d7';
+  font-family: "Font Awesome 5 Free";
+  color:white;
+  border-right:0;
+  border-bottom:0;
+  border-left:0;
+  border-top:0;
+
+}
+
 .dropdown-menu .dropdown-toggle::after {
-  border-bottom: 0.3em solid transparent;
-  border-left: 0.3em solid;
-  border-top: 0.3em solid transparent;
+  
 }
 
 .dropdown.menu-item-has-children .dropdown.menu-item-has-children {

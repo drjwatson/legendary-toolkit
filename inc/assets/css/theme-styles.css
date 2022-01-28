@@ -8,6 +8,7 @@ p {
     font-size: var(--body_font_size, 16px);
 }
 
+
 h1,
 h2,
 h3,
@@ -75,15 +76,6 @@ h6 {
     font-size: var(--h6_font_size, 14px);
 }
 
-h6 {
-    font-family: var(--h6_font_family, var(--all_font_family), sans-serif);
-    color: var(--h6_font_color, var(--all_font_color), black);
-    font-style: var(--h6_font_style, var(--all_font_style), normal);
-    font-weight: var(--h6_font_weight, var(--all_font_weight), bold);
-    text-transform: var(--h6_font_transform, var(--all_font_weight), none);
-    font-size: var(--h6_font_size, 14px);
-}
-
 #main-nav>ul.navbar-nav>li>a,
 body:not(.theme-preset-active) #masthead .navbar-nav>li>a,
 body:not(.theme-preset-active) #masthead .navbar-nav>li>a:hover,
@@ -129,7 +121,8 @@ body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li.current_page_it
 .btn-primary:not(:disabled):not(.disabled).active,
 .btn-primary:not(:disabled):not(.disabled):active,
 .show>.btn-primary.dropdown-toggle {
-     /* background: var(--primary_color); */
+     background: var(--primary_color);
+     border-color: var(--primary_color);
 }
 
 .frm_style_formidable-style.with_frm_style .frm_compact .frm_dropzone.dz-clickable .dz-message,
