@@ -93,7 +93,7 @@
                         <div id="menu_top">
                             <?php if ($logo) : ?>
                             <a href="<?php echo esc_url( home_url( '/' )); ?>">
-                                <img id="mobile_site_logo" style="height:<?=$logo_height.'px';?>" src="<?php echo $logo_url; ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+                                <img id="mobile_site_logo" src="<?php echo $logo_url; ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
                             </a>
                             <?php else : ?>
                                 <a class="site-title" href="<?php echo esc_url( home_url( '/' )); ?>"><?php esc_url(bloginfo('name')); ?></a>
