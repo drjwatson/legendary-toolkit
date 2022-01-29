@@ -545,7 +545,7 @@ document.addEventListener('scroll', function(e){
 	if(window.scrollY > 50){
 		stickyElm.classList.add('is-stuck');
 	}
-	if(window.scrollY < 10){
+	if(window.scrollY < 45){
 		stickyElm.classList.remove('is-stuck');
 	}
 	// console.log(observer, 'counterthingy: ' + counterthingy);
