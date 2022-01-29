@@ -203,7 +203,7 @@ body:not(.home) header#masthead {
 header#masthead #site_logo {
     height: var(--logo_height, 100px);
     transition: height 200ms ease-in-out;
-    position:absolute;
+    position:relative;
     top:0;
 }
 
