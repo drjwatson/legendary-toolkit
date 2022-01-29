@@ -24,20 +24,17 @@ function open_settings_tab(evt, tabName) {
 
 }
 
+// reset window to top on click
 jQuery('.tablinks').on('click', function(e){
     if(window.scrollY > 1){
-        jQuery(window).scrollTop(0)
+        window.scroll(0, 0)
     }
 });
 
-// (function() {
-//     
-// })();
 
 jQuery(document).ready(function( $ ) {
 
-    // after settings page loads, check to see which tab was last visited and display that
-
+    // after settings page loads, check to see which tab was visited and display it
     let default_tab = 'legendary_toolkit_general_tab';
     let default_page = 'legendary_toolkit_general';
 
@@ -46,7 +43,8 @@ jQuery(document).ready(function( $ ) {
         default_tab = url.substring(url.indexOf("#")+1);
         default_page = url.substring(url.indexOf("#")+1);
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // reset window to top on loac and set display and active tab highlight
+    window.scroll(0, 0)
     document.getElementById(default_page).style.display = "block";
     document.getElementById(default_page).addClass = "active";
 

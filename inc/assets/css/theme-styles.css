@@ -151,15 +151,14 @@ body:not(.theme-preset-active) #masthead .navbar-nav>li>a {
 }
 
 blockquote p {
-    margin: 0 0 1rem;
+    margin: 50px;
     margin-left: 40px;
     border-left: 2px solid var(--primary_color);
     padding-left: 20px;
-    font-size:1.5rem;
-    margin-top:80px;
-    margin-bottom:80px;
+    font-size: 1.5rem;
+    margin-top: 80px;
+    margin-bottom: 80px;
 }
-
 header#masthead {
     background-color: var(--header_background);
 }
