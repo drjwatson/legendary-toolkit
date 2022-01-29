@@ -401,18 +401,19 @@ body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a 
 }
 
 .dropdown-toggle::after{
-  content: '\f0d7';
   font-family: "Font Awesome 5 Free";
+  content: "\f0d7";
+  font-weight:900;
   color:white;
   border-right:0;
+  font-size:12px;
   border-bottom:0;
   border-left:0;
   border-top:0;
+  display: inline;
+  margin-left: 10px;
+  vertical-align: initial;
 
-}
-
-.dropdown-menu .dropdown-toggle::after {
-  
 }
 
 .dropdown.menu-item-has-children .dropdown.menu-item-has-children {
@@ -433,17 +434,18 @@ body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a 
 }
 
 .dropdown.menu-item-has-children .dropdown.menu-item-has-children>a:after {
-    display: block;
-    content: " ";
-    float: right;
-    width: 0;
-    height: 0;
-    border-color: transparent;
-    border-style: solid;
-    border-width: 5px 0 5px 5px;
-    border-left-color: #ccc;
-    margin-top: 5px;
-    margin-right: -10px;
+  font-family: "Font Awesome 5 Free";
+  content: "\f0da";
+  font-weight:900;
+  color:#dcdcdc;
+  border-right:0;
+  font-size:12px;
+  border-bottom:0;
+  border-left:0;
+  border-top:0;
+  display: inline;
+  margin-left: 14px;
+  vertical-align: initial;
 }
 
 .dropdown.menu-item-has-children .dropdown.menu-item-has-children:hover>a:after {
