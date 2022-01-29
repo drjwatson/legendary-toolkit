@@ -303,6 +303,11 @@ function legendary_toolkit_theme_options_css() {
     $top_bar_background           = (array_key_exists('top_bar_background', $theme_options) && $theme_options['top_bar_background']) ? $theme_options['top_bar_background'] : '#111111';
     $footer_background            = (array_key_exists('footer_background', $theme_options) && $theme_options['footer_background']) ? $theme_options['footer_background'] : '#111111';
     $copyright_background         = (array_key_exists('copyright_background', $theme_options) && $theme_options['copyright_background']) ? $theme_options['copyright_background'] : 'black';
+    
+    $page_container_width         = (array_key_exists('page_container_width', $theme_options) && $theme_options['page_container_width']) ? $theme_options['page_container_width'] : '1320';
+
+    $favicon         = (array_key_exists('favicon', $theme_options) && $theme_options['favicon']) ? $theme_options['favicon'] : '';
+    $favicon_url               = ($favicon) ? esc_url(wp_get_attachment_image_url($favicon, 'medium')) : '';
 
     function get_saved_font_family($option, $options) {
         if (!array_key_exists($option, $options)) { return; }
@@ -349,9 +354,9 @@ function legendary_toolkit_theme_options_css() {
         $font_weight = get_saved_font_weight($id . '_font_weight', $options);
         $font_size = get_saved_font_size($id . '_font_size', $options);
         $font_transform = get_saved_font_transform($id . '_font_transform', $options);
-        $spacer = "              ";
-        $style_return = "";
-        $style_return .= ($font_family) ? "--".$id."_font_family : ".$font_family.";\n"  : '';
+        $spacer = "            ";
+        $style_return = "\n";
+        $style_return .= ($font_family) ? $spacer . "--".$id."_font_family : ".$font_family.";\n"  : '';
         $style_return .= ($font_color) ? $spacer . "--".$id."_font_color : ".$font_color.";\n" : '';
         $style_return .= ($font_style) ? $spacer . "--".$id."_font_style : ".$font_style.";\n" : '';
         $style_return .= ($font_weight) ? $spacer . "--".$id."_font_weight : ".$font_weight.";\n" : '';
@@ -373,20 +378,42 @@ function legendary_toolkit_theme_options_css() {
             --top_bar_background : $top_bar_background;
             --footer_background : $footer_background;
             --copyright_background : $copyright_background;
-            " . define_font_variables('all', $theme_options) . " \n
-            " . define_font_variables('body', $theme_options) . " \n
-            " . define_font_variables('h1', $theme_options) . " \n
-            " . define_font_variables('h2', $theme_options) . " \n
-            " . define_font_variables('h3', $theme_options) . " \n
-            " . define_font_variables('h4', $theme_options) . " \n
-            " . define_font_variables('h5', $theme_options) . " \n
-            " . define_font_variables('h6', $theme_options) . " \n
-            " . define_font_variables('menu_items', $theme_options) . " \n
+            --favicon_url : $favicon_url;
+            --page_container_width : $page_container_width"."px;
+            " . define_font_variables('all', $theme_options) . " 
+            " . define_font_variables('body', $theme_options) . " 
+            " . define_font_variables('h1', $theme_options) . " 
+            " . define_font_variables('h2', $theme_options) . " 
+            " . define_font_variables('h3', $theme_options) . " 
+            " . define_font_variables('h4', $theme_options) . " 
+            " . define_font_variables('h5', $theme_options) . " 
+            " . define_font_variables('h6', $theme_options) . " 
+            " . define_font_variables('menu_items', $theme_options) . "
         }
     ";
     // print_r($custom_css);
     return $custom_css;
 }
+
+function my_login_logo() { 
+    
+    // Define variables for theme options stylesheet
+    $theme_options = legendary_toolkit_get_theme_options();
+    $favicon         = (array_key_exists('favicon', $theme_options) && $theme_options['favicon']) ? $theme_options['favicon'] : '';
+    $favicon_url               = ($favicon) ? esc_url(wp_get_attachment_image_url($favicon, 'medium')) : '';
+    
+    ?>
+    <style type="text/css">
+        #login h1 a, .login h1 a {
+        background-image: url(<?php echo $favicon_url;?>);
+        background-size:contain;
+		height:100px;
+		width:100px;
+        padding-bottom: 4px;
+        }
+    </style>
+<?php }
+add_action( 'login_enqueue_scripts', 'my_login_logo' );
 
 /**
  * Add Preload for CDN scripts and stylesheet

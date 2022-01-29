@@ -322,6 +322,16 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                     <input class="color-field" type="text" name="theme_options[secondary_color]" value="<?=esc_attr( $value );?>">
                                 </td>
                             </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Page Container Width', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <div class="legendary-toolkit-input-group">
+                                        <?php $value = self::get_theme_option( 'page_container_width' );?>
+                                        <input type="number" name="theme_options[page_container_width]" value="<?=(esc_attr($value)) ? esc_attr($value) : '1320';?>">
+                                        <label class="suffix" for="theme_options[page_container_width]">px</label>
+                                    </div>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                     <div id="legendary_toolkit_header" class="tabcontent">
@@ -500,6 +510,13 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <td>
                                     <?php $value = self::get_theme_option( 'copyright_background' );?>
                                     <input class="color-field" type="text" name="theme_options[copyright_background]" value="<?=esc_attr( $value );?>">
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Full Width Footer?', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'full_width_footer' );?>
+                                    <label><input type="checkbox" name="theme_options[full_width_footer]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
                                 </td>
                             </tr>
                             <tr valign="top">
