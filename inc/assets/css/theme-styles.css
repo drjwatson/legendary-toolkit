@@ -287,11 +287,9 @@ a:hover {
     border: 1px solid black;
     border-collapse: collapse;
   }
-  .menu-cart th, .menu-cart td {
+.menu-cart th, .menu-cart td {
     padding: 15px;
-  }
-@media (min-width: 992px){
-    .container{
-      max-width:1320px;
-    }
-  }
+}
+.container{
+    max-width:var(--page_container_width);
+}

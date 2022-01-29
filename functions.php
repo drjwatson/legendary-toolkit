@@ -355,7 +355,7 @@ function legendary_toolkit_theme_options_css() {
         $font_size = get_saved_font_size($id . '_font_size', $options);
         $font_transform = get_saved_font_transform($id . '_font_transform', $options);
         $spacer = "            ";
-        $style_return = "\n";
+        $style_return = "";
         $style_return .= ($font_family) ? $spacer . "--".$id."_font_family : ".$font_family.";\n"  : '';
         $style_return .= ($font_color) ? $spacer . "--".$id."_font_color : ".$font_color.";\n" : '';
         $style_return .= ($font_style) ? $spacer . "--".$id."_font_style : ".$font_style.";\n" : '';
