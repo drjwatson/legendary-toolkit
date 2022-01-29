@@ -18,14 +18,41 @@ function open_settings_tab(evt, tabName) {
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
+    
+    // push the anchor to the window location
+    window.location.href = "#"+tabName;
+
 }
 
-(function() {
-    document.getElementById("legendary_toolkit_general_tab").click();
-})();
+jQuery('.tablinks').on('click', function(e){
+    if(window.scrollY > 1){
+        jQuery(window).scrollTop(0)
+    }
+});
+
+// (function() {
+//     
+// })();
 
 jQuery(document).ready(function( $ ) {
-	
+
+    // after settings page loads, check to see which tab was last visited and display that
+
+    let default_tab = 'legendary_toolkit_general_tab';
+    let default_page = 'legendary_toolkit_general';
+
+    if(window.location.hash){
+        url = window.location.href;
+        default_tab = url.substring(url.indexOf("#")+1);
+        default_page = url.substring(url.indexOf("#")+1);
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    document.getElementById(default_page).style.display = "block";
+    document.getElementById(default_page).addClass = "active";
+
+    // show the save button
+    $('#submit').removeClass('hidden');
+
     $('[name="theme_options[footer_columns]"]').on('input', function(ev) {
         var num_columns = $(this).val();
         $('[id^="footer_column_row_"]').each(function(i,el) {
@@ -83,4 +110,6 @@ jQuery(document).ready(function( $ ) {
             return false; 
         }
    });	
+
+
 });

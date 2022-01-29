@@ -264,7 +264,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <div class="save-toast save-success hidden"></div>
                                 <div class="save-toast save-error hidden"></div>
                             </div>
-                            <?php submit_button( __( 'Save Changes', 'legendary-toolkit' ), 'primary', 'submit', true, array( 'form' => 'legendary_toolkit_form' ) );?>
+                            <?php submit_button( __( 'Save Changes', 'legendary-toolkit' ), 'primary hidden', 'submit', true, array( 'form' => 'legendary_toolkit_form' ) );?>
                         </div>
                     </div>
                     <!-- <div class="updated notice inline hidden" style="margin:0px;">
