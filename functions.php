@@ -422,6 +422,14 @@ add_filter( 'the_password_form', 'legendary_toolkit_password_form' );
 
 
 
+add_action(
+    'after_setup_theme',
+    function() {
+        add_theme_support( 'html5', [ 'script', 'style' ] );
+    }
+);
+
+
 /**
  * Implement the Custom Header feature.
  */

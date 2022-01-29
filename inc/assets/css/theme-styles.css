@@ -162,7 +162,6 @@ blockquote p {
 
 header#masthead {
     background-color: var(--header_background);
-    padding-top: 1px;
 }
 
 .top-bar-content {
@@ -181,6 +180,8 @@ body:not(.theme-preset-active) footer#colophon {
 header#masthead{
     transition:.25s;
     padding:0;
+    position:fixed;
+    width:100%;
 }
 
 header#masthead:not(.is-stuck) {

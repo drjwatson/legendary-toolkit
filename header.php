@@ -49,8 +49,9 @@
         do_action( 'wp_body_open' );
     }
 ?>
-
-<div id="page" class="site">
+    <?php echo $header_behavior_class;?>
+    
+    <div id="page" class="site" <?php if($header_behavior_class == 'sticky-top'){echo 'style="margin-top:'.$logo_height.'px"';};?>>
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'wp-bootstrap-starter' ); ?></a>
     <?php if(!is_page_template( 'blank-page.php' ) && !is_page_template( 'blank-page-with-container.php' )): ?>
     <?php if ($top_bar_content) :?>
