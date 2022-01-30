@@ -179,10 +179,12 @@ body:not(.theme-preset-active) footer#colophon {
 header#masthead{
     transition:.25s;
     padding:0;
-    position:fixed;
     width:100%;
 }
 
+header#masthead.sticky-top{
+    position:fixed;
+}
 header#masthead:not(.is-stuck) {
     box-shadow: none;
 }

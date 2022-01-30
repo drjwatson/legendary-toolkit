@@ -338,7 +338,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                         <h3>Header</h3>
                         <table class="form-table">
                             <tr valign="top">
-                                <th scope="row"><?php esc_html_e( 'Enable Transparent Header?', 'legendary-toolkit' );?></th>
+                                <th scope="row"><?php esc_html_e( 'Enable Home Page Transparent Header?', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'transparent_header' );?>
                                     <label><input type="checkbox" name="theme_options[transparent_header]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
