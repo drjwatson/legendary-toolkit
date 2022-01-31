@@ -38,8 +38,8 @@ template.innerHTML = `
             height: 40px;
             width: 40px;
             position: absolute;
-            top: 40px;
-			left: 20px;
+            top: 16px;
+			left: 10px;
             -webkit-transform: rotate(0deg);
             -moz-transform: rotate(0deg);
             -o-transform: rotate(0deg);

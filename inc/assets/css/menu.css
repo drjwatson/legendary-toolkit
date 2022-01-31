@@ -32,7 +32,7 @@
     background-color: rgba(0,0,0,0.05);
 }
 #menu-wrapper > div {
-	padding: 30px;
+	padding: 10px 20px;
 }
 #menu_top *, #menu_bottom * {
     max-width: 100%;
