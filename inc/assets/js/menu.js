@@ -537,10 +537,10 @@ const stickyElm = document.querySelector('header#masthead')
 // );
 
 // observer.observe(stickyElm)
-let counterthingy = 0;
+// let counterthingy = 0;
 document.addEventListener('scroll', function(e){
-	counterthingy++;
-	console.log(e, 'counterthingy: ' + counterthingy);
+	// counterthingy++;
+	// console.log(e, 'counterthingy: ' + counterthingy);
 	console.log(window.scrollY, 'counterthingy: ' + counterthingy);
 	if(window.scrollY > 50){
 		stickyElm.classList.add('is-stuck');
