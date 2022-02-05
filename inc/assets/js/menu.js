@@ -523,33 +523,21 @@ class SlideDrawer extends HTMLElement {
 
 window.customElements.define('slide-drawer', SlideDrawer)
 
-
 // get the sticky element
 const stickyElm = document.querySelector('header#masthead')
 
-// const observer = new IntersectionObserver( 
-
-	// console.log()
-//   ([e]) => e.target.classList.toggle('is-stuck', e.intersectionRatio < 1),
-//   	{
-// 	  threshold: [0.4],
-// 	}
-// );
-
-// observer.observe(stickyElm)
-// let counterthingy = 0;
-document.addEventListener('scroll', function(e){
-	// counterthingy++;
-	// console.log(e, 'counterthingy: ' + counterthingy);
-	// console.log(window.scrollY, 'counterthingy: ' + counterthingy);
-	if(window.scrollY > 50){
-		stickyElm.classList.add('is-stuck');
-	}
-	if(window.scrollY < 40){
-		stickyElm.classList.remove('is-stuck');
-	}
-	// console.log(observer, 'counterthingy: ' + counterthingy);
-});
+// if the header is set to sticky...
+if(stickyElm.classList.contains('sticky-top')){
+	document.addEventListener('scroll', function(e){
+			if(window.scrollY > 50){
+				stickyElm.classList.add('is-stuck');
+			}
+			if(window.scrollY < 40){
+				stickyElm.classList.remove('is-stuck');
+			}
+		console.log('Header set to sticky.');
+	});
+}
 
 jQuery(document).ready(function($) { 
 	$('.navbar .dropdown').hover(function() {
