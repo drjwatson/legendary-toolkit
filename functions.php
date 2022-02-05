@@ -666,6 +666,7 @@ add_filter('pings_open', '__return_false', 20, 2);
 // Hide existing comments
 add_filter('comments_array', '__return_empty_array', 10, 2);
 
+
 // Remove comments page in menu
 add_action('admin_menu', function () {
     remove_menu_page('edit-comments.php');
@@ -677,6 +678,29 @@ add_action('init', function () {
         remove_action('admin_bar_menu', 'wp_admin_bar_comments_menu', 60);
     }
 });
+
+add_action( 'admin_init', 'wpse_136058_debug_admin_menu' );
+
+function wpse_136058_debug_admin_menu() {
+
+    // echo '<pre>' . print_r( $GLOBALS[ 'menu' ], TRUE) . '</pre>';
+}
+
+// Remove unecessary base menu items for non-admins
+add_action('admin_menu', function () {
+    if(!current_user_can('administrator')){
+        remove_menu_page('themes.php');
+        remove_menu_page('vc-general');
+        remove_menu_page('tools.php');
+        remove_menu_page('options-general.php');
+        remove_menu_page('edit.php?post_type=acf-field-group');
+        remove_menu_page('wpseo_dashboard');
+        remove_menu_page('cptui_main_menu');
+        remove_menu_page('edit.php?post_type=seopages');
+        remove_menu_page('formidable');
+    }
+});
+
 /**
  * Control excerpt length by theme options
  */

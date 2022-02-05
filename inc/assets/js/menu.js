@@ -535,8 +535,7 @@ if(stickyElm.classList.contains('sticky-top')){
 			if(window.scrollY < 40){
 				stickyElm.classList.remove('is-stuck');
 			}
-		console.log('Header set to sticky.');
-	});
+		});
 }
 
 jQuery(document).ready(function($) { 

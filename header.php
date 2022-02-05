@@ -98,6 +98,7 @@
                             <?php else : ?>
                                 <a class="site-title" href="<?php echo esc_url( home_url( '/' )); ?>"><?php esc_url(bloginfo('name')); ?></a>
                             <?php endif;?>
+                            <p style="font-size:12px;color:white;">[Add Theme Settings Mobile Content Top]</p>
                         </div>
                         <?php
                             wp_nav_menu(
@@ -109,8 +110,8 @@
                             );
                         ?>
                         
-                        <div id="menu_bottom">
-                            <p>bottom</p>
+                        <div id="mobile_menu_bottom">
+                            <p style="font-size:12px;color:white;">[Add Theme Settings Bottom]</p>
                         </div>
                     </div>
                 </slide-drawer>
