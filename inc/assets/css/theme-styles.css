@@ -197,10 +197,6 @@ header#masthead.sticky-top.is-stuck {
     margin-top: calc(var(--logo_height, 100px) * -1);
 }
 
-body:not(.home) header#masthead {
-    background-color: var(--scrolling_header_background);
-}
-
 header#masthead #site_logo {
     height: var(--logo_height, 100px);
     transition: height 200ms ease-in-out;
