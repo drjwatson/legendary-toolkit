@@ -493,6 +493,20 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                     </div>
                                 </td>
                             </tr>
+                            <tr valign="top" id="" class="">
+                                <th scope="row"><?php esc_html_e( 'Mobile Menu Top Content', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'mobile_menu_top_content' );?>
+                                    <?php echo wp_editor( $value, 'mobile_menu_top_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[mobile_menu_top_content]') );?>
+                                </td>
+                            </tr>
+                            <tr valign="top" id="" class="">
+                                <th scope="row"><?php esc_html_e( 'Mobile Menu Bottom Content', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'mobile_menu_bottom_content' );?>
+                                    <?php echo wp_editor( $value, 'mobile_menu_bottom_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[mobile_menu_bottom_content]') );?>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                     <div id="legendary_toolkit_footer" class="tabcontent">

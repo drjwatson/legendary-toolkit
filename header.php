@@ -10,21 +10,23 @@
  */
 
     // Get Theme Options
-    $theme_options             = legendary_toolkit_get_theme_options();
-    $logo                      = (array_key_exists('logo', $theme_options)) ? $theme_options['logo'] : '';
-    $logo_url                  = ($logo) ? esc_url(wp_get_attachment_image_url($logo, 'medium')) : '';
-    $logo_height               = (array_key_exists('logo_height', $theme_options) && $theme_options['logo_height']) ? $theme_options['logo_height'] : 100;
-    $transparent_class         = (array_key_exists('transparent_header', $theme_options) && $theme_options['transparent_header']) ? ' is_transparent' : '';
-    $top_bar_content           = (array_key_exists('top_bar_content', $theme_options) && $theme_options['top_bar_content']) ? $theme_options['top_bar_content'] : '';
-    $mobile_menu_position      = (array_key_exists('mobile_menu_position', $theme_options)) ? $theme_options['mobile_menu_position'] : 'right';
-    $mobile_menu_width         = (array_key_exists('mobile_menu_width', $theme_options) && $theme_options['mobile_menu_width'] != 0) ? $theme_options['mobile_menu_width'].'px' : '100%';
-    $mobile_menu_breakpoint    = (array_key_exists('mobile_menu_breakpoint', $theme_options)) ? $theme_options['mobile_menu_breakpoint'] : 1200;
-    $header_behavior_class     = (array_key_exists('sticky_header', $theme_options) && $theme_options['sticky_header']) ? 'sticky-top' : '';
-    $favicon                   = (array_key_exists('favicon', $theme_options)) ? $theme_options['favicon'] : '';
-    $favicon_url               = ($favicon) ? esc_url(wp_get_attachment_image_url($favicon, 'medium')) : '';
-    $page_title                = (array_key_exists('page_title', $theme_options)) ? $theme_options['page_title'] : 0;
-    $page_title_content        = (array_key_exists('page_title_content', $theme_options) && $theme_options['page_title_content']) ? $theme_options['page_title_content'] : '';
-
+    $theme_options              = legendary_toolkit_get_theme_options();
+    $logo                       = (array_key_exists('logo', $theme_options)) ? $theme_options['logo'] : '';
+    $logo_url                   = ($logo) ? esc_url(wp_get_attachment_image_url($logo, 'medium')) : '';
+    $logo_height                = (array_key_exists('logo_height', $theme_options) && $theme_options['logo_height']) ? $theme_options['logo_height'] : 100;
+    $transparent_class          = (array_key_exists('transparent_header', $theme_options) && $theme_options['transparent_header']) ? ' is_transparent' : '';
+    $top_bar_content            = (array_key_exists('top_bar_content', $theme_options) && $theme_options['top_bar_content']) ? $theme_options['top_bar_content'] : '';
+    $mobile_menu_position       = (array_key_exists('mobile_menu_position', $theme_options)) ? $theme_options['mobile_menu_position'] : 'right';
+    $mobile_menu_width          = (array_key_exists('mobile_menu_width', $theme_options) && $theme_options['mobile_menu_width'] != 0) ? $theme_options['mobile_menu_width'].'px' : '100%';
+    $mobile_menu_breakpoint     = (array_key_exists('mobile_menu_breakpoint', $theme_options)) ? $theme_options['mobile_menu_breakpoint'] : 1200;
+    $header_behavior_class      = (array_key_exists('sticky_header', $theme_options) && $theme_options['sticky_header']) ? 'sticky-top' : '';
+    $favicon                    = (array_key_exists('favicon', $theme_options)) ? $theme_options['favicon'] : '';
+    $favicon_url                = ($favicon) ? esc_url(wp_get_attachment_image_url($favicon, 'medium')) : '';
+    $page_title                 = (array_key_exists('page_title', $theme_options)) ? $theme_options['page_title'] : 0;
+    $page_title_content         = (array_key_exists('page_title_content', $theme_options) && $theme_options['page_title_content']) ? $theme_options['page_title_content'] : '';
+    $mobile_menu_top_content    = (array_key_exists('mobile_menu_top_content', $theme_options)) ? $theme_options['mobile_menu_top_content'] : '';
+    $mobile_menu_bottom_content = (array_key_exists('mobile_menu_bottom_content', $theme_options)) ? $theme_options['mobile_menu_bottom_content'] : '';
+    
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -98,7 +100,9 @@
                             <?php else : ?>
                                 <a class="site-title" href="<?php echo esc_url( home_url( '/' )); ?>"><?php esc_url(bloginfo('name')); ?></a>
                             <?php endif;?>
-                            <p style="font-size:12px;color:white;">[Add Theme Settings Mobile Content Top]</p>
+                            <div id="mobile-menu-top-content">
+                                <?php echo wpautop($mobile_menu_top_content);?>
+                            </div>
                         </div>
                         <?php
                             wp_nav_menu(
@@ -111,7 +115,9 @@
                         ?>
                         
                         <div id="mobile_menu_bottom">
-                            <p style="font-size:12px;color:white;">[Add Theme Settings Bottom]</p>
+                            <div id="mobile-menu-bottom-content">
+                                <?php echo wpautop($mobile_menu_bottom_content);?>
+                            </div>
                         </div>
                     </div>
                 </slide-drawer>
