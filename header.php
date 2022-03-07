@@ -51,89 +51,90 @@
         do_action( 'wp_body_open' );
     }
 ?>
-   
-    <div id="page" class="site" <?php if($header_behavior_class == 'sticky-top'){echo 'style="margin-top:'.$logo_height.'px"';};?>>
-	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'wp-bootstrap-starter' ); ?></a>
-    <?php if(!is_page_template( 'blank-page.php' ) && !is_page_template( 'blank-page-with-container.php' )): ?>
-    <?php if ($top_bar_content) :?>
-        <div class="top-bar-content">
-            <?php echo $top_bar_content;?>
-        </div>
-    <?php endif; ?>
-	<header id="masthead" class="site-header navbar-static-top <?php echo wp_bootstrap_starter_bg_class(); ?> <?=$header_behavior_class;?><?=$transparent_class;?>" role="banner">
-        <div class="container">
-            <nav class="navbar navbar-expand-xl p-0">
-                <div class="navbar-brand">
-                    <?php if ( $logo ): ?>
-                        <a href="<?php echo esc_url( home_url( '/' )); ?>">
-                            <img id="site_logo" src="<?php echo $logo_url; ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-                        </a>
-                    <?php else : ?>
-                        <a class="site-title" href="<?php echo esc_url( home_url( '/' )); ?>"><?php esc_url(bloginfo('name')); ?></a>
-                    <?php endif; ?>
+    <div id="page" class="site">
+	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'legendary-toolkit' ); ?></a>
 
-                </div>
-                <?php
-                    // Desktop Menu
-                    wp_nav_menu(
-                        array(
-                            'theme_location'    => 'primary',
-                            'container'         => 'div',
-                            'container_id'      => 'main-nav',
-                            'container_class'   => 'collapse navbar-collapse justify-content-end',
-                            'menu_id'           => false,
-                            'menu_class'        => 'navbar-nav',
-                            'depth'             => 10,
-                            'fallback_cb'       => 'wp_bootstrap_navwalker::fallback',
-                            'walker'            => new wp_bootstrap_navwalker()
-                        )
-                    );
-                ?>
-                <!-- Mobile Menu -->
-                <slide-drawer width="<?=$mobile_menu_width;?>" overlayOpacity=".7" mobileWidth="<?=$mobile_menu_width;?>" mobileBreak="<?=$mobile_menu_breakpoint;?>" <?=$mobile_menu_position;?>>
-                    <div id="menu-wrapper" style="display:none";>
-                        <div id="menu_top">
-                            <?php if ($logo) : ?>
-                            <a href="<?php echo esc_url( home_url( '/' )); ?>">
-                                <img id="mobile_site_logo" src="<?php echo $logo_url; ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-                            </a>
-                            <?php else : ?>
-                                <a class="site-title" href="<?php echo esc_url( home_url( '/' )); ?>"><?php esc_url(bloginfo('name')); ?></a>
-                            <?php endif;?>
-                            <div id="mobile-menu-top-content">
-                                <?php echo wpautop($mobile_menu_top_content);?>
-                            </div>
-                        </div>
-                        <?php
-                            wp_nav_menu(
-                                array(
-                                'theme_location'    => 'primary',
-                                'container'         => false,
-                                'menu_id'           => 'mobile_menu',
-                                )
-                            );
-                        ?>
-                        
-                        <div id="mobile_menu_bottom">
-                            <div id="mobile-menu-bottom-content">
-                                <?php echo wpautop($mobile_menu_bottom_content);?>
-                            </div>
-                        </div>
-                    </div>
-                </slide-drawer>
-            </nav>
-        </div>
-	</header><!-- #masthead -->
-    <?php if ($page_title && !is_front_page()) : ?>
-        <div id="page_title">
+    <?php if(!is_page_template( 'blank-page.php' ) && !is_page_template( 'blank-page-with-container.php' )): ?>
+        <?php if ($top_bar_content) :?>
+            <div class="top-bar-content">
+                <?php echo $top_bar_content;?>
+            </div>
+        <?php endif; ?>
+        <header id="masthead" class="site-header navbar-static-top <?php echo wp_bootstrap_starter_bg_class(); ?> <?=$header_behavior_class;?><?=$transparent_class;?>" role="banner">
             <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <?php echo do_shortcode($page_title_content);?>
+                <nav class="navbar navbar-expand-xl p-0">
+                    <div class="navbar-brand">
+                        <?php if ( $logo ): ?>
+                            <a href="<?php echo esc_url( home_url( '/' )); ?>">
+                                <img id="site_logo" src="<?php echo $logo_url; ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+                            </a>
+                        <?php else : ?>
+                            <a class="site-title" href="<?php echo esc_url( home_url( '/' )); ?>"><?php esc_url(bloginfo('name')); ?></a>
+                        <?php endif; ?>
+
+                    </div>
+                    <?php
+                        // Desktop Menu
+                        wp_nav_menu(
+                            array(
+                                'theme_location'    => 'primary',
+                                'container'         => 'div',
+                                'container_id'      => 'main-nav',
+                                'container_class'   => 'collapse navbar-collapse justify-content-end',
+                                'menu_id'           => false,
+                                'menu_class'        => 'navbar-nav',
+                                'depth'             => 10,
+                                'fallback_cb'       => 'wp_bootstrap_navwalker::fallback',
+                                'walker'            => new wp_bootstrap_navwalker()
+                            )
+                        );
+                    ?>
+                    <!-- Mobile Menu -->
+                    <slide-drawer width="<?=$mobile_menu_width;?>" overlayOpacity=".7" mobileWidth="<?=$mobile_menu_width;?>" mobileBreak="<?=$mobile_menu_breakpoint;?>" <?=$mobile_menu_position;?>>
+                        <div id="menu-wrapper" style="display:none";>
+                            <div id="menu_top">
+                                <?php if ($logo) : ?>
+                                <a href="<?php echo esc_url( home_url( '/' )); ?>">
+                                    <img id="mobile_site_logo" src="<?php echo $logo_url; ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+                                </a>
+                                <?php else : ?>
+                                    <a class="site-title" href="<?php echo esc_url( home_url( '/' )); ?>"><?php esc_url(bloginfo('name')); ?></a>
+                                <?php endif;?>
+                                <div id="mobile-menu-top-content">
+                                    <?php echo wpautop($mobile_menu_top_content);?>
+                                </div>
+                            </div>
+                            <?php
+                                wp_nav_menu(
+                                    array(
+                                    'theme_location'    => 'primary',
+                                    'container'         => false,
+                                    'menu_id'           => 'mobile_menu',
+                                    )
+                                );
+                            ?>
+                            
+                            <div id="mobile_menu_bottom">
+                                <div id="mobile-menu-bottom-content">
+                                    <?php echo wpautop($mobile_menu_bottom_content);?>
+                                </div>
+                            </div>
+                        </div>
+                    </slide-drawer>
+                </nav>
+            </div>
+        </header><!-- #masthead -->
+        <?php if ($page_title && !is_front_page()) : ?>
+            <div id="page_title">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <?php echo do_shortcode($page_title_content);?>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <?php endif;?>
+        <div id="content" class="site-content container">
+            <div class="row">
     <?php endif;?>
-	<div id="content" class="site-content">
-            <?php endif; ?>

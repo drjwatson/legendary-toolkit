@@ -805,7 +805,6 @@ function legendary_cart_in_menu ( $items, $args ) {
     return $items;
 }
 
-
 function create_ll_widgets_post_type() {
     $supports = array(
         'title',
@@ -951,3 +950,29 @@ function add_admin_column($column_title, $post_type, $field_id, $index = 0){
     );
 }
 add_admin_column('Type', 'll_widgets', 'll_widgets_type');
+
+
+function register_custom_page_options_meta_box() {
+    add_meta_box( 'll-page-options', __( 'Page Options', 'legendary-toolkit' ), 'render_custom_page_options_form', 'page' );
+}
+add_action( 'add_meta_boxes', 'register_custom_page_options_meta_box' );
+
+function render_custom_page_options_form ( $post ) {
+    require_once get_template_directory() . '/inc/page-options.php';
+}
+function save_custom_page_options_meta_box( $post_id ) {
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+    if ( $parent_id = wp_is_post_revision( $post_id ) ) {
+        $post_id = $parent_id;
+    }
+    $fields = [
+        'll_page_sidebar',
+        'll_sidebar_position',
+    ];
+    foreach ( $fields as $field ) {
+        if ( array_key_exists( $field, $_POST ) ) {
+            update_post_meta( $post_id, $field, sanitize_text_field( $_POST[$field] ) );
+        }
+     }
+}
+add_action( 'save_post', 'save_custom_page_options_meta_box' );

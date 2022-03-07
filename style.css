@@ -771,7 +771,7 @@ body:not(.home) #content.site-content {
   margin: 0;
 }
 
-#page:not(.home) #content{
+body:not(.home) #content{
   margin-top:40px;
 }
 

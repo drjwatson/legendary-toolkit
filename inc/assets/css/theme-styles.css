@@ -176,15 +176,13 @@ body:not(.theme-preset-active) footer#colophon {
 }
 
 /* Header Behavior */
+
 header#masthead{
     transition:.25s;
     padding:0;
     width:100%;
 }
 
-header#masthead.sticky-top{
-    position:fixed;
-}
 header#masthead:not(.is-stuck) {
     box-shadow: none;
 }
@@ -194,7 +192,7 @@ header#masthead.sticky-top.is-stuck {
 }
 
 .home header#masthead.is_transparent+#content {
-    margin-top: calc(var(--logo_height, 100px) * -1);
+    margin-top: calc((var(--logo_height, 100px) * -1) - 1px);
 }
 
 header#masthead #site_logo {
