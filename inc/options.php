@@ -43,7 +43,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                 wp_enqueue_script( 'legendary_toolkit_google_font_selector', get_template_directory_uri() . '/inc/assets/js/google-font-selector.js'); 
                 wp_enqueue_script( 'legendary_toolkit_admin_scripts', get_template_directory_uri() . '/inc/assets/js/admin-scripts.js', array('jquery'), false, true); 
             }
-
+            wp_enqueue_editor();
         }
 
 		/**
@@ -254,7 +254,10 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
 		 */
 		public static function create_admin_page() { 
             ?>
-			<div class="wrap">
+            <div class="wrap">
+                <h2></h2>
+            </div>
+			<div class="theme-settings-wrap">
                 <div id="options_header">
                     <div id="options_banner">
                         <h1><?php esc_html_e( 'Legendary Toolkit Options', 'legendary-toolkit' );?></h1>
@@ -281,6 +284,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_footer')">Footer</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_typography')">Typography</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_blog')">Blog</button>
+                        <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_sidebar')">Sidebar</button>
                     </div>
                 </div>
 				<form method="post" action="options.php" id="legendary_toolkit_form">
@@ -648,6 +652,12 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 </td>
                             </tr>
                         </table>
+                    </div>
+                    <div id="legendary_toolkit_sidebar" class="tabcontent">
+                        <h3>Sidebars</h3>
+                        <table class="form-table" id="sidebar_content_repeater">
+                        </table>
+                        <button id="add_sidebar" class="button default">Add Sidebar</button>
                     </div>
                     <?php if (defined('TOOLKIT_DEBUG') && TOOLKIT_DEBUG) : ?>
                         <div id="legendary_toolkit_examples" class="tabcontent">

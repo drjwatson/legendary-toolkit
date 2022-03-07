@@ -1,11 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap');
 .wrap {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.wrap>h2:first-child {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.theme-settings-wrap {
     margin: 0px 0px 0px -20px;
     /* border: 1px solid #1d2327; */
 }
 #options_header {
     position:sticky;
-    top:32px;
+    top:31px;
     z-index: 4;
 }
 #options_banner {
@@ -208,32 +216,47 @@
     border-radius: 50%;
     -webkit-animation: spin1 1s infinite linear;
             animation: spin1 1s infinite linear;
-  }
-  
-  @-webkit-keyframes spin1 {
+}
+.tabcontent button.button-flat {
+    background-color: transparent;
+    border-color: transparent;
+    color: black;
+    line-height: 1.7;
+    transition: .2s;
+}
+.tabcontent button.button-flat:hover, .tabcontent button.button-flat:active, .tabcontent button.button-flat:focus {
+    background-color: #f0f0f1;
+    border-color:transparent;
+    box-shadow: none;
+    outline: 0px;
+}
+.tabcontent button.delete-button {
+    color: #d63638;
+}
+@-webkit-keyframes spin1 {
     from {
-      -webkit-transform: rotate(0deg);
-              transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
     }
     to {
-      -webkit-transform: rotate(359deg);
-              transform: rotate(359deg);
+        -webkit-transform: rotate(359deg);
+                transform: rotate(359deg);
     }
-  }
-  @keyframes spin1 {
+}
+@keyframes spin1 {
     from {
-      -webkit-transform: rotate(0deg);
-              transform: rotate(0deg);
-      -webkit-transform: rotate(0deg);
-              transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
     }
     to {
-      -webkit-transform: rotate(359deg);
-              transform: rotate(359deg);
-      -webkit-transform: rotate(359deg);
-              transform: rotate(359deg);
+        -webkit-transform: rotate(359deg);
+                transform: rotate(359deg);
+        -webkit-transform: rotate(359deg);
+                transform: rotate(359deg);
     }
-  }
+}
 /* @media screen and (max-width: 782px) {
     input[type=date], input[type=datetime-local], input[type=datetime], input[type=email], input[type=month], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week], .wp-admin .form-table select, .wp-core-ui select {
         min-height: 30px;

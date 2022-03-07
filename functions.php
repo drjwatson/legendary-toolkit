@@ -805,3 +805,149 @@ function legendary_cart_in_menu ( $items, $args ) {
     return $items;
 }
 
+
+function create_ll_widgets_post_type() {
+    $supports = array(
+        'title',
+        'editor',
+    );
+    $labels = array(
+        'name' => _x('Widgets', 'plural'),
+        'singular_name' => _x('Widget', 'singular'),
+        'menu_name' => _x('Widgets', 'admin menu'),
+        'name_admin_bar' => _x('Widgets', 'admin bar'),
+        'add_new' => _x('Add New', 'add new'),
+        'add_new_item' => __('Add New Widget'),
+        'new_item' => __('New Widget'),
+        'edit_item' => __('Edit Widget'),
+        'view_item' => __('View Widget'),
+        'all_items' => __('All Widgets'),
+        'search_items' => __('Search Widgets'),
+        'not_found' => __('No widgets found.'),
+    );
+    $args = array(
+        'supports' => $supports,
+        'labels' => $labels,
+        'public' => true,
+        'show_in_menu' => true,
+        'menu_position' => 100,
+        'query_var' => false,
+        'rewrite' => array('slug' => 'll_widgets'),
+        'has_archive' => false,
+        'hierarchical' => false,
+        'menu_icon' => 'dashicons-welcome-widgets-menus'
+    );
+    register_post_type('ll_widgets', $args);
+}
+add_action('init', 'create_ll_widgets_post_type');
+
+
+function add_ll_widgets_custom_fields() {
+    // see https://developer.wordpress.org/reference/functions/add_meta_box
+    add_meta_box(
+        "ll_widgets_metadata",
+        "Widget Options",
+        "render_ll_widget_metadata",
+        "ll_widgets",
+        "side",
+        "low"
+    );
+}
+add_action( "admin_init", "add_ll_widgets_custom_fields" );
+
+function save_ll_widget_custom_fields(){
+    global $post;
+    if (!$post) {
+        return;
+    }
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+    if (!$post->ID) {
+        return;
+    }
+    if ( get_post_status( $post->ID ) === 'auto-draft' ) {
+        return;
+    }
+
+    update_post_meta( $post->ID, "ll_widgets_type", sanitize_text_field( $_POST[ "ll_widgets_type" ] ) );
+}
+add_action( 'save_post', 'save_ll_widget_custom_fields' );
+
+function render_ll_widget_metadata(){
+    global $post;
+    $custom_fields = get_post_custom( $post->ID );
+    $saved_widget_type = (array_key_exists('ll_widgets_type', $custom_fields )) ? $custom_fields[ "ll_widgets_type" ][ 0 ] : '';
+
+    $widget_selected = '';
+    $sidebar_selected = '';
+    $cta_selected = '';
+
+    if ($saved_widget_type) {
+        switch ( $saved_widget_type ) {
+            case 'widget':
+                $widget_selected = "selected";
+                break;
+            case 'sidebar':
+                $sidebar_selected = "selected";
+                break;
+            case 'cta':
+                $cta_selected = "selected";
+                break;
+        }
+    }
+    echo "<br>";
+    echo "<select name='ll_widgets_type'>";
+    echo "<option value='widget' $widget_selected>Widget</option>";
+    echo "<option value='sidebar' $sidebar_selected>Sidebar</option>";
+    echo "<option value='cta' $cta_selected>CTA</option>";
+    echo "</select>";
+}
+
+function render_widget_markup( $atts = '' ) {
+    $params = shortcode_atts( array(
+        'id' => '',
+    ), $atts );
+
+    if (!$params['id']) {
+        return;
+    }
+
+    $widget_post = get_post($params['id']);
+    $content = $widget_post->post_content;
+    $content = apply_filters('the_content', $content);
+    $content = str_replace(']]>', ']]&gt;', $content);
+
+    return $content;
+}
+add_shortcode('custom_widget', 'render_widget_markup');
+
+function add_admin_column($column_title, $post_type, $field_id, $index = 0){
+
+    // Callback function to retrieve field value
+    $cb = function($post_id) use ($field_id, $index) {
+        $value = ($index) ? get_post_meta( $post_id, $field_id, true )[$index] : get_post_meta( $post_id, $field_id, true );
+        echo $value;
+    };
+
+    // Column Header
+    add_filter( 'manage_' . $post_type . '_posts_columns', function($columns) use ($field_id, $column_title) {
+        $columns[$field_id] = $column_title;
+        return $columns;
+    } );
+
+    // Column Content
+    add_action( 'manage_' . $post_type . '_posts_custom_column' , function( $column, $post_id ) use ($column_title, $cb, $field_id) {
+        if($field_id === $column){
+            $cb($post_id);
+        }
+    }, 10, 2 );
+
+    // Make Column Sortable
+    add_filter('manage_edit-'. $post_type .'_sortable_columns', function( $columns ) use ($field_id, $column_title) {
+            $columns[$field_id] = $column_title;
+            return $columns;
+        }
+    );
+}
+add_admin_column('Type', 'll_widgets', 'll_widgets_type');

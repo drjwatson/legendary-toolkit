@@ -109,5 +109,36 @@ jQuery(document).ready(function( $ ) {
         }
    });	
 
-
+    // ADD REPEATER FOR SIDEBAR CONTENT
+    var sidebar_id = 1;
+    $(document).on('click', '#add_sidebar', function(e) {
+        e.preventDefault();
+        var editor_id = 'sidebar_editor_' + sidebar_id;
+        var sidebar_markup = `
+            <tr valign="top">
+                <th scope="row">Sidebar Content<button class="right button button-flat delete-sidebar delete-button" data-id="${editor_id}">Remove Sidebar <span class="dashicons dashicons-trash"></span></button></th>
+            </tr>
+            <tr>
+                <td>
+                    <textarea class="wp-editor-area" name="${editor_id}" id="${editor_id}"></textarea>
+                    <hr/>
+                </td>
+            </tr>
+        `;
+        $('#sidebar_content_repeater').append(sidebar_markup);
+        wp.editor.initialize(editor_id, {
+            tinymce: {
+                wpautop: true,
+                plugins : 'charmap colorpicker compat3x directionality fullscreen hr image lists media paste tabfocus textcolor wordpress wpautoresize wpdialogs wpeditimage wpemoji wpgallery wplink wptextpattern wpview',
+                toolbar1: 'bold italic underline strikethrough | bullist numlist | blockquote hr wp_more | alignleft aligncenter alignright | link unlink | fullscreen | wp_adv',
+                toolbar2: 'formatselect alignjustify forecolor | pastetext removeformat charmap | outdent indent | undo redo | wp_help'
+            },
+            quicktags: true,
+            mediaButtons: true
+        });
+        sidebar_id++;
+    });
+    $(document).on('click', '.delete-sidebar', function(e){
+        e.preventDefault();
+    });
 });
