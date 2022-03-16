@@ -284,7 +284,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_footer')">Footer</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_typography')">Typography</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_blog')">Blog</button>
-                        <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_sidebar')">Sidebar</button>
+                        <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_pages_posts')">Pages &amp; Posts</button>
                     </div>
                 </div>
 				<form method="post" action="options.php" id="legendary_toolkit_form">
@@ -653,11 +653,167 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                             </tr>
                         </table>
                     </div>
-                    <div id="legendary_toolkit_sidebar" class="tabcontent">
-                        <h3>Sidebars</h3>
-                        <table class="form-table" id="sidebar_content_repeater">
+                    <div id="legendary_toolkit_pages_posts" class="tabcontent">
+                        <h3>Pages</h3>
+                        <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Page Sidebar', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php 
+                                        $value = self::get_theme_option( 'page_sidebar' );
+                                        
+                                        // Get widgets for sidebar
+
+                                        function get_sidebar_options() {
+                                            $sidebars = [];
+                                            $args = array(
+                                                'post_type' => 'll_widgets',
+                                            );
+                                            $q_sidebars = new wp_query($args);
+                                            if (!$q_sidebars->have_posts()) {
+                                                return false;
+                                            }
+                                            while ($q_sidebars->have_posts()) {
+                                                $q_sidebars->the_post();
+                                                $id = get_the_id();
+                                                $sidebar_name = get_the_title();
+                                                $sidebars[] = ['id' => $id, 'name' => $sidebar_name];
+                                            }
+                                            wp_reset_postdata();
+                                            return $sidebars;
+                                        }
+
+                                        $selected_sidebar = self::get_theme_option( 'page_sidebar' );
+                                        $selected_sidebar_none = (!$selected_sidebar) ? 'selected' : '';
+
+                                        $selected_sidebar_position = self::get_theme_option( 'page_sidebar_position' );
+                                        $selected_no_sidebar = (!$selected_sidebar_position) ? 'selected' : '';
+                                        $sidebar_position_options = ['left','right'];
+                                        if (!get_sidebar_options()) {
+                                            echo '<strong>No Sidebars Found</strong></br><a href="/wp-admin/post-new.php?post_type=ll_widgets">Create your first sidebar</a>';
+                                        }
+                                        else {
+                                            echo "<select name='theme_options[page_sidebar]' id='theme_options[page_sidebar]'>";
+                                                echo "<option value='0' $selected_sidebar_none>No Sidebar Selected</option>";
+                                                foreach (get_sidebar_options() as $i => $sidebar) {
+                                                    $id = $sidebar['id'];
+                                                    $name = $sidebar['name'];
+                                                    $selected = ($selected_sidebar == $id) ? 'selected' : '';
+                                                    echo "<option value='$id' $selected>$name</option>";
+                                                }
+                                            echo "</select>";
+                                        }
+                                    ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><?php esc_html_e( 'Page Sidebar Position', 'legendary-toolkit' );?></th>
+                                <td>
+                                <?php 
+                                    echo "<select name='theme_options[page_sidebar_position]' id='theme_options[page_sidebar_position]'>";
+                                        echo "<option value='0' $selected_no_sidebar>No Sidebar</option>";
+                                        foreach ($sidebar_position_options as $i => $value) {
+                                            $label = ucwords($value);
+                                            $selected = ($selected_sidebar_position == $value) ? 'selected' : '';
+                                            echo "<option value='$value' $selected>$label</option>";
+                                        }
+                                    echo "</select>";
+                                ?>
+                                </td>
+                            </tr>
                         </table>
-                        <button id="add_sidebar" class="button default">Add Sidebar</button>
+                        <hr/>
+                        <h3>Posts</h3>
+                        <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Post Sidebar', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php 
+                                        $value = self::get_theme_option( 'post_sidebar' );
+                                        $post_selected_sidebar = self::get_theme_option( 'post_sidebar' );
+                                        $post_selected_sidebar_none = (!$post_selected_sidebar) ? 'selected' : '';
+                                        $post_selected_sidebar_position = self::get_theme_option( 'post_sidebar_position' );
+                                        $post_selected_no_sidebar = (!$post_selected_sidebar_position) ? 'selected' : '';
+                                        $post_sidebar_position_options = ['left','right'];
+                                        if (!get_sidebar_options()) {
+                                            echo '<strong>No Sidebars Found</strong></br><a href="/wp-admin/post-new.php?post_type=ll_widgets">Create your first sidebar</a>';
+                                        }
+                                        else {
+                                            echo "<select name='theme_options[post_sidebar]' id='theme_options[post_sidebar]'>";
+                                                echo "<option value='0' $post_selected_sidebar_none>No Sidebar Selected</option>";
+                                                foreach (get_sidebar_options() as $i => $sidebar) {
+                                                    $id = $sidebar['id'];
+                                                    $name = $sidebar['name'];
+                                                    $selected = ($post_selected_sidebar == $id) ? 'selected' : '';
+                                                    echo "<option value='$id' $selected>$name</option>";
+                                                }
+                                            echo "</select>";
+                                        }
+                                    ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><?php esc_html_e( 'Post Sidebar Position', 'legendary-toolkit' );?></th>
+                                <td>
+                                <?php 
+                                    echo "<select name='theme_options[post_sidebar_position]' id='theme_options[post_sidebar_position]'>";
+                                        echo "<option value='0' $post_selected_no_sidebar>No Sidebar</option>";
+                                        foreach ($post_sidebar_position_options as $i => $value) {
+                                            $label = ucwords($value);
+                                            $selected = ($post_selected_sidebar_position == $value) ? 'selected' : '';
+                                            echo "<option value='$value' $selected>$label</option>";
+                                        }
+                                    echo "</select>";
+                                ?>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr/>
+                        <h3>Archives</h3>
+                        <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Archives Sidebar', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php 
+                                        $value = self::get_theme_option( 'archives_sidebar' );
+                                        $archives_selected_sidebar = self::get_theme_option( 'archives_sidebar' );
+                                        $archives_selected_sidebar_none = (!$archives_selected_sidebar) ? 'selected' : '';
+                                        $archives_selected_sidebar_position = self::get_theme_option( 'archives_sidebar_position' );
+                                        $archives_selected_no_sidebar = (!$archives_selected_sidebar_position) ? 'selected' : '';
+                                        $archives_sidebar_position_options = ['left','right'];
+                                        if (!get_sidebar_options()) {
+                                            echo '<strong>No Sidebars Found</strong></br><a href="/wp-admin/post-new.php?post_type=ll_widgets">Create your first sidebar</a>';
+                                        }
+                                        else {
+                                            echo "<select name='theme_options[archives_sidebar]' id='theme_options[archives_sidebar]'>";
+                                                echo "<option value='0' $archives_selected_sidebar_none>No Sidebar Selected</option>";
+                                                foreach (get_sidebar_options() as $i => $sidebar) {
+                                                    $id = $sidebar['id'];
+                                                    $name = $sidebar['name'];
+                                                    $selected = ($archives_selected_sidebar == $id) ? 'selected' : '';
+                                                    echo "<option value='$id' $selected>$name</option>";
+                                                }
+                                            echo "</select>";
+                                        }
+                                    ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><?php esc_html_e( 'Archives Sidebar Position', 'legendary-toolkit' );?></th>
+                                <td>
+                                <?php 
+                                    echo "<select name='theme_options[archives_sidebar_position]' id='theme_options[archives_sidebar_position]'>";
+                                        echo "<option value='0' $archives_selected_no_sidebar>No Sidebar</option>";
+                                        foreach ($archives_sidebar_position_options as $i => $value) {
+                                            $label = ucwords($value);
+                                            $selected = ($archives_selected_sidebar_position == $value) ? 'selected' : '';
+                                            echo "<option value='$value' $selected>$label</option>";
+                                        }
+                                    echo "</select>";
+                                ?>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                     <?php if (defined('TOOLKIT_DEBUG') && TOOLKIT_DEBUG) : ?>
                         <div id="legendary_toolkit_examples" class="tabcontent">

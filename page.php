@@ -11,18 +11,11 @@
  *
  * @package WP_Bootstrap_Starter
  */
-$sidebar = esc_attr( get_post_meta( get_the_ID(), 'll_page_sidebar', true ) );
-$primary_column_class = (!$sidebar) ? 'col-md-12' : 'col-md-7';
-$sidebar_position = esc_attr( get_post_meta( get_the_ID(), 'll_sidebar_position', true ) );
-$primary_order_class = 'order-md-1';
-$primary_offset = ($sidebar_position == 'right') ? 'offset-md-2': '';
-$sidebar_order_class = 'order-md-2';
-if ($sidebar_position == 'left') {
-	$primary_order_class = 'order-md-2';
-	$sidebar_order_class = 'order-md-1';
-}
-get_header(); ?>
-<section id="primary" class="content-area <?=$primary_column_class;?> <?=$primary_order_class;?> <?=$primary_offset;?>">
+
+get_header(); 
+
+?>
+<section id="primary" class="content-area <?=toolkit_get_primary_column_classes();?>">
 	<div id="main" class="site-main" role="main">
 
 		<?php
@@ -40,10 +33,6 @@ get_header(); ?>
 
 	</div><!-- #main -->
 </section><!-- #primary -->
-<?php if ($sidebar && $sidebar_position) : ?>
-	<section id="custom_sidebar" class="col-md-3 <?=$sidebar_order_class;?>">
-		<?php echo do_shortcode("[custom_widget id=$sidebar]");?>
-	</section>
-<?php endif;?>
 <?php
+get_sidebar();
 get_footer();

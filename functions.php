@@ -704,6 +704,7 @@ add_action('admin_menu', function () {
 /**
  * Control excerpt length by theme options
  */
+
 add_filter( 'excerpt_length', function($length) {
     $custom_limit = legendary_toolkit_get_theme_option('excerpt_length_limit');
     if ($custom_limit) {
@@ -719,6 +720,7 @@ add_filter( 'excerpt_length', function($length) {
  * @param string $more "Read more" excerpt string.
  * @return string (Maybe) modified "read more" excerpt string.
  */
+
 add_filter( 'excerpt_more', 'wpdocs_excerpt_more' );
 function wpdocs_excerpt_more( $more ) {
     if ( ! is_single() ) {
@@ -805,6 +807,82 @@ function legendary_cart_in_menu ( $items, $args ) {
     return $items;
 }
 
+/**
+ * Is woocommerce page
+ *
+ * @param   string $page        ( 'cart' | 'checkout' | 'account' | 'endpoint' )
+ * @param   string $endpoint    If $page == 'endpoint' and you want to check for specific endpoint
+ * @return  boolean
+ */
+if( ! function_exists('is_woocommerce_page') ){
+    function is_woocommerce_page( $page = '', $endpoint = '' ){
+        if( ! $page ){
+            return ( is_cart() || is_checkout() || is_account_page() || is_wc_endpoint_url() );
+        }
+
+        switch ( $page ) {
+            case 'cart':
+                return is_cart();
+                break;
+
+            case 'checkout':
+                return is_checkout();
+                break;
+
+            case 'account':
+                return is_account_page();
+                break;
+
+            case 'endpoint':
+                if( $endpoint ) {
+                    return is_wc_endpoint_url( $endpoint );
+                }
+
+                return is_wc_endpoint_url();
+                break;
+        }
+
+        return false;
+    }
+}
+
+/**
+ * Custom function to simplify addition of admin columns
+ */
+
+function add_admin_column($column_title, $post_type, $field_id, $index = 0){
+
+    // Callback function to retrieve field value
+    $cb = function($post_id) use ($field_id, $index) {
+        $value = ($index) ? get_post_meta( $post_id, $field_id, true )[$index] : get_post_meta( $post_id, $field_id, true );
+        echo $value;
+    };
+
+    // Column Header
+    add_filter( 'manage_' . $post_type . '_posts_columns', function($columns) use ($field_id, $column_title) {
+        $columns[$field_id] = $column_title;
+        return $columns;
+    } );
+
+    // Column Content
+    add_action( 'manage_' . $post_type . '_posts_custom_column' , function( $column, $post_id ) use ($column_title, $cb, $field_id) {
+        if($field_id === $column){
+            $cb($post_id);
+        }
+    }, 10, 2 );
+
+    // Make Column Sortable
+    add_filter('manage_edit-'. $post_type .'_sortable_columns', function( $columns ) use ($field_id, $column_title) {
+            $columns[$field_id] = $column_title;
+            return $columns;
+        }
+    );
+}
+
+/**
+ * Custom Widgets to use a template library
+ */
+
 function create_ll_widgets_post_type() {
     $supports = array(
         'title',
@@ -840,69 +918,87 @@ function create_ll_widgets_post_type() {
 }
 add_action('init', 'create_ll_widgets_post_type');
 
+// 2022-03-16 JW: Commented to preserve widget type if useful in future
 
-function add_ll_widgets_custom_fields() {
-    // see https://developer.wordpress.org/reference/functions/add_meta_box
-    add_meta_box(
-        "ll_widgets_metadata",
-        "Widget Options",
-        "render_ll_widget_metadata",
-        "ll_widgets",
-        "side",
-        "low"
-    );
-}
-add_action( "admin_init", "add_ll_widgets_custom_fields" );
+// /**
+//  * Widget Metabox
+//  */
 
-function save_ll_widget_custom_fields(){
-    global $post;
-    if (!$post) {
-        return;
-    }
-    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-        return;
-    }
-    if (!$post->ID) {
-        return;
-    }
-    if ( get_post_status( $post->ID ) === 'auto-draft' ) {
-        return;
-    }
+// function add_ll_widgets_custom_fields() {
+//     // see https://developer.wordpress.org/reference/functions/add_meta_box
+//     add_meta_box(
+//         "ll_widgets_metadata",
+//         "Widget Options",
+//         "render_ll_widget_metadata",
+//         "ll_widgets",
+//         "side",
+//         "low"
+//     );
+// }
+// add_action( "admin_init", "add_ll_widgets_custom_fields" );
 
-    update_post_meta( $post->ID, "ll_widgets_type", sanitize_text_field( $_POST[ "ll_widgets_type" ] ) );
-}
-add_action( 'save_post', 'save_ll_widget_custom_fields' );
+// /**
+//  * Save Widget Meta
+//  */
 
-function render_ll_widget_metadata(){
-    global $post;
-    $custom_fields = get_post_custom( $post->ID );
-    $saved_widget_type = (array_key_exists('ll_widgets_type', $custom_fields )) ? $custom_fields[ "ll_widgets_type" ][ 0 ] : '';
+// function save_ll_widget_custom_fields(){
+//     global $post;
+//     if (!$post) {
+//         return;
+//     }
+//     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+//         return;
+//     }
+//     if (!$post->ID) {
+//         return;
+//     }
+//     if ( get_post_status( $post->ID ) === 'auto-draft' ) {
+//         return;
+//     }
 
-    $widget_selected = '';
-    $sidebar_selected = '';
-    $cta_selected = '';
+//     update_post_meta( $post->ID, "ll_widgets_type", sanitize_text_field( $_POST[ "ll_widgets_type" ] ) );
+// }
+// add_action( 'save_post', 'save_ll_widget_custom_fields' );
 
-    if ($saved_widget_type) {
-        switch ( $saved_widget_type ) {
-            case 'widget':
-                $widget_selected = "selected";
-                break;
-            case 'sidebar':
-                $sidebar_selected = "selected";
-                break;
-            case 'cta':
-                $cta_selected = "selected";
-                break;
-        }
-    }
-    echo "<br>";
-    echo "<select name='ll_widgets_type'>";
-    echo "<option value='widget' $widget_selected>Widget</option>";
-    echo "<option value='sidebar' $sidebar_selected>Sidebar</option>";
-    echo "<option value='cta' $cta_selected>CTA</option>";
-    echo "</select>";
-}
+// /**
+//  * Markup for widget meta options
+//  */
 
+// function render_ll_widget_metadata(){
+//     global $post;
+//     $custom_fields = get_post_custom( $post->ID );
+//     $saved_widget_type = (array_key_exists('ll_widgets_type', $custom_fields )) ? $custom_fields[ "ll_widgets_type" ][ 0 ] : '';
+
+//     $widget_selected = '';
+//     $sidebar_selected = '';
+//     $cta_selected = '';
+
+//     if ($saved_widget_type) {
+//         switch ( $saved_widget_type ) {
+//             case 'widget':
+//                 $widget_selected = "selected";
+//                 break;
+//             case 'sidebar':
+//                 $sidebar_selected = "selected";
+//                 break;
+//             case 'cta':
+//                 $cta_selected = "selected";
+//                 break;
+//         }
+//     }
+//     echo "<br>";
+//     echo "<select name='ll_widgets_type'>";
+//     echo "<option value='widget' $widget_selected>Widget</option>";
+//     echo "<option value='sidebar' $sidebar_selected>Sidebar</option>";
+//     echo "<option value='cta' $cta_selected>CTA</option>";
+//     echo "</select>";
+// }
+
+// add_admin_column('Type', 'll_widgets', 'll_widgets_type');
+
+/**
+ * Custom widget shortcode [custom_widget id=X]
+ */
 function render_widget_markup( $atts = '' ) {
     $params = shortcode_atts( array(
         'id' => '',
@@ -920,37 +1016,6 @@ function render_widget_markup( $atts = '' ) {
     return $content;
 }
 add_shortcode('custom_widget', 'render_widget_markup');
-
-function add_admin_column($column_title, $post_type, $field_id, $index = 0){
-
-    // Callback function to retrieve field value
-    $cb = function($post_id) use ($field_id, $index) {
-        $value = ($index) ? get_post_meta( $post_id, $field_id, true )[$index] : get_post_meta( $post_id, $field_id, true );
-        echo $value;
-    };
-
-    // Column Header
-    add_filter( 'manage_' . $post_type . '_posts_columns', function($columns) use ($field_id, $column_title) {
-        $columns[$field_id] = $column_title;
-        return $columns;
-    } );
-
-    // Column Content
-    add_action( 'manage_' . $post_type . '_posts_custom_column' , function( $column, $post_id ) use ($column_title, $cb, $field_id) {
-        if($field_id === $column){
-            $cb($post_id);
-        }
-    }, 10, 2 );
-
-    // Make Column Sortable
-    add_filter('manage_edit-'. $post_type .'_sortable_columns', function( $columns ) use ($field_id, $column_title) {
-            $columns[$field_id] = $column_title;
-            return $columns;
-        }
-    );
-}
-add_admin_column('Type', 'll_widgets', 'll_widgets_type');
-
 
 function register_custom_page_options_meta_box() {
     add_meta_box( 'll-page-options', __( 'Page Options', 'legendary-toolkit' ), 'render_custom_page_options_form', 'page' );
@@ -976,3 +1041,98 @@ function save_custom_page_options_meta_box( $post_id ) {
      }
 }
 add_action( 'save_post', 'save_custom_page_options_meta_box' );
+
+
+function toolkit_get_view_type() {
+    global $wp_query;
+    $loop = 'notfound';
+
+    if ( $wp_query->is_page ) {
+        $loop = is_front_page() ? 'front' : 'page';
+        $loop = (is_woocommerce_page()) ? 'woocommerce-page' : $loop;
+    } elseif ( $wp_query->is_home ) {
+        $loop = 'archive';
+    } elseif ( $wp_query->is_single ) {
+        $loop = ( $wp_query->is_attachment ) ? 'attachment' : 'single';
+    } elseif ( $wp_query->is_category ) {
+        $loop = 'category';
+    } elseif ( $wp_query->is_tag ) {
+        $loop = 'tag';
+    } elseif ( $wp_query->is_tax ) {
+        $loop = 'tax';
+    } elseif ( $wp_query->is_archive ) {
+        $loop = 'archive';
+        $loop = (is_shop()) ? 'shop' : $loop;
+    } elseif ( $wp_query->is_search ) {
+        $loop = 'search';
+    } elseif ( $wp_query->is_404 ) {
+        $loop = 'notfound';
+    }
+
+    return $loop;
+}
+
+function toolkit_get_sidebar_selection() {
+    $view_type = toolkit_get_view_type();
+
+    // Get page sidebar from theme settings
+    $option_page_sidebar = (legendary_toolkit_get_theme_option('page_sidebar')) ? legendary_toolkit_get_theme_option('page_sidebar') : '';
+    $option_page_sidebar_position = (legendary_toolkit_get_theme_option('page_sidebar_position')) ? legendary_toolkit_get_theme_option('page_sidebar_position') : '';
+
+    // Check for page options sidebar override
+    if ($view_type == 'page') {
+        $option_override_page_sidebar = esc_attr( get_post_meta( get_the_ID(), 'll_page_sidebar', true ) );
+        $option_override_page_sidebar_position = esc_attr( get_post_meta( get_the_ID(), 'll_sidebar_position', true ) );
+        if ($option_override_page_sidebar && $option_override_page_sidebar_position) {
+            $option_page_sidebar = $option_override_page_sidebar;
+            $option_page_sidebar_position = $option_override_page_sidebar_position;
+        }
+    }
+
+    // Get post sidebar from theme settings
+    $option_post_sidebar = (legendary_toolkit_get_theme_option('post_sidebar')) ? legendary_toolkit_get_theme_option('post_sidebar') : '';
+    $option_post_sidebar_position = (legendary_toolkit_get_theme_option('post_sidebar_position')) ? legendary_toolkit_get_theme_option('post_sidebar_position') : '';
+
+    // Get archive sidebar from theme settings
+    $option_archive_sidebar = (legendary_toolkit_get_theme_option('archives_sidebar')) ? legendary_toolkit_get_theme_option('archives_sidebar') : '';
+    $option_archive_sidebar_position = (legendary_toolkit_get_theme_option('archives_sidebar_position')) ? legendary_toolkit_get_theme_option('archives_sidebar_position') : '';
+
+    
+    $page_sidebar = ['id' => $option_page_sidebar, 'position' => $option_page_sidebar_position];
+    $single_sidebar = ['id' => $option_post_sidebar, 'position' => $option_post_sidebar_position];
+    $archive_sidebar = ['id' => $option_archive_sidebar, 'position' => $option_archive_sidebar_position];
+    
+    $sidebars = array(
+        'page'  => $page_sidebar,
+        'single' => $single_sidebar,
+        'archive' => $archive_sidebar,
+    );
+
+    $sidebar = (array_key_exists($view_type, $sidebars)) ? $sidebars[$view_type] : false;
+
+    if (!$sidebar || empty($sidebar["id"])) {
+        return false;
+    }
+    
+    return $sidebar;
+}
+function toolkit_get_primary_column_classes() {
+    $sidebar = toolkit_get_sidebar_selection();
+    $sidebar_position = $sidebar['position'];
+    $primary_column_class = (!$sidebar) ? 'col-md-12' : 'col-md-7';
+    $primary_order_class = 'order-md-1';
+    $primary_offset_class = ($sidebar_position == 'right') ? 'offset-md-2': '';
+    if ($sidebar_position == 'left') {
+        $primary_order_class = 'order-md-2';
+    }
+    return "$primary_column_class $primary_order_class $primary_offset_class";
+}
+function toolkit_get_sidebar_column_classes() {
+    $sidebar = toolkit_get_sidebar_selection();
+    $sidebar_position = $sidebar['position'];
+    $sidebar_order_class = 'order-md-2';
+    if ($sidebar_position == 'left') {
+        $sidebar_order_class = 'order-md-1';
+    }
+    return "$sidebar_order_class";
+}

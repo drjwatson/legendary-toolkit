@@ -26,9 +26,7 @@
     $page_title_content         = (array_key_exists('page_title_content', $theme_options) && $theme_options['page_title_content']) ? $theme_options['page_title_content'] : '';
     $mobile_menu_top_content    = (array_key_exists('mobile_menu_top_content', $theme_options)) ? $theme_options['mobile_menu_top_content'] : '';
     $mobile_menu_bottom_content = (array_key_exists('mobile_menu_bottom_content', $theme_options)) ? $theme_options['mobile_menu_bottom_content'] : '';
-    $sidebar                    = esc_attr( get_post_meta( get_the_ID(), 'll_page_sidebar', true ) );
-    $content_container          = (!$sidebar) ? 'container' : 'container-fluid';
-    
+    $content_container          = (toolkit_get_sidebar_selection()) ? 'container-fluid' : 'container';
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>

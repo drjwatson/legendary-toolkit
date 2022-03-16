@@ -7,11 +7,12 @@
  * @package WP_Bootstrap_Starter
  */
 
-if ( ! is_active_sidebar( 'sidebar-1' ) ) {
+if ( !toolkit_get_sidebar_selection() ) {
 	return;
 }
-?>
 
-<aside id="secondary" class="widget-area col-sm-12 col-lg-4" role="complementary">
-	<?php dynamic_sidebar( 'sidebar-1' ); ?>
-</aside><!-- #secondary -->
+$id = toolkit_get_sidebar_selection()['id'];
+?>
+<aside id="custom_sidebar" class="col-md-3 <?=toolkit_get_sidebar_column_classes();?>" role="complementary">
+	<?php echo do_shortcode("[custom_widget id=$id]");?>
+</aside>

@@ -6,8 +6,6 @@ function get_sidebar_options() {
     $sidebars = [];
     $args = array(
         'post_type' => 'll_widgets',
-        'meta_key' => 'll_widgets_type',
-        'meta_value' => 'sidebar'
     );
     $q_sidebars = new wp_query($args);
     if (!$q_sidebars->have_posts()) {

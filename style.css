@@ -741,10 +741,6 @@ a img.aligncenter {
 /*--------------------------------------------------------------
 ## Posts and pages
 --------------------------------------------------------------*/
-body:not(.home) #content.site-content {
-  /* padding-bottom: 3.75rem;
-  padding-top: 4.125rem; */
-}
 
 .sticky .entry-title::before {
   content: '\f08d';
@@ -799,10 +795,6 @@ body:not(.home) #content{
 
 .post-thumbnail img{
   width:100%;
-}
-
-.post-template-default #main .container, .blog #main .container, .search #main .container{
-  max-width:900px;
 }
 
 .blog-img {

@@ -6,12 +6,9 @@
  *
  * @package WP_Bootstrap_Starter
  */
-$theme_options = legendary_toolkit_get_theme_options();
-$show_sidebar_archive = (array_key_exists('show_sidebar_archive', $theme_options) && $theme_options['show_sidebar_archive']) ? $theme_options['show_sidebar_archive'] : false;
-$container_column_class = ($show_sidebar_archive) ? 'col-lg-8' : 'col-lg-12';
 get_header(); ?>
 
-	<section id="primary" class="content-area col-sm-12 <?=$container_column_class;?>">
+	<section id="primary" class="content-area col-sm-12 <?=toolkit_get_primary_column_classes();?>">
 		<div id="main" class="site-main" role="main">
 
 		<?php
@@ -41,10 +38,6 @@ get_header(); ?>
 
 		</div><!-- #main -->
 	</section><!-- #primary -->
-
 <?php
-if ($show_sidebar_archive) {
-	get_sidebar();
-}
-
+get_sidebar();
 get_footer();
