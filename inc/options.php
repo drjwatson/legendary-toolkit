@@ -899,7 +899,7 @@ function legendary_toolkit_get_theme_option( $id = '' ) {
 function legendary_toolkit_get_theme_options() {
     $options = Legendary_Toolkit_Theme_Options::get_theme_options();
     if (is_array($options)) {
-        return Legendary_Toolkit_Theme_Options::get_theme_options();    
+        return $options;    
     }
 	return [];
 }

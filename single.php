@@ -17,9 +17,6 @@ get_header(); ?>
 			get_template_part( 'template-parts/content', get_post_format() );
 
 			    the_post_navigation();
-				?><div class="widget_shopping_cart_content"><?php
-				// woocommerce_mini_cart();
-				?></div><?php
 
 		endwhile; // End of the loop.
 		?>

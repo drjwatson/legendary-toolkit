@@ -17,70 +17,70 @@ $myUpdateChecker->setBranch('master');
 $myUpdateChecker->getVcsApi()->enableReleaseAssets();
 
 if ( ! function_exists( 'legendary_toolkit_setup' ) ) :
-/**
- * Sets up theme defaults and registers support for various WordPress features.
- *
- * Note that this function is hooked into the after_setup_theme hook, which
- * runs before the init hook. The init hook is too late for some features, such
- * as indicating support for post thumbnails.
- */
-function legendary_toolkit_setup() {
-	/*
-	 * Make theme available for translation.
-	 * Translations can be filed in the /languages/ directory.
-	 * If you're building a theme based on Legendary Toolkit, use a find and replace
-	 * to change 'legendary-toolkit' to the name of your theme in all the template files.
-	 */
-	load_theme_textdomain( 'legendary-toolkit', get_template_directory() . '/languages' );
+    /**
+     * Sets up theme defaults and registers support for various WordPress features.
+     *
+     * Note that this function is hooked into the after_setup_theme hook, which
+     * runs before the init hook. The init hook is too late for some features, such
+     * as indicating support for post thumbnails.
+     */
+    function legendary_toolkit_setup() {
+        /*
+        * Make theme available for translation.
+        * Translations can be filed in the /languages/ directory.
+        * If you're building a theme based on Legendary Toolkit, use a find and replace
+        * to change 'legendary-toolkit' to the name of your theme in all the template files.
+        */
+        load_theme_textdomain( 'legendary-toolkit', get_template_directory() . '/languages' );
 
-	// Add default posts and comments RSS feed links to head.
-	add_theme_support( 'automatic-feed-links' );
+        // Add default posts and comments RSS feed links to head.
+        add_theme_support( 'automatic-feed-links' );
 
-	/*
-	 * Let WordPress manage the document title.
-	 * By adding theme support, we declare that this theme does not use a
-	 * hard-coded <title> tag in the document head, and expect WordPress to
-	 * provide it for us.
-	 */
-	add_theme_support( 'title-tag' );
+        /*
+        * Let WordPress manage the document title.
+        * By adding theme support, we declare that this theme does not use a
+        * hard-coded <title> tag in the document head, and expect WordPress to
+        * provide it for us.
+        */
+        add_theme_support( 'title-tag' );
 
-	/*
-	 * Enable support for Post Thumbnails on posts and pages.
-	 *
-	 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
-	 */
-	add_theme_support( 'post-thumbnails' );
+        /*
+        * Enable support for Post Thumbnails on posts and pages.
+        *
+        * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
+        */
+        add_theme_support( 'post-thumbnails' );
 
-	// This theme uses wp_nav_menu() in one location.
-	register_nav_menus( array(
-		'primary' => esc_html__( 'Primary', 'legendary-toolkit' ),
-	) );
+        // This theme uses wp_nav_menu() in one location.
+        register_nav_menus( array(
+            'primary' => esc_html__( 'Primary', 'legendary-toolkit' ),
+        ) );
 
-	/*
-	 * Switch default core markup for search form, comment form, and comments
-	 * to output valid HTML5.
-	 */
-	add_theme_support( 'html5', array(
-		// 'comment-form',
-		// 'comment-list',
-		'caption',
-	) );
+        /*
+        * Switch default core markup for search form, comment form, and comments
+        * to output valid HTML5.
+        */
+        add_theme_support( 'html5', array(
+            // 'comment-form',
+            // 'comment-list',
+            'caption',
+        ) );
 
-	// Set up the WordPress core custom background feature.
-	add_theme_support( 'custom-background', apply_filters( 'legendary_toolkit_custom_background_args', array(
-		'default-color' => 'ffffff',
-		'default-image' => '',
-	) ) );
+        // Set up the WordPress core custom background feature.
+        add_theme_support( 'custom-background', apply_filters( 'legendary_toolkit_custom_background_args', array(
+            'default-color' => 'ffffff',
+            'default-image' => '',
+        ) ) );
 
-	// Add theme support for selective refresh for widgets.
-	add_theme_support( 'customize-selective-refresh-widgets' );
+        // Add theme support for selective refresh for widgets.
+        add_theme_support( 'customize-selective-refresh-widgets' );
 
-    function wp_boostrap_starter_add_editor_styles() {
-        add_editor_style( 'custom-editor-style.css' );
+        function wp_boostrap_starter_add_editor_styles() {
+            add_editor_style( 'custom-editor-style.css' );
+        }
+        add_action( 'admin_init', 'wp_boostrap_starter_add_editor_styles' );
+
     }
-    add_action( 'admin_init', 'wp_boostrap_starter_add_editor_styles' );
-
-}
 endif;
 add_action( 'after_setup_theme', 'legendary_toolkit_setup' );
 
@@ -204,9 +204,6 @@ function legendary_toolkit_scripts() {
     wp_enqueue_style('legendary_toolkit_mobile_menu_styles', get_template_directory_uri() . '/inc/assets/css/menu.css');
     wp_enqueue_script('legendary_toolkit_mobile_menu_script', get_template_directory_uri() . '/inc/assets/js/menu.js', array(), '', true);
     
-	// load Legendary Toolkit styles
-	// wp_enqueue_style( 'legendary-toolkit-style', get_stylesheet_uri() );
-    
     // parent styles
     wp_enqueue_style('legendary-toolkit', get_template_directory_uri() . '/style.css');
 
@@ -306,64 +303,77 @@ function legendary_toolkit_theme_options_css() {
     
     $page_container_width         = (array_key_exists('page_container_width', $theme_options) && $theme_options['page_container_width']) ? $theme_options['page_container_width'] : '1320';
 
-    $favicon         = (array_key_exists('favicon', $theme_options) && $theme_options['favicon']) ? $theme_options['favicon'] : '';
-    $favicon_url               = ($favicon) ? esc_url(wp_get_attachment_image_url($favicon, 'medium')) : '';
+    $favicon                      = (array_key_exists('favicon', $theme_options) && $theme_options['favicon']) ? $theme_options['favicon'] : '';
+    $favicon_url                  = ($favicon) ? esc_url(wp_get_attachment_image_url($favicon, 'medium')) : '';
 
-    function get_saved_font_family($option, $options) {
-        if (!array_key_exists($option, $options)) { return; }
-        if (!$options[$option]) { return; }
-        if ($options[$option] == 'Select Font Family') { return; }
-        $option = $options[$option];
-        return $option;
+    if (!function_exists('get_saved_font_family')) {
+        function get_saved_font_family($option, $options) {
+            if (!array_key_exists($option, $options)) { return; }
+            if (!$options[$option]) { return; }
+            if ($options[$option] == 'Select Font Family') { return; }
+            $option = $options[$option];
+            return $option;
+        }   
     }
-    function get_saved_font_color($option, $options) {
-        if (!array_key_exists($option, $options)) { return; }
-        if (!$options[$option]) { return; }
-        $option = $options[$option];
-        return $option;
+    if (!function_exists('get_saved_font_color')) {
+        function get_saved_font_color($option, $options) {
+            if (!array_key_exists($option, $options)) { return; }
+            if (!$options[$option]) { return; }
+            $option = $options[$option];
+            return $option;
+        }
     }
-    function get_saved_font_style($option, $options) {
-        if (!array_key_exists($option, $options)) { return; }
-        if (!$options[$option]) { return; }
-        $option = $options[$option];
-        return ( strpos($option, 'italic') !== false ) ? 'italic' : 'normal';
+    if (!function_exists('get_saved_font_style')) {
+        function get_saved_font_style($option, $options) {
+            if (!array_key_exists($option, $options)) { return; }
+            if (!$options[$option]) { return; }
+            $option = $options[$option];
+            return ( strpos($option, 'italic') !== false ) ? 'italic' : 'normal';
+        }   
     }
-    function get_saved_font_weight($option, $options) {
-        if (!array_key_exists($option, $options)) { return; }
-        if (!$options[$option]) { return; }
-        $option = $options[$option];
-        return ( preg_match('/\\d/', $option) ) ? (int) filter_var($option, FILTER_SANITIZE_NUMBER_INT) : 'regular';
+    if (!function_exists('get_saved_font_weight')) {
+        function get_saved_font_weight($option, $options) {
+            if (!array_key_exists($option, $options)) { return; }
+            if (!$options[$option]) { return; }
+            $option = $options[$option];
+            return ( preg_match('/\\d/', $option) ) ? (int) filter_var($option, FILTER_SANITIZE_NUMBER_INT) : 'regular';
+        }
     }
-    function get_saved_font_size($option, $options) {
-        if (!array_key_exists($option, $options)) { return; }
-        if (!$options[$option]) { return; }
-        $option = $options[$option];
-        return $option . 'px';
+    if (!function_exists('get_saved_font_size')) {
+        function get_saved_font_size($option, $options) {
+            if (!array_key_exists($option, $options)) { return; }
+            if (!$options[$option]) { return; }
+            $option = $options[$option];
+            return $option . 'px';
+        }
     }
-    function get_saved_font_transform($option, $options) {
-        if (!array_key_exists($option, $options)) { return; }
-        if (!$options[$option]) { return; }
-        $option = $options[$option];
-        return $option;
+    if (!function_exists('get_saved_font_transform')) {
+        function get_saved_font_transform($option, $options) {
+            if (!array_key_exists($option, $options)) { return; }
+            if (!$options[$option]) { return; }
+            $option = $options[$option];
+            return $option;
+        }
     }
-
-    function define_font_variables($id, $options) {
-        $font_family = get_saved_font_family($id . '_font_family', $options);
-        $font_color = get_saved_font_color($id . '_font_color', $options);
-        $font_style = get_saved_font_style($id . '_font_style', $options);
-        $font_weight = get_saved_font_weight($id . '_font_weight', $options);
-        $font_size = get_saved_font_size($id . '_font_size', $options);
-        $font_transform = get_saved_font_transform($id . '_font_transform', $options);
-        $spacer = "            ";
-        $style_return = "";
-        $style_return .= ($font_family) ?  "--".$id."_font_family : ".$font_family.";\n"  : '';
-        $style_return .= ($font_color) ? $spacer . "--".$id."_font_color : ".$font_color.";\n" : '';
-        $style_return .= ($font_style) ? $spacer . "--".$id."_font_style : ".$font_style.";\n" : '';
-        $style_return .= ($font_weight) ? $spacer . "--".$id."_font_weight : ".$font_weight.";\n" : '';
-        $style_return .= ($font_size) ? $spacer . "--".$id."_font_size : ".$font_size.";\n" : '';
-        $style_return .= ($font_transform) ? $spacer . "--".$id."_font_transform : ".$font_transform.";" : '';
-
-        return $style_return;
+    if (!function_exists('define_font_variables')) {
+        function define_font_variables($id, $options) {
+            $font_family = get_saved_font_family($id . '_font_family', $options);
+            $font_color = get_saved_font_color($id . '_font_color', $options);
+            $font_style = get_saved_font_style($id . '_font_style', $options);
+            $font_weight = get_saved_font_weight($id . '_font_weight', $options);
+            $font_size = get_saved_font_size($id . '_font_size', $options);
+            $font_transform = get_saved_font_transform($id . '_font_transform', $options);
+            $spacer = "            ";
+            $style_return = "";
+            $style_return .= ($font_family) ?  "--".$id."_font_family : ".$font_family.";\n"  : '';
+            $style_return .= ($font_color) ? $spacer . "--".$id."_font_color : ".$font_color.";\n" : '';
+            $style_return .= ($font_style) ? $spacer . "--".$id."_font_style : ".$font_style.";\n" : '';
+            $style_return .= ($font_weight) ? $spacer . "--".$id."_font_weight : ".$font_weight.";\n" : '';
+            $style_return .= ($font_size) ? $spacer . "--".$id."_font_size : ".$font_size.";\n" : '';
+            $style_return .= ($font_transform) ? $spacer . "--".$id."_font_transform : ".$font_transform.";" : '';
+    
+            return $style_return;
+        }
     }
 
     // Add CSS variables
@@ -1025,6 +1035,7 @@ add_action( 'add_meta_boxes', 'register_custom_page_options_meta_box' );
 function render_custom_page_options_form ( $post ) {
     require_once get_template_directory() . '/inc/page-options.php';
 }
+
 function save_custom_page_options_meta_box( $post_id ) {
     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
     if ( $parent_id = wp_is_post_revision( $post_id ) ) {
@@ -1075,10 +1086,18 @@ function toolkit_get_view_type() {
 function toolkit_get_sidebar_selection() {
     $view_type = toolkit_get_view_type();
 
-    // Get page sidebar from theme settings
-    $option_page_sidebar = (legendary_toolkit_get_theme_option('page_sidebar')) ? legendary_toolkit_get_theme_option('page_sidebar') : '';
-    $option_page_sidebar_position = (legendary_toolkit_get_theme_option('page_sidebar_position')) ? legendary_toolkit_get_theme_option('page_sidebar_position') : '';
+    $option_page_sidebar = '';
+    $option_page_sidebar_position = '';
+    $option_post_sidebar = '';
+    $option_post_sidebar_position = '';
+    $option_archive_sidebar = '';
+    $option_archive_sidebar_position = '';
 
+    // Get page sidebar from theme settings
+    if (!is_page_template( 'blank-page.php' ) && !is_page_template( 'blank-page-with-container.php')) {
+        $option_page_sidebar = legendary_toolkit_get_theme_option('page_sidebar');
+        $option_page_sidebar_position = legendary_toolkit_get_theme_option('page_sidebar_position');
+    }
     // Check for page options sidebar override
     if ($view_type == 'page') {
         $option_override_page_sidebar = esc_attr( get_post_meta( get_the_ID(), 'll_page_sidebar', true ) );
@@ -1090,12 +1109,12 @@ function toolkit_get_sidebar_selection() {
     }
 
     // Get post sidebar from theme settings
-    $option_post_sidebar = (legendary_toolkit_get_theme_option('post_sidebar')) ? legendary_toolkit_get_theme_option('post_sidebar') : '';
-    $option_post_sidebar_position = (legendary_toolkit_get_theme_option('post_sidebar_position')) ? legendary_toolkit_get_theme_option('post_sidebar_position') : '';
+    $option_post_sidebar = legendary_toolkit_get_theme_option('post_sidebar');
+    $option_post_sidebar_position = legendary_toolkit_get_theme_option('post_sidebar_position');
 
     // Get archive sidebar from theme settings
-    $option_archive_sidebar = (legendary_toolkit_get_theme_option('archives_sidebar')) ? legendary_toolkit_get_theme_option('archives_sidebar') : '';
-    $option_archive_sidebar_position = (legendary_toolkit_get_theme_option('archives_sidebar_position')) ? legendary_toolkit_get_theme_option('archives_sidebar_position') : '';
+    $option_archive_sidebar = legendary_toolkit_get_theme_option('archives_sidebar');
+    $option_archive_sidebar_position = legendary_toolkit_get_theme_option('archives_sidebar_position');
 
     
     $page_sidebar = ['id' => $option_page_sidebar, 'position' => $option_page_sidebar_position];
@@ -1118,21 +1137,38 @@ function toolkit_get_sidebar_selection() {
 }
 function toolkit_get_primary_column_classes() {
     $sidebar = toolkit_get_sidebar_selection();
-    $sidebar_position = $sidebar['position'];
-    $primary_column_class = (!$sidebar) ? 'col-md-12' : 'col-md-7';
     $primary_order_class = 'order-md-1';
-    $primary_offset_class = ($sidebar_position == 'right') ? 'offset-md-2': '';
-    if ($sidebar_position == 'left') {
-        $primary_order_class = 'order-md-2';
+    $primary_column_class = 'col-md-12';
+    $primary_offset_class = '';
+    if ($sidebar) {
+        $sidebar_position = $sidebar['position'];
+        $primary_column_class = 'col-md-7';
+        if ($sidebar_position == 'left') {
+            $primary_order_class = 'order-md-2';
+        }
+        else {
+            $primary_offset_class = 'offset-md-2';
+        }
+    }
+    if (is_page_template('page-full-width.php') && $sidebar) {
+        $primary_column_class = 'col-md-8';
+        $primary_offset_class = '';
     }
     return "$primary_column_class $primary_order_class $primary_offset_class";
 }
 function toolkit_get_sidebar_column_classes() {
     $sidebar = toolkit_get_sidebar_selection();
+    if (!$sidebar) {
+        return false;
+    }
     $sidebar_position = $sidebar['position'];
+    $sidebar_column_class = 'col-md-3 ';
     $sidebar_order_class = 'order-md-2';
     if ($sidebar_position == 'left') {
         $sidebar_order_class = 'order-md-1';
     }
-    return "$sidebar_order_class";
+    if (is_page_template('page-full-width.php') && $sidebar) {
+        $sidebar_column_class = 'col-md-4';
+    }
+    return "$sidebar_column_class $sidebar_order_class";
 }

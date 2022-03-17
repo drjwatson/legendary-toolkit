@@ -8,7 +8,7 @@
  */
 get_header(); ?>
 
-	<section id="primary" class="content-area col-sm-12 <?=toolkit_get_primary_column_classes();?>">
+	<section id="primary" class="content-area <?=toolkit_get_primary_column_classes();?>">
 		<div id="main" class="site-main" role="main">
 
 		<?php
