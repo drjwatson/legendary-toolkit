@@ -34,7 +34,7 @@ $mobile_menu_bottom_content = legendary_toolkit_get_theme_option('mobile_menu_bo
             <slide-drawer width="<?=$mobile_menu_width;?>" overlayOpacity=".7" mobileWidth="<?=$mobile_menu_width;?>" mobileBreak="<?=$mobile_menu_breakpoint;?>" <?=$mobile_menu_position;?>>
                 <div id="menu-wrapper" style="display:none";>
                     <div id="menu_top">
-                        <?php// get_template_part('header', 'logo', ['id' => 'mobile_site_logo']);?>
+                        <?php get_template_part('template-parts/header', 'logo', ['id' => 'mobile_site_logo']);?>
                         <div id="mobile-menu-top-content">
                             <?php echo wpautop($mobile_menu_top_content);?>
                         </div>
