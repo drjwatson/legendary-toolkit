@@ -1145,12 +1145,12 @@ function toolkit_get_primary_column_classes() {
     $primary_offset_class = '';
     if ($sidebar) {
         $sidebar_position = $sidebar['position'];
-        $primary_column_class = 'col-md-7';
+        $primary_column_class = 'col-md-8 col-lg-7';
         if ($sidebar_position == 'left') {
             $primary_order_class = 'order-md-2';
         }
         else {
-            $primary_offset_class = 'offset-md-2';
+            $primary_offset_class = 'offset-lg-2';
         }
     }
     if (is_page_template('page-full-width.php') && $sidebar) {
@@ -1165,7 +1165,7 @@ function toolkit_get_sidebar_column_classes() {
         return false;
     }
     $sidebar_position = $sidebar['position'];
-    $sidebar_column_class = 'col-md-3 ';
+    $sidebar_column_class = 'col-md-4 col-lg-3';
     $sidebar_order_class = 'order-md-2';
     if ($sidebar_position == 'left') {
         $sidebar_order_class = 'order-md-1';
