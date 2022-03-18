@@ -826,6 +826,9 @@ function legendary_cart_in_menu ( $items, $args ) {
  */
 if( ! function_exists('is_woocommerce_page') ){
     function is_woocommerce_page( $page = '', $endpoint = '' ){
+        if ( ! class_exists( 'WooCommerce' ) ) {
+            return false;
+        }
         if( ! $page ){
             return ( is_cart() || is_checkout() || is_account_page() || is_wc_endpoint_url() );
         }

@@ -8,7 +8,7 @@ $mobile_menu_top_content = legendary_toolkit_get_theme_option('mobile_menu_top_c
 $mobile_menu_bottom_content = legendary_toolkit_get_theme_option('mobile_menu_bottom_content');
 ?>
 
-<header id="masthead" class="site-header navbar-static-top <?=$header_behavior_class;?><?=$transparent_class;?>" role="banner">
+<header id="masthead" class="site-header navbar-static-top <?=$header_behavior_class;?> <?=$transparent_class;?>" role="banner">
     <div class="container">
         <nav class="navbar navbar-expand-xl p-0">
             <div class="navbar-brand">
