@@ -694,7 +694,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                         }
                                         else {
                                             echo "<select name='theme_options[page_sidebar]' id='theme_options[page_sidebar]'>";
-                                                echo "<option value='0' $selected_sidebar_none>No Sidebar Selected</option>";
+                                                echo "<option value='0' $selected_sidebar_none>No Sidebar</option>";
                                                 foreach (get_sidebar_options() as $i => $sidebar) {
                                                     $id = $sidebar['id'];
                                                     $name = $sidebar['name'];
@@ -740,7 +740,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                         }
                                         else {
                                             echo "<select name='theme_options[post_sidebar]' id='theme_options[post_sidebar]'>";
-                                                echo "<option value='0' $post_selected_sidebar_none>No Sidebar Selected</option>";
+                                                echo "<option value='0' $post_selected_sidebar_none>No Sidebar</option>";
                                                 foreach (get_sidebar_options() as $i => $sidebar) {
                                                     $id = $sidebar['id'];
                                                     $name = $sidebar['name'];
@@ -757,7 +757,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <td>
                                 <?php 
                                     echo "<select name='theme_options[post_sidebar_position]' id='theme_options[post_sidebar_position]'>";
-                                        echo "<option value='0' $post_selected_no_sidebar>No Sidebar</option>";
+                                        // echo "<option value='0' $post_selected_no_sidebar>No Sidebar</option>";
                                         foreach ($post_sidebar_position_options as $i => $value) {
                                             $label = ucwords($value);
                                             $selected = ($post_selected_sidebar_position == $value) ? 'selected' : '';
@@ -786,7 +786,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                         }
                                         else {
                                             echo "<select name='theme_options[archives_sidebar]' id='theme_options[archives_sidebar]'>";
-                                                echo "<option value='0' $archives_selected_sidebar_none>No Sidebar Selected</option>";
+                                                echo "<option value='0' $archives_selected_sidebar_none>No Sidebar</option>";
                                                 foreach (get_sidebar_options() as $i => $sidebar) {
                                                     $id = $sidebar['id'];
                                                     $name = $sidebar['name'];
@@ -803,7 +803,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <td>
                                 <?php 
                                     echo "<select name='theme_options[archives_sidebar_position]' id='theme_options[archives_sidebar_position]'>";
-                                        echo "<option value='0' $archives_selected_no_sidebar>No Sidebar</option>";
+                                        // echo "<option value='0' $archives_selected_no_sidebar>No Sidebar</option>";
                                         foreach ($archives_sidebar_position_options as $i => $value) {
                                             $label = ucwords($value);
                                             $selected = ($archives_selected_sidebar_position == $value) ? 'selected' : '';

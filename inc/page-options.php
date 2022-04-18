@@ -23,6 +23,7 @@ function get_sidebar_options() {
 
 $selected_sidebar = esc_attr( get_post_meta( get_the_ID(), 'll_page_sidebar', true ) );
 $selected_sidebar_none = (!$selected_sidebar) ? 'selected' : '';
+$selected_sidebar_off = ($selected_sidebar == 'sidebar_off') ? 'selected' : '';
 
 $selected_sidebar_position = esc_attr( get_post_meta( get_the_ID(), 'll_sidebar_position', true ) );
 $selected_no_sidebar = (!$selected_sidebar_position) ? 'selected' : '';
@@ -51,7 +52,8 @@ $sidebar_position_options = ['left','right'];
             }
             else {
                 echo "<select name='ll_page_sidebar' id='ll_page_sidebar'>";
-                    echo "<option value='0' $selected_sidebar_none>No Sidebar Selected</option>";
+                    echo "<option value='0' $selected_sidebar_none>- Theme Settings Default</option>";
+                    echo "<option value='sidebar_off' $selected_sidebar_off>- No Sidebar</option>";
                     foreach (get_sidebar_options() as $i => $sidebar) {
                         $id = $sidebar['id'];
                         $name = $sidebar['name'];
@@ -66,7 +68,7 @@ $sidebar_position_options = ['left','right'];
         <label for="ll_sidebar_position"><strong>Sidebar Position</strong></label>
         <?php 
             echo "<select name='ll_sidebar_position' id='ll_sidebar_position'>";
-                echo "<option value='0' $selected_no_sidebar>No Sidebar</option>";
+                echo "<option value='0' $selected_no_sidebar>- Theme Settings Default</option>";
                 foreach ($sidebar_position_options as $i => $value) {
                     $label = ucwords($value);
                     $selected = ($selected_sidebar_position == $value) ? 'selected' : '';

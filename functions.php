@@ -1104,6 +1104,11 @@ function toolkit_get_sidebar_selection() {
     // Check for page options sidebar override
     if ($view_type == 'page') {
         $option_override_page_sidebar = esc_attr( get_post_meta( get_the_ID(), 'll_page_sidebar', true ) );
+        
+        // if 
+        if($option_override_page_sidebar == 'sidebar_off'){
+            return false;
+        }
         $option_override_page_sidebar_position = esc_attr( get_post_meta( get_the_ID(), 'll_sidebar_position', true ) );
         if ($option_override_page_sidebar && $option_override_page_sidebar_position) {
             $option_page_sidebar = $option_override_page_sidebar;
