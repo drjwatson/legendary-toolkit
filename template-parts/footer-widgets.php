@@ -7,7 +7,7 @@
             <div class="row">
                 <?php for ($i=0; $i < $footer_column_count; $i++) : ?>
                     <div class="<?php echo $footer_column_class;?>" id="footer_column_<?php echo $i+1;?>">
-                        <?php echo wpautop(legendary_toolkit_get_theme_option('footer_column_'. ($i + 1)));?>
+                        <?php echo do_shortcode(wpautop(legendary_toolkit_get_theme_option('footer_column_'. ($i + 1))));?>
                     </div>
                 <?php endfor;?>
             </div>
