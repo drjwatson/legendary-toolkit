@@ -86,6 +86,7 @@ body:not(.theme-preset-active) #masthead .navbar-nav>li.current_page_item>a {
     font-weight: var(--menu_items_font_weight, var(--all_font_weight), bold);
     text-transform: var(--menu_items_font_transform, var(--all_font_weight), none);
     font-size: var(--menu_items_font_size, 14px);
+    opacity:1;
 }
 
 a.nav-link{
@@ -105,7 +106,7 @@ a.nav-link{
 body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(li.btn a),
 body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(li.btn a):hover,
 body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li.current_page_item>a:not(li.btn a) {
-    line-height: var(--logo_height, 100px);
+    line-height: var(--scrolling_logo_height, 100px);
 }
 
 #main-nav>ul.navbar-nav>li>a:not(li.btn a),
@@ -287,4 +288,17 @@ a:hover {
 }
 .container{
     max-width:var(--page_container_width);
+}
+
+.frm_style_formidable-style.with_frm_style .frm_compact .frm_dropzone.dz-clickable .dz-message, .frm_style_formidable-style.with_frm_style input[type=submit], .frm_style_formidable-style.with_frm_style .frm_submit input[type=button], .frm_style_formidable-style.with_frm_style .frm_submit button, .frm_form_submit_style, .frm_style_formidable-style.with_frm_style .frm-edit-page-btn{
+    border:0;
+}
+
+.frm_style_formidable-style.with_frm_style .frm-edit-page-btn:hover, .frm_style_formidable-style.with_frm_style input[type=submit]:hover, .frm_style_formidable-style.with_frm_style .frm_submit input[type=button]:hover, .frm_style_formidable-style.with_frm_style .frm_submit button:hover{
+    background: var(--primary_color);;
+    border:0;
+}
+
+.btn, button, .nav-link{
+    transition: .25s;
 }
