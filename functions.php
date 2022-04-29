@@ -84,30 +84,6 @@ if ( ! function_exists( 'legendary_toolkit_setup' ) ) :
 endif;
 add_action( 'after_setup_theme', 'legendary_toolkit_setup' );
 
-
-/**
- * Add Welcome message to dashboard
- */
-// function legendary_toolkit_reminder(){
-//         $theme_page_url = 'https://afterimagedesigns.com/wp-bootstrap-starter/?dashboard=1';
-
-//             if(!get_option( 'triggered_welcomet')){
-//                 $message = sprintf(__( 'Welcome to Legendary Toolkit Theme! Before diving in to your new theme, please visit the <a style="color: #fff; font-weight: bold;" href="%1$s" target="_blank">theme\'s</a> page for access to dozens of tips and in-depth tutorials.', 'legendary-toolkit' ),
-//                     esc_url( $theme_page_url )
-//                 );
-
-//                 printf(
-//                     '<div class="notice is-dismissible" style="background-color: #6C2EB9; color: #fff; border-left: none;">
-//                         <p>%1$s</p>
-//                     </div>',
-//                     $message
-//                 );
-//                 add_option( 'triggered_welcomet', '1', '', 'yes' );
-//             }
-
-// }
-// add_action( 'admin_notices', 'legendary_toolkit_reminder' );
-
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
@@ -119,52 +95,6 @@ function legendary_toolkit_content_width() {
 	$GLOBALS['content_width'] = apply_filters( 'legendary_toolkit_content_width', 1320 );
 }
 add_action( 'after_setup_theme', 'legendary_toolkit_content_width', 0 );
-
-/**
- * Register widget area.
- *
- * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
- */
-function legendary_toolkit_widgets_init() {
-    register_sidebar( array(
-        'name'          => esc_html__( 'Sidebar', 'legendary-toolkit' ),
-        'id'            => 'sidebar-1',
-        'description'   => esc_html__( 'Add widgets here.', 'legendary-toolkit' ),
-        'before_widget' => '<section id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</section>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>',
-    ) );
-    register_sidebar( array(
-        'name'          => esc_html__( 'Footer 1', 'legendary-toolkit' ),
-        'id'            => 'footer-1',
-        'description'   => esc_html__( 'Add widgets here.', 'legendary-toolkit' ),
-        'before_widget' => '<section id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</section>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>',
-    ) );
-    register_sidebar( array(
-        'name'          => esc_html__( 'Footer 2', 'legendary-toolkit' ),
-        'id'            => 'footer-2',
-        'description'   => esc_html__( 'Add widgets here.', 'legendary-toolkit' ),
-        'before_widget' => '<section id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</section>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>',
-    ) );
-    register_sidebar( array(
-        'name'          => esc_html__( 'Footer 3', 'legendary-toolkit' ),
-        'id'            => 'footer-3',
-        'description'   => esc_html__( 'Add widgets here.', 'legendary-toolkit' ),
-        'before_widget' => '<section id="%1$s" class="widget %2$s">',
-        'after_widget'  => '</section>',
-        'before_title'  => '<h3 class="widget-title">',
-        'after_title'   => '</h3>',
-    ) );
-}
-add_action( 'widgets_init', 'legendary_toolkit_widgets_init' );
-
 
 /**
  * Enqueue scripts and styles.
@@ -192,26 +122,23 @@ function legendary_toolkit_scripts() {
     
     // theme js
     wp_enqueue_script('legendary-toolkit-themejs', get_template_directory_uri() . '/inc/assets/js/theme-script.js', array(), '', true );
-    // wp_enqueue_script('legendary-toolkit-themejs', get_template_directory_uri() . '/inc/assets/js/theme-script.min.js', array(), '', true );
 	wp_enqueue_script( 'legendary-toolkit-skip-link-focus-fix', get_template_directory_uri() . '/inc/assets/js/skip-link-focus-fix.min.js', array(), '20151215', true );
-
-	// if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-	// 	wp_enqueue_script( 'comment-reply' );
-	// }
-
     
     // custom mobile menu
     wp_enqueue_style('legendary_toolkit_mobile_menu_styles', get_template_directory_uri() . '/inc/assets/css/menu.css');
     wp_enqueue_script('legendary_toolkit_mobile_menu_script', get_template_directory_uri() . '/inc/assets/js/menu.js', array(), '', true);
-    
+
+    wp_enqueue_style('legendary_toolkit_fancybox_styles', get_template_directory_uri() . '/inc/assets/css/fancybox.css');
+    wp_enqueue_script('legendary_toolkit_fancybox_script', get_template_directory_uri() . '/inc/assets/js/fancybox.umd.js', array(), '', true);
+
     // parent styles
-    wp_enqueue_style('legendary-toolkit', get_template_directory_uri() . '/style.css');
+    wp_enqueue_style('legendary-toolkit-parent-styles', get_template_directory_uri() . '/style.css');
+
+    // append theme options stylesheet after parent theme styles
+    wp_add_inline_style( 'legendary-toolkit-parent-styles', legendary_toolkit_theme_options_css() );  
 
     // theme styles from settings
-    wp_enqueue_style('legendary_toolkit_theme_settings_styles', get_template_directory_uri() . '/inc/assets/css/theme-styles.css');
-    
-    // append theme options stylesheet after parent theme styles
-    wp_add_inline_style( 'legendary-toolkit', legendary_toolkit_theme_options_css() );    
+    wp_enqueue_style('legendary-toolkit-theme-settings-styles', get_template_directory_uri() . '/inc/assets/css/theme-styles.css');
 
 }
 add_action( 'wp_enqueue_scripts', 'legendary_toolkit_scripts' );
@@ -406,23 +333,22 @@ function legendary_toolkit_theme_options_css() {
 }
 
 function my_login_logo() { 
-    
     // Define variables for theme options stylesheet
     $theme_options = legendary_toolkit_get_theme_options();
-    $favicon         = (array_key_exists('favicon', $theme_options) && $theme_options['favicon']) ? $theme_options['favicon'] : '';
-    $favicon_url               = ($favicon) ? esc_url(wp_get_attachment_image_url($favicon, 'medium')) : '';
-    
+    $favicon       = (array_key_exists('favicon', $theme_options) && $theme_options['favicon']) ? $theme_options['favicon'] : '';
+    $favicon_url   = ($favicon) ? esc_url(wp_get_attachment_image_url($favicon, 'medium')) : '';
     ?>
-    <style type="text/css">
-        #login h1 a, .login h1 a {
-        background-image: url(<?php echo $favicon_url;?>);
-        background-size:contain;
-		height:100px;
-		width:100px;
-        padding-bottom: 4px;
-        }
-    </style>
-<?php }
+        <style type="text/css">
+            #login h1 a, .login h1 a {
+            background-image: url(<?php echo $favicon_url;?>);
+            background-size:contain;
+            height:100px;
+            width:100px;
+            padding-bottom: 4px;
+            }
+        </style>
+    <?php 
+}
 add_action( 'login_enqueue_scripts', 'my_login_logo' );
 
 /**
@@ -441,7 +367,6 @@ function legendary_toolkit_preload( $hints, $relation_type ){
     }
     return $hints;
 } 
-
 add_filter( 'wp_resource_hints', 'legendary_toolkit_preload', 10, 2 );
 
 
@@ -457,20 +382,10 @@ function legendary_toolkit_password_form() {
 }
 add_filter( 'the_password_form', 'legendary_toolkit_password_form' );
 
-
-
-add_action(
-    'after_setup_theme',
-    function() {
-        add_theme_support( 'html5', [ 'script', 'style' ] );
-    }
-);
-
-
-/**
- * Implement the Custom Header feature.
- */
-// require get_template_directory() . '/inc/custom-header.php'; // commented to remove customizer options
+function add_html5_support() {
+    add_theme_support( 'html5', [ 'script', 'style' ] );
+}
+add_action('after_setup_theme', 'add_html5_support');
 
 /**
  * Custom template tags for this theme.
@@ -481,11 +396,6 @@ require get_template_directory() . '/inc/template-tags.php';
  * Custom functions that act independently of the theme templates.
  */
 require get_template_directory() . '/inc/extras.php';
-
-/**
- * Customizer additions.
- */
-// require get_template_directory() . '/inc/customizer.php'; // commented to remove customizer options
 
 /**
  * Load plugin compatibility file.
@@ -499,14 +409,16 @@ if ( ! class_exists( 'wp_bootstrap_navwalker' )) {
     require_once(get_template_directory() . '/inc/wp_bootstrap_navwalker.php');
 }
 
+/**
+ * Load Theme Options
+ */
 
 require get_template_directory() . '/inc/options.php';
 
-
 // allow svg uploads
 function cc_mime_types($mimes) {
-  $mimes['svg'] = 'image/svg+xml';
-  return $mimes;
+    $mimes['svg'] = 'image/svg+xml';
+    return $mimes;
 }
 add_filter('upload_mimes', 'cc_mime_types');
 
@@ -688,13 +600,6 @@ add_action('init', function () {
         remove_action('admin_bar_menu', 'wp_admin_bar_comments_menu', 60);
     }
 });
-
-add_action( 'admin_init', 'wpse_136058_debug_admin_menu' );
-
-function wpse_136058_debug_admin_menu() {
-
-    // echo '<pre>' . print_r( $GLOBALS[ 'menu' ], TRUE) . '</pre>';
-}
 
 // Remove unecessary base menu items for non-admins
 add_action('admin_menu', function () {
@@ -931,84 +836,6 @@ function create_ll_widgets_post_type() {
 }
 add_action('init', 'create_ll_widgets_post_type');
 
-// ! 2022-03-16 JW: Commented to preserve widget type if useful in future
-
-// /**
-//  * Widget Metabox
-//  */
-
-// function add_ll_widgets_custom_fields() {
-//     // see https://developer.wordpress.org/reference/functions/add_meta_box
-//     add_meta_box(
-//         "ll_widgets_metadata",
-//         "Widget Options",
-//         "render_ll_widget_metadata",
-//         "ll_widgets",
-//         "side",
-//         "low"
-//     );
-// }
-// add_action( "admin_init", "add_ll_widgets_custom_fields" );
-
-// /**
-//  * Save Widget Meta
-//  */
-
-// function save_ll_widget_custom_fields(){
-//     global $post;
-//     if (!$post) {
-//         return;
-//     }
-//     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-//         return;
-//     }
-//     if (!$post->ID) {
-//         return;
-//     }
-//     if ( get_post_status( $post->ID ) === 'auto-draft' ) {
-//         return;
-//     }
-
-//     update_post_meta( $post->ID, "ll_widgets_type", sanitize_text_field( $_POST[ "ll_widgets_type" ] ) );
-// }
-// add_action( 'save_post', 'save_ll_widget_custom_fields' );
-
-// /**
-//  * Markup for widget meta options
-//  */
-
-// function render_ll_widget_metadata(){
-//     global $post;
-//     $custom_fields = get_post_custom( $post->ID );
-//     $saved_widget_type = (array_key_exists('ll_widgets_type', $custom_fields )) ? $custom_fields[ "ll_widgets_type" ][ 0 ] : '';
-
-//     $widget_selected = '';
-//     $sidebar_selected = '';
-//     $cta_selected = '';
-
-//     if ($saved_widget_type) {
-//         switch ( $saved_widget_type ) {
-//             case 'widget':
-//                 $widget_selected = "selected";
-//                 break;
-//             case 'sidebar':
-//                 $sidebar_selected = "selected";
-//                 break;
-//             case 'cta':
-//                 $cta_selected = "selected";
-//                 break;
-//         }
-//     }
-//     echo "<br>";
-//     echo "<select name='ll_widgets_type'>";
-//     echo "<option value='widget' $widget_selected>Widget</option>";
-//     echo "<option value='sidebar' $sidebar_selected>Sidebar</option>";
-//     echo "<option value='cta' $cta_selected>CTA</option>";
-//     echo "</select>";
-// }
-
-// add_admin_column('Type', 'll_widgets', 'll_widgets_type');
-
 /**
  * Custom widget shortcode [custom_widget id=X]
  */
@@ -1022,6 +849,9 @@ function render_widget_markup( $atts = '' ) {
     }
 
     $widget_post = get_post($params['id']);
+    if (!$widget_post) {
+        return;
+    }
     $content = $widget_post->post_content;
     $content = apply_filters('the_content', $content);
     $content = str_replace(']]>', ']]&gt;', $content);
@@ -1069,11 +899,11 @@ function toolkit_get_view_type() {
     } elseif ( $wp_query->is_single ) {
         $loop = ( $wp_query->is_attachment ) ? 'attachment' : 'single';
     } elseif ( $wp_query->is_category ) {
-        $loop = 'category';
+        $loop = 'archive';
     } elseif ( $wp_query->is_tag ) {
-        $loop = 'tag';
+        $loop = 'archive';
     } elseif ( $wp_query->is_tax ) {
-        $loop = 'tax';
+        $loop = 'archive';
     } elseif ( $wp_query->is_archive ) {
         $loop = 'archive';
         $loop = (is_shop()) ? 'shop' : $loop;
@@ -1143,6 +973,7 @@ function toolkit_get_sidebar_selection() {
     
     return $sidebar;
 }
+
 function toolkit_get_primary_column_classes() {
     $sidebar = toolkit_get_sidebar_selection();
     $primary_order_class = 'order-md-1';
@@ -1164,6 +995,7 @@ function toolkit_get_primary_column_classes() {
     }
     return "$primary_column_class $primary_order_class $primary_offset_class";
 }
+
 function toolkit_get_sidebar_column_classes() {
     $sidebar = toolkit_get_sidebar_selection();
     if (!$sidebar) {

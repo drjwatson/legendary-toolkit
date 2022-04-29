@@ -1,11 +1,11 @@
 <?php
-    $footer_bottom_content = legendary_toolkit_get_theme_option('footer_content_bottom');
+    $footer_bottom_content = legendary_toolkit_get_theme_option('footer_bottom_content');
     if($footer_bottom_content):
 ?>
-<footer id="colophon" class="site-footer <?php echo wp_bootstrap_starter_bg_class(); ?>" role="contentinfo">
-    <div class="container pt-3 pb-3">
-        <div class="site-info">
-            <div class="footer-bottom-content">
+<footer id="colophon" class="site-footer" role="contentinfo">
+    <div class="container py-3">
+        <div class="row">
+            <div class="col-12">
                 <?php echo wpautop($footer_bottom_content);?>
             </div>
         </div><!-- close .site-info -->

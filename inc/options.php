@@ -578,7 +578,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                     <?php echo wp_editor( $value, 'footer_column_4', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_column_4]') );?>
                                 </td>
                             </tr>
-                            <tr valign="top" id="footer_column_row_4" class="<?=$hidden;?>">
+                            <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Footer Bottom', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'footer_bottom_content' );?>
