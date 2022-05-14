@@ -527,28 +527,65 @@ window.customElements.define('slide-drawer', SlideDrawer)
 const stickyElm = document.querySelector('header#masthead')
 
 // if the header is set to sticky...
-if(stickyElm.classList.contains('testing_fixed')){
+if(stickyElm.classList.contains('sticky_header')){
 
-	// get height of header
+	// a little extra magic if the top bar is present
+
+	// change the header from absolute to fixed if it connects with the top of the viewport
+
+	let header = document.querySelector('#masthead');
 	let header_height = document.querySelector('#masthead').offsetHeight;
+	let top_bar_height = document.querySelector('.top-bar-content');
+	if(top_bar_height){
+		top_bar_height = document.querySelector('.top-bar-content').offsetHeight;
+		header.style.position =  "absolute";
+		header.style.top = top_bar_height + "px";
+	}
 	console.log('header_height: ', header_height)
+	console.log('top_bar_height: ', top_bar_height)
+
 	// find half value
 	document.addEventListener('scroll', function(e){
-		console.log('window.scrollY: ', window.scrollY);
-			if(window.scrollY > header_height/2){
-				// window.scrollY = 0;
-				stickyElm.classList.add('is-stuck');
-			}
-			if(window.scrollY < header_height/4){
-				stickyElm.classList.remove('is-stuck');
-			}
-		});
+	console.log('window.scrollY: ', window.scrollY);
+	
+	if(top_bar_height){
+		// top bar is present, move header below it and snap it to the top of the browser after scrolling past the top bar content
+		if(window.scrollY > top_bar_height){
+			header.style.position = "fixed";
+			header.style.top = "0px";
+		}
+
+		if(window.scrollY < top_bar_height){
+			header.style.position =  "absolute";
+			header.style.top = top_bar_height + "px";
+		}
+
+		// no top bar is present, behave normally
+		if(window.scrollY > (header_height+top_bar_height)/2){
+			stickyElm.classList.add('is-stuck');
+		}
+		if(window.scrollY < (header_height+top_bar_height)/4){
+			stickyElm.classList.remove('is-stuck');
+		}
+
+	} else {
+		// no top bar is present, behave normally
+		if(window.scrollY > header_height/2){
+			stickyElm.classList.add('is-stuck');
+		}
+		if(window.scrollY < header_height/4){
+			stickyElm.classList.remove('is-stuck');
+		}
+	}
+
+
+});
 }
 
-jQuery(document).ready(function($) { 
-	$('.navbar .dropdown').hover(function() {
-		$(this).find('.dropdown-menu').first().show(); // use slideDown(300) for animation
-	}, function() {
-		$(this).find('.dropdown-menu').first().hide() // use slideUp(300) for animation
-	});
-});
+// jQuery(document).ready(function($) { 
+// 	$('.navbar .dropdown').hover(function() {
+// 		$(this).find('.dropdown-menu').first().show(); // use slideDown(300) for animation
+// 	}, function() {
+// 		$(this).find('.dropdown-menu').first().hide() // use slideUp(300) for animation
+// 	});
+// });

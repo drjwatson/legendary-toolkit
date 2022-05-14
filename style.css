@@ -768,7 +768,7 @@ a img.aligncenter {
 }
 
 body:not(.home) #content{
-  margin-top:40px;
+  padding-top:40px;
 }
 
 .page-links {

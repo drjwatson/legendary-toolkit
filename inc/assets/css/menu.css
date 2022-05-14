@@ -75,9 +75,6 @@
 #menu-wrapper, #menu-wrapper li a, #menu-wrapper ul {
 	background-color: var(--scrolling_header_background);
 }
-
-
-
 #mobile_menu {
 	overflow: auto;
 }

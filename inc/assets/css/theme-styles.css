@@ -198,12 +198,12 @@ header#masthead.sticky_header.is-stuck {
 }
 
 .home header#masthead.is_transparent+#content {
-    margin-top: calc((var(--logo_height, 100px) * -1) - 1px);
+    margin-top: var(--logo_height, 100px);
 }
 
 header#masthead #site_logo {
     height: var(--logo_height, 100px);
-    transition: height 200ms ease-in-out;
+    transition: height 275ms ease-in-out;
     position:relative;
     top:0;
 }

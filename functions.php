@@ -325,13 +325,17 @@ function legendary_toolkit_theme_options_css() {
             " . define_font_variables('menu_items', $theme_options) . "
         }
     ";
+    
+    // if is sticky_header
+    // $custom_css .= "#page{margin-top:".$logo_height.";}\n";
+    $custom_css .= "#content{margin-top:".$logo_height.";}\n";
+    // $custom_css .= "#content{padding-top:".$logo_height.";}\n";
+
 
     if (is_admin_bar_showing()) {
-        $spacer = "            ";
-        $custom_css .= $spacer . "#page{margin-top:32px}\n";
-        $custom_css .= $spacer . "#masthead{top:32px}\n";
-        $custom_css .= $spacer . "body{margin-top:".$logo_height."}\n";
+        $custom_css .=  "#masthead{top:32px}\n";
     }
+
     // print_r($custom_css);
     return $custom_css;
 }
