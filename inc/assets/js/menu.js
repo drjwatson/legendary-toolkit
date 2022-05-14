@@ -530,28 +530,56 @@ const stickyElm = document.querySelector('header#masthead')
 if(stickyElm.classList.contains('sticky_header')){
 
 	// calculate the height of the header items and position them accordingly
+	let wp_admin_bar = document.querySelector('#wpadminbar');
+	let top_bar = document.querySelector('.top-bar-content');
 	let header = document.querySelector('#masthead');
-	let header_height = document.querySelector('#masthead').offsetHeight;
-	let top_bar_height = document.querySelector('.top-bar-content');
-	if(top_bar_height){
-		top_bar_height = document.querySelector('.top-bar-content').offsetHeight;
-		header.style.position =  "absolute";
-		header.style.top = top_bar_height + "px";
+	let wp_admin_bar_height = 0;
+	let top_bar_height = 0;
+	let header_height = 0;
+
+	console.log(wp_admin_bar);
+	
+	// if the admin bar exists, grab that height
+	if(document.body.classList.contains( 'logged-in' )){
+		// wp_admin_bar_height = document.querySelector('#wpadminbar').offsetHeight;
+		if(window.innerWidth > 784 ){
+			wp_admin_bar_height = 32;
+		} else {
+			wp_admin_bar_height = 46;
+		}
+		console.log('wp_admin_bar_height', wp_admin_bar_height)
 	}
+	
+	// if the theme top bar exists, grab that height
+	if(top_bar){
+		top_bar_height = document.querySelector('.top-bar-content').offsetHeight;
+	}
+
+	// the header always exists, grab that height
+	header_height = document.querySelector('#masthead').offsetHeight;
+
+	// position top bar
+	// top bar is positioned fine, due to html margin-top from wp
+
+	// position header
+	header.style.position =  "absolute";
+	header.style.top = (wp_admin_bar_height+top_bar_height) + "px";
+
 
 	// find half value
 	document.addEventListener('scroll', function(e){
 	
-	if(top_bar_height){
+	if(wp_admin_bar_height || top_bar_height){
+
 		// top bar is present, move header below it and snap it to the top of the browser after scrolling past the top bar content
 		if(window.scrollY > top_bar_height){
 			header.style.position = "fixed";
-			header.style.top = "0px";
+			header.style.top = wp_admin_bar_height + "px";
 		}
 
 		if(window.scrollY < top_bar_height){
 			header.style.position =  "absolute";
-			header.style.top = top_bar_height + "px";
+			header.style.top = (wp_admin_bar_height+top_bar_height) + "px";
 		}
 
 		// no top bar is present, behave normally
