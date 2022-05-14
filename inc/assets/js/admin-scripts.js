@@ -104,7 +104,7 @@ jQuery(document).ready(function( $ ) {
                     $('.save-toast.save-success').fadeIn();
                     $('.save-toast.save-success').delay(3000).fadeOut();
                     btn.prop('disabled', false);
-            });
+                });
             return false; 
         }
    });	

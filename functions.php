@@ -128,9 +128,6 @@ function legendary_toolkit_scripts() {
     wp_enqueue_style('legendary_toolkit_mobile_menu_styles', get_template_directory_uri() . '/inc/assets/css/menu.css');
     wp_enqueue_script('legendary_toolkit_mobile_menu_script', get_template_directory_uri() . '/inc/assets/js/menu.js', array(), '', true);
 
-    wp_enqueue_style('legendary_toolkit_fancybox_styles', get_template_directory_uri() . '/inc/assets/css/fancybox.css');
-    wp_enqueue_script('legendary_toolkit_fancybox_script', get_template_directory_uri() . '/inc/assets/js/fancybox.umd.js', array(), '', true);
-
     // parent styles
     wp_enqueue_style('legendary-toolkit-parent-styles', get_template_directory_uri() . '/style.css');
 
