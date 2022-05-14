@@ -294,8 +294,8 @@ function legendary_toolkit_theme_options_css() {
             $style_return .= ($font_style) ? $spacer . "--".$id."_font_style : ".$font_style.";\n" : '';
             $style_return .= ($font_weight) ? $spacer . "--".$id."_font_weight : ".$font_weight.";\n" : '';
             $style_return .= ($font_size) ? $spacer . "--".$id."_font_size : ".$font_size.";\n" : '';
-            $style_return .= ($font_transform) ? $spacer . "--".$id."_font_transform : ".$font_transform.";" : '';
-    
+            $style_return .= ($font_transform) ? $spacer . "--".$id."_font_transform : ".$font_transform.";\n" : '';
+
             return $style_return;
         }
     }
@@ -325,6 +325,13 @@ function legendary_toolkit_theme_options_css() {
             " . define_font_variables('menu_items', $theme_options) . "
         }
     ";
+
+    if (is_admin_bar_showing()) {
+        $spacer = "            ";
+        $custom_css .= $spacer . "#page{margin-top:32px}\n";
+        $custom_css .= $spacer . "#masthead{top:32px}\n";
+        $custom_css .= $spacer . "body{margin-top:".$logo_height."}\n";
+    }
     // print_r($custom_css);
     return $custom_css;
 }

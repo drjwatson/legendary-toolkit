@@ -1,5 +1,6 @@
 <?php
-$header_behavior_class = (legendary_toolkit_get_theme_option('sticky_header')) ? 'sticky-top' : '';
+// $header_behavior_class = (legendary_toolkit_get_theme_option('sticky_header')) ? 'sticky-top' : '';
+$header_behavior_class = (legendary_toolkit_get_theme_option('sticky_header')) ? 'testing_fixed' : '';
 $transparent_class = (legendary_toolkit_get_theme_option('transparent_header')) ? 'is_transparent' : '';
 $mobile_menu_width = (legendary_toolkit_get_theme_option('mobile_menu_width')) ? legendary_toolkit_get_theme_option('mobile_menu_width') . 'px' : '100%';
 $mobile_menu_breakpoint = (legendary_toolkit_get_theme_option('mobile_menu_breakpoint')) ? legendary_toolkit_get_theme_option('mobile_menu_breakpoint') : 1200;

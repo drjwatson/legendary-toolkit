@@ -179,7 +179,6 @@ body:not(.theme-preset-active) footer#colophon {
 /* Header Behavior */
 
 header#masthead{
-    transition:.25s;
     padding:0;
     width:100%;
 }
@@ -188,7 +187,13 @@ header#masthead:not(.is-stuck) {
     box-shadow: none;
 }
 
-header#masthead.sticky-top.is-stuck {
+.sticky_header{
+    position:fixed;
+    top:0;
+    z-index:999;
+}
+
+header#masthead.sticky_header.is-stuck {
     background-color: var(--scrolling_header_background);
 }
 
@@ -205,10 +210,6 @@ header#masthead #site_logo {
 
 header#masthead.is-stuck #site_logo {
     height: var(--scrolling_logo_height);
-}
-
-body.admin-bar header#masthead.is-stuck {
-    padding-top: 32px;
 }
 
 slide-drawer::shadow .tkmm-toggle:not(.close) span {

@@ -527,12 +527,19 @@ window.customElements.define('slide-drawer', SlideDrawer)
 const stickyElm = document.querySelector('header#masthead')
 
 // if the header is set to sticky...
-if(stickyElm.classList.contains('sticky-top')){
+if(stickyElm.classList.contains('testing_fixed')){
+
+	// get height of header
+	let header_height = document.querySelector('#masthead').offsetHeight;
+	console.log('header_height: ', header_height)
+	// find half value
 	document.addEventListener('scroll', function(e){
-			if(window.scrollY > 50){
+		console.log('window.scrollY: ', window.scrollY);
+			if(window.scrollY > header_height/2){
+				// window.scrollY = 0;
 				stickyElm.classList.add('is-stuck');
 			}
-			if(window.scrollY < 1){
+			if(window.scrollY < header_height/4){
 				stickyElm.classList.remove('is-stuck');
 			}
 		});
