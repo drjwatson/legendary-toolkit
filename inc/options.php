@@ -398,6 +398,13 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                         <h3>Top Bar</h3>
                         <table class="form-table">
                             <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Enable Top Bar?', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'enable_top_bar' );?>
+                                    <label><input type="checkbox" name="theme_options[enable_top_bar]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                </td>
+                            </tr>
+                            <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Top Bar Background', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'top_bar_background' );?>
