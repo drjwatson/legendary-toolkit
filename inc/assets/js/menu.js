@@ -532,7 +532,7 @@ if(stickyElm.classList.contains('sticky-top')){
 			if(window.scrollY > 50){
 				stickyElm.classList.add('is-stuck');
 			}
-			if(window.scrollY < 40){
+			if(window.scrollY < 1){
 				stickyElm.classList.remove('is-stuck');
 			}
 		});
