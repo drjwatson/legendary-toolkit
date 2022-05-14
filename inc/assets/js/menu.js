@@ -529,10 +529,7 @@ const stickyElm = document.querySelector('header#masthead')
 // if the header is set to sticky...
 if(stickyElm.classList.contains('sticky_header')){
 
-	// a little extra magic if the top bar is present
-
-	// change the header from absolute to fixed if it connects with the top of the viewport
-
+	// calculate the height of the header items and position them accordingly
 	let header = document.querySelector('#masthead');
 	let header_height = document.querySelector('#masthead').offsetHeight;
 	let top_bar_height = document.querySelector('.top-bar-content');
@@ -579,10 +576,10 @@ if(stickyElm.classList.contains('sticky_header')){
 });
 }
 
-// jQuery(document).ready(function($) { 
-// 	$('.navbar .dropdown').hover(function() {
-// 		$(this).find('.dropdown-menu').first().show(); // use slideDown(300) for animation
-// 	}, function() {
-// 		$(this).find('.dropdown-menu').first().hide() // use slideUp(300) for animation
-// 	});
-// });
+jQuery(document).ready(function($) { 
+	$('.navbar .dropdown').hover(function() {
+		$(this).find('.dropdown-menu').first().show(); // use slideDown(300) for animation
+	}, function() {
+		$(this).find('.dropdown-menu').first().hide() // use slideUp(300) for animation
+	});
+});
