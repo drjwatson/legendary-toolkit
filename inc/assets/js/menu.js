@@ -541,12 +541,9 @@ if(stickyElm.classList.contains('sticky_header')){
 		header.style.position =  "absolute";
 		header.style.top = top_bar_height + "px";
 	}
-	console.log('header_height: ', header_height)
-	console.log('top_bar_height: ', top_bar_height)
 
 	// find half value
 	document.addEventListener('scroll', function(e){
-	console.log('window.scrollY: ', window.scrollY);
 	
 	if(top_bar_height){
 		// top bar is present, move header below it and snap it to the top of the browser after scrolling past the top bar content
