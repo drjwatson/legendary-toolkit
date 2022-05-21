@@ -423,12 +423,10 @@ if ( ! class_exists( 'wp_bootstrap_navwalker' )) {
 
 require get_template_directory() . '/inc/options.php';
 
-// allow svg uploads
-function cc_mime_types($mimes) {
-    $mimes['svg'] = 'image/svg+xml';
-    return $mimes;
-}
-add_filter('upload_mimes', 'cc_mime_types');
+
+
+
+
 
 // skip cropping
 function logo_size_change(){

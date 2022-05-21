@@ -129,23 +129,23 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                 // Examples
                 // ============
 				// Checkbox
-				if ( ! empty( $options['checkbox_example'] ) ) {
-					$options['checkbox_example'] = 'on';
-				} else {
-					unset( $options['checkbox_example'] ); // Remove from options if not checked
-				}
+				// if ( ! empty( $options['checkbox_example'] ) ) {
+				// 	$options['checkbox_example'] = 'on';
+				// } else {
+				// 	unset( $options['checkbox_example'] ); // Remove from options if not checked
+				// }
 
-				// Input
-				if ( ! empty( $options['input_example'] ) ) {
-					$options['input_example'] = sanitize_text_field( $options['input_example'] );
-				} else {
-					unset( $options['input_example'] ); // Remove from options if empty
-				}
+				// // Input
+				// if ( ! empty( $options['input_example'] ) ) {
+				// 	$options['input_example'] = sanitize_text_field( $options['input_example'] );
+				// } else {
+				// 	unset( $options['input_example'] ); // Remove from options if empty
+				// }
 
-				// Select
-				if ( ! empty( $options['select_example'] ) ) {
-					$options['select_example'] = sanitize_text_field( $options['select_example'] );
-				}
+				// // Select
+				// if ( ! empty( $options['select_example'] ) ) {
+				// 	$options['select_example'] = sanitize_text_field( $options['select_example'] );
+				// }
 
 			}
 

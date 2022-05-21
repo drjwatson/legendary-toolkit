@@ -90,8 +90,10 @@ jQuery(document).ready(function( $ ) {
         if (name == "submit") {
             event.preventDefault();
             var settings = $(this).serialize();
+            console.log('settings: ', settings)
             $.post( 'options.php', settings ).error( 
                 function() {
+
                     $('.save-toast').hide();
                     $('.save-toast.save-loading').fadeOut();
                     $('.save-toast.save-success').hide();

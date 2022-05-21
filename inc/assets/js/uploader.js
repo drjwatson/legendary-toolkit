@@ -55,7 +55,10 @@ jQuery(function($) {
 
         var ratio = xInit / yInit;
 
-        controller.set( 'canSkipCrop', ! control.mustBeCropped( flexWidth, flexHeight, xInit, yInit, realWidth, realHeight ) );
+        // controller.set( 'canSkipCrop', ! control.mustBeCropped( flexWidth, flexHeight, xInit, yInit, realWidth, realHeight ) );
+
+        // skip cropping asset
+        controller.set( 'canSkipCrop', true);
 
         var xImg = xInit;
         var yImg = yInit;
