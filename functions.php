@@ -426,8 +426,6 @@ require get_template_directory() . '/inc/options.php';
 
 
 
-
-
 // skip cropping
 function logo_size_change(){
 	remove_theme_support( 'custom-logo' );
@@ -1017,4 +1015,15 @@ function toolkit_get_sidebar_column_classes() {
         $sidebar_column_class = 'col-md-4';
     }
     return "$sidebar_column_class $sidebar_order_class";
+}
+
+add_action( 'wp', 'enable_gdpr_compliance' );
+function enable_gdpr_compliance(){
+    if(legendary_toolkit_get_theme_option('enable_gdpr_compliance')){
+
+        // include the script
+        wp_enqueue_script( 'enable_gdpr_compliance', get_template_directory_uri().'/inc/assets/js/gdpr.js', '', '', false );
+
+    }
+
 }

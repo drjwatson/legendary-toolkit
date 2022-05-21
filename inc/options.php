@@ -336,6 +336,13 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                     </div>
                                 </td>
                             </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Enable GDPR Compliance?', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'enable_gdpr_compliance' );?>
+                                    <label><input type="checkbox" name="theme_options[enable_gdpr_compliance]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                     <div id="legendary_toolkit_header" class="tabcontent">

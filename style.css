@@ -35,6 +35,7 @@ Tested up to: 5.4
 	## Galleries
 # Woocommerce
 # Footer
+# GDPR
 --------------------------------------------------------------*/
 /*--------------------------------------------------------------
 # Normalize
@@ -1033,6 +1034,34 @@ body:not(.theme-preset-active) footer#colophon {
     padding-top: 0.938rem;
   }
 }
+
+
+
+/*--------------------------------------------------------------
+# GDPR
+--------------------------------------------------------------*/
+.gdpr_container{
+  width:100%;
+  position:fixed;
+  bottom:0;
+  z-index:9999;
+  font-size:13px;
+  padding:10px;
+  border-top:1px solid #d6d6d6;
+  background:white;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gdpr_accept_btn{
+
+}
+
+
 /*--------------------------------------------------------------
 # Media Query
 --------------------------------------------------------------*/

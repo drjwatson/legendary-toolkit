@@ -537,17 +537,15 @@ if(stickyElm.classList.contains('sticky_header')){
 	let top_bar_height = 0;
 	let header_height = 0;
 
-	console.log(wp_admin_bar);
 	
 	// if the admin bar exists, grab that height
 	if(document.body.classList.contains( 'logged-in' )){
-		// wp_admin_bar_height = document.querySelector('#wpadminbar').offsetHeight;
+		// set the wp_admin_bar height static values (because it's not immediately available in the DOM to select and get the dynamic value -- it'll probably not change in height frequently anyway...)
 		if(window.innerWidth > 784 ){
 			wp_admin_bar_height = 32;
 		} else {
 			wp_admin_bar_height = 46;
 		}
-		console.log('wp_admin_bar_height', wp_admin_bar_height)
 	}
 	
 	// if the theme top bar exists, grab that height
