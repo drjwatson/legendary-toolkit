@@ -1,6 +1,12 @@
 const template = document.createElement('template')
 template.innerHTML = `
 	<style>
+		slide-drawer{
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
 		#drawer {
             position: fixed;
             z-index: 9998;
@@ -33,17 +39,9 @@ template.innerHTML = `
 		  transition: all ease .25s;
 		}
 		.tkmm-toggle {
-            width: 20px;
+            width: 70px;
+			height:100%;
             z-index: 9994;
-            height: 40px;
-            width: 40px;
-            position: absolute;
-            top: 16px;
-			left: 10px;
-            -webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            transform: rotate(0deg);
             -webkit-transition: .5s ease-in-out;
             -moz-transition: .5s ease-in-out;
             -o-transition: .5s ease-in-out;
@@ -51,28 +49,23 @@ template.innerHTML = `
             transition: right ease .25s;
             transition: left ease .25s;
             cursor: pointer;
+			flex-direction:column;
+			justify-content: center;
+			align-items: stretch;
+			align-items: center;
 		}
 		.tkmm-toggle:not(.close){
-			position: relative;
-			top: 5px;
-			left: 5px;
 		}
 		.tkmm-toggle span {
-			margin: 0 auto;
+			margin:4px auto;
 			right: 0;
-            position: absolute;
             height: 2px;
-			width:20px !important;
 			display:block;
-            width: 100%;
+            width: 30px;
 			background: var(--menu_items_font_color, var(--all_font_color), black);
             border-radius: 2px;
             opacity: 1;
             left: 0;
-            -webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            transform: rotate(0deg);
             -webkit-transition: .25s ease-in-out;
             -moz-transition: .25s ease-in-out;
             -o-transition: .25s ease-in-out;
@@ -92,7 +85,6 @@ template.innerHTML = `
 		}
 
 		.tkmm-toggle span:nth-child(1) {
-            top: 0px;
             -webkit-transform-origin: center;
             -moz-transform-origin: center;
             -o-transform-origin: center;
@@ -100,7 +92,6 @@ template.innerHTML = `
 		}
 
 		.tkmm-toggle span:nth-child(2) {
-            top: 7px;
             -webkit-transform-origin: left center;
             -moz-transform-origin: left center;
             -o-transform-origin: left center;
@@ -108,7 +99,6 @@ template.innerHTML = `
 		}
 
 		.tkmm-toggle span:nth-child(3) {
-            top: 14px;
             -webkit-transform-origin: center;
             -moz-transform-origin: center;
             -o-transform-origin: center;
@@ -135,6 +125,10 @@ template.innerHTML = `
             transform: rotate(-45deg);
             top: 10px;
 		}
+
+
+
+
 	</style>
 	<div id="toggle" class="tkmm-toggle">
 		<span></span>
@@ -143,11 +137,11 @@ template.innerHTML = `
 	</div>
     <div id="drawer">
 		<div id="grab"></div>
-		<div id="toggle_close" class="tkmm-toggle open close">
+		<!--<div id="toggle_close" class="tkmm-toggle open close">
 			<span></span>
 			<span></span>
 			<span></span>
-		</div>
+		</div>-->
 		<slot></slot>
 	</div>
 	<div id="overlay"></div>
@@ -213,7 +207,7 @@ class SlideDrawer extends HTMLElement {
 	handleResize = e => {
 		this.drawer.classList.remove('animate')
 		this.toggles.forEach(toggle => {
-			window.innerWidth < this.mobileBreak ? toggle.style.display = 'block' : toggle.style.display = 'none'
+			window.innerWidth < this.mobileBreak ? toggle.style.display = 'flex' : toggle.style.display = 'none'
 		})
 		
 		if(this.right) {
@@ -451,7 +445,7 @@ class SlideDrawer extends HTMLElement {
 	menuInit = items => {
 		let drawer_position = this.drawer_position
 		this.toggles.forEach(toggle => {
-			window.innerWidth < this.mobileBreak ? toggle.style.display = 'block' : toggle.style.display = 'none'
+			window.innerWidth < this.mobileBreak ? toggle.style.display = 'flex' : toggle.style.display = 'none'
 		})
 		items.forEach(item => {
 			item.style.width = this.drawer.offsetWidth + 'px'

@@ -60,5 +60,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
     });
 
+    // add function to delete all cookies unless the user has accepted
+    // https://stackoverflow.com/questions/10306254/is-it-possible-to-block-cookies-from-being-set-using-javascript-or-php
+
 });
 

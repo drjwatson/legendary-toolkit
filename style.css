@@ -391,6 +391,26 @@ body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a 
   /*background: #f9f9f9;*/
 }
 
+
+
+
+
+
+.navbar{
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: stretch;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    flex-direction: row;
+}
+
+
 .navbar-brand {
   height: auto;
   padding-top: 0px;

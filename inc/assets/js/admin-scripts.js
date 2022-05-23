@@ -93,7 +93,6 @@ jQuery(document).ready(function( $ ) {
             console.log('settings: ', settings)
             $.post( 'options.php', settings ).error( 
                 function() {
-
                     $('.save-toast').hide();
                     $('.save-toast.save-loading').fadeOut();
                     $('.save-toast.save-success').hide();
