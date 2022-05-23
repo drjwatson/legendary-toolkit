@@ -4,7 +4,7 @@ Theme URI: https://legendarylion.com/
 Author: Legendary Lion
 Author URI: https://legendarylion.com/
 Description: A theme built upon wp-bootstrap starter to allow rapid development.
-Version: 1.1.13
+Version: 1.1.14
 License: GNU General Public License v2 or later
 License URI: LICENSE
 Text Domain: legendary-toolkit
@@ -392,10 +392,6 @@ body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a 
 }
 
 
-
-
-
-
 .navbar{
     position: relative;
     display: -ms-flexbox;
@@ -409,6 +405,7 @@ body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a 
     padding: 0.5rem 1rem;
     flex-direction: row;
 }
+
 
 
 .navbar-brand {
