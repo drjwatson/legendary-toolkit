@@ -422,7 +422,6 @@ body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a 
   font-family: "Font Awesome 5 Free";
   content: "\f0d7";
   font-weight:900;
-  color:white;
   border-right:0;
   font-size:12px;
   border-bottom:0;

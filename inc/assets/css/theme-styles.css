@@ -142,6 +142,10 @@ body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li.current_page_it
     text-transform: var(--menu_items_font_transform, var(--all_font_weight), none);
     font-size: var(--menu_items_font_size, 14px);
 }
+
+.dropdown-toggle::after{
+    color: var(--menu_items_font_color);
+}
 #site_logo {
     height: var(--logo_height, 100px);
     padding: 0px 0px;
