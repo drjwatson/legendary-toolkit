@@ -583,12 +583,18 @@ if(stickyElm.classList.contains('sticky_header')){
 		}
 
 	} else {
+
 		// no top bar is present, behave normally
 		if(window.scrollY > header_height/2){
+			header.style.position = "fixed";
+			header.style.top = wp_admin_bar_height + "px";
 			stickyElm.classList.add('is-stuck');
 		}
 		if(window.scrollY < header_height/4){
 			stickyElm.classList.remove('is-stuck');
+			header.style.position =  "absolute";
+			header.style.top = (wp_admin_bar_height+top_bar_height) + "px";
+
 		}
 	}
 
