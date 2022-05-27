@@ -678,7 +678,7 @@ function legendary_cart_in_menu ( $items, $args ) {
         }
     }
 
-    $items_count = count($cart_items);
+    $items_count = WC()->cart->get_cart_contents_count();
     $count_badge = '
         <span style="top:calc(50% - 15px);" class="position-absolute badge rounded-pill bg-danger">
             '. $items_count .'
@@ -695,7 +695,7 @@ function legendary_cart_in_menu ( $items, $args ) {
                         <table border="1" cellpadding="40">
                             <thead>
                                 <tr>
-                                    <th style="min-width: 400px; max-width:80%vw;">Product</th>
+                                    <th style="min-width: 400px;">Product</th>
                                     <th>Qty.</th>
                                 </tr>
                             </thead>
@@ -713,9 +713,9 @@ function legendary_cart_in_menu ( $items, $args ) {
                                 </tr>
                             </tfoot>
                         </table>
-                        <div style="text-align:center;">
-                            <a class="btn btn-primary">View Cart</a>
-                            <a class="btn btn-outline-primary">Checkout</a>
+                        <div id="woo-cart-navigation-container" style="text-align:center;">
+                            <a class="btn btn-primary cart-navigation-btn" href="'.get_permalink( wc_get_page_id( 'cart' ) ).'">View Cart</a>
+                            <a class="btn btn-primary cart-navigation-btn" href="'.wc_get_checkout_url().'" >Checkout</a>
                         </div>
                     </div>
                 </li>

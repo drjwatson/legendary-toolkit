@@ -281,9 +281,10 @@ a:hover {
     opacity: .8;
 }
 .menu-cart table, .menu-cart th, .menu-cart td {
-    border: 1px solid black;
+    border: 1px solid #f1f1f1;
     border-collapse: collapse;
-  }
+    color:#565656;
+}
 .menu-cart th, .menu-cart td {
     padding: 15px;
 }

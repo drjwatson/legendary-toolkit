@@ -598,8 +598,9 @@ if(stickyElm.classList.contains('sticky_header')){
 
 jQuery(document).ready(function($) { 
 	$('.navbar .dropdown').hover(function() {
-		$(this).find('.dropdown-menu').first().show(); // use slideDown(300) for animation
+		$(this).find('.dropdown-menu').first().stop().fadeIn(200); // use slideDown(300) for animation
 	}, function() {
+		// $(this).find('.dropdown-menu').first().stop().fadeOut(100) // use slideUp(300) for animation
 		$(this).find('.dropdown-menu').first().hide() // use slideUp(300) for animation
 	});
 });

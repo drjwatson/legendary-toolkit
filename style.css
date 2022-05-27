@@ -4,7 +4,7 @@ Theme URI: https://legendarylion.com/
 Author: Legendary Lion
 Author URI: https://legendarylion.com/
 Description: A theme built upon wp-bootstrap starter to allow rapid development.
-Version: 1.1.14
+Version: 1.1.15
 License: GNU General Public License v2 or later
 License URI: LICENSE
 Text Domain: legendary-toolkit
@@ -602,6 +602,12 @@ body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a 
   background: #eee none repeat scroll 0 0;
 }
 
+
+.navbar-nav .dropdown-menu {
+    border-top: 3px solid var(--primary_color);
+}
+
+
 /*--------------------------------------------------------------
 # Accessibility
 --------------------------------------------------------------*/
@@ -989,6 +995,129 @@ object {
 .woocommerce-MyAccount-content .col-2 {
   max-width: 100%;
 }
+
+#menu-item-woocommerce-cart .badge.rounded-pill{
+  line-height: 2px;
+  border-radius: 4px !important;
+  padding: 8px 4px;
+}
+
+#woo-cart-navigation-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: space-between;
+}
+
+a.btn.btn-primary.cart-navigation-btn {
+    width: 48%;
+}
+
+.woocommerce span.onsale{
+  border:5px solid white;
+  min-width: 70px;
+  min-height: 70px;
+  padding:0px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24) !important;
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1) !important;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+
+}
+
+.woocommerce ul.products li.product .onsale{
+  top: -10px ;
+  right: -10px;
+}
+
+img.attachment-woocommerce_thumbnail.size-woocommerce_thumbnail{
+  border:6px solid white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24) !important;
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1) !important;
+}
+
+img.attachment-woocommerce_thumbnail.size-woocommerce_thumbnail:hover{
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22) !important;
+}
+
+
+
+/*
+WooCommerce Single
+ */
+.woocommerce .quantity .qty{
+	padding: 6px;
+    border-radius: 3px;
+    border: 1px solid #d7d7d7;
+    text-align: center !important;	
+}
+
+
+
+/*
+WooCommerce General
+ */
+
+.woocommerce #respond input#submit.alt, .woocommerce a.button.alt, .woocommerce button.button.alt, .woocommerce input.button.alt{
+	background-color:var(--primary_color);
+	transition:.25s;
+}
+
+.woocommerce #respond input#submit.alt:hover, .woocommerce a.button.alt:hover, .woocommerce button.button.alt:hover, .woocommerce input.button.alt:hover{
+	background-color:var(--secondary_color);
+}
+.woocommerce a.added_to_cart.wc-forward{
+	display:block;
+}
+
+
+/*
+WooCommerce Checkout
+ */
+
+.woocommerce-cart-form .shop_table .coupon .input-text{
+	min-width:200px;
+}
+
+.woocommerce span.woocommerce-input-wrapper {
+    width: 100% !important;
+}
+
+.select2-container .select2-selection--single{
+	height:38px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+	line-height:38px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arr{
+	top:7px;
+}
+
+/*
+WooCommerce Toolkit General
+ */
+
+
+@media all and (max-width: 1470px) and (min-width:1000px) {
+
+}
+
+@media all and (max-width: 999px) and (min-width:600px) {
+
+}
+
+@media all and (max-width: 600px) and (min-width:200px) {
+  .menu-cart{
+    display:none;
+  }
+}
+
 
 /*--------------------------------------------------------------
 ## Elementor
