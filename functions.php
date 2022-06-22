@@ -225,6 +225,8 @@ function legendary_toolkit_theme_options_css() {
     $footer_background            = (array_key_exists('footer_background', $theme_options) && $theme_options['footer_background']) ? $theme_options['footer_background'] : '#111111';
     $copyright_background         = (array_key_exists('copyright_background', $theme_options) && $theme_options['copyright_background']) ? $theme_options['copyright_background'] : 'black';
     
+    $mobile_menu_breakpoint       = (array_key_exists('mobile_menu_breakpoint', $theme_options) && $theme_options['mobile_menu_breakpoint']) ? $theme_options['mobile_menu_breakpoint'] - 1 . 'px' : '1200px';
+
     $page_container_width         = (array_key_exists('page_container_width', $theme_options) && $theme_options['page_container_width']) ? $theme_options['page_container_width'] : '1320';
 
     $favicon                      = (array_key_exists('favicon', $theme_options) && $theme_options['favicon']) ? $theme_options['favicon'] : '';
@@ -323,6 +325,11 @@ function legendary_toolkit_theme_options_css() {
             " . define_font_variables('h5', $theme_options) . " 
             " . define_font_variables('h6', $theme_options) . " 
             " . define_font_variables('menu_items', $theme_options) . "
+        }
+        @media all and (max-width: $mobile_menu_breakpoint) {
+            #main-nav {
+                display:none!important;
+            }
         }
     ";
     

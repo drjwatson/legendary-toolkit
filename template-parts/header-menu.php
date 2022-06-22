@@ -11,7 +11,7 @@ $mobile_menu_bottom_content = legendary_toolkit_get_theme_option('mobile_menu_bo
 
 <header id="masthead" class="site-header navbar-static-top <?=$header_behavior_class;?> <?=$transparent_class;?>" role="banner">
     <div class="container">
-        <nav class="navbar navbar-expand-xl p-0">
+        <nav class="navbar navbar-expand p-0">
             <div class="navbar-brand">
                 <?php get_template_part('template-parts/header', 'logo', ['id' => 'site_logo']);?>
             </div>
