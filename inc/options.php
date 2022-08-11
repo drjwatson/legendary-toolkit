@@ -665,6 +665,13 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                     <label><input type="checkbox" name="theme_options[show_sidebar_archive]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
                                 </td>
                             </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Enable Comments?', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'enable_comments' );?>
+                                    <label><input type="checkbox" name="theme_options[enable_comments]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                </td>
+                            </tr>
                         </table>
                     </div>
                     <div id="legendary_toolkit_pages_posts" class="tabcontent">
