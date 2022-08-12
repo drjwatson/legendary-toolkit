@@ -906,7 +906,7 @@ function toolkit_get_view_type() {
 
     if ( $wp_query->is_page ) {
         $loop = is_front_page() ? 'front' : 'page';
-        $loop = (is_woocommerce_page()) ? 'woocommerce-page' : $loop;
+        $loop = (class_exists( 'woocommerce' ) && is_woocommerce_page()) ? 'woocommerce-page' : $loop;
     } elseif ( $wp_query->is_home ) {
         $loop = 'archive';
     } elseif ( $wp_query->is_single ) {
@@ -919,7 +919,7 @@ function toolkit_get_view_type() {
         $loop = 'archive';
     } elseif ( $wp_query->is_archive ) {
         $loop = 'archive';
-        $loop = (is_shop()) ? 'shop' : $loop;
+        $loop = (class_exists( 'woocommerce' ) && is_shop()) ? 'shop' : $loop;
     } elseif ( $wp_query->is_search ) {
         $loop = 'search';
     } elseif ( $wp_query->is_404 ) {
