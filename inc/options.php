@@ -349,6 +349,13 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                         <h3>Header</h3>
                         <table class="form-table">
                             <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Enable Full Width Header?', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'full_width_header' );?>
+                                    <label><input type="checkbox" name="theme_options[full_width_header]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                </td>
+                            </tr>
+                            <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Enable Transparent Header?', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'transparent_header' );?>

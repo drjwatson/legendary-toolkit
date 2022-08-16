@@ -1,5 +1,6 @@
 <?php
 // $header_behavior_class = (legendary_toolkit_get_theme_option('sticky_header')) ? 'sticky-top' : '';
+$header_container_class = (legendary_toolkit_get_theme_option('full_width_header')) ? 'container-fluid' : 'container';
 $header_behavior_class = (legendary_toolkit_get_theme_option('sticky_header')) ? 'sticky_header' : '';
 $transparent_class = (legendary_toolkit_get_theme_option('transparent_header')) ? 'is_transparent' : '';
 $mobile_menu_width = (legendary_toolkit_get_theme_option('mobile_menu_width')) ? legendary_toolkit_get_theme_option('mobile_menu_width') . 'px' : '100%';
@@ -10,7 +11,7 @@ $mobile_menu_bottom_content = legendary_toolkit_get_theme_option('mobile_menu_bo
 ?>
 
 <header id="masthead" class="site-header navbar-static-top <?=$header_behavior_class;?> <?=$transparent_class;?>" role="banner">
-    <div class="container">
+    <div class="<?=$header_container_class;?>">
         <nav class="navbar navbar-expand p-0">
             <div class="navbar-brand">
                 <?php get_template_part('template-parts/header', 'logo', ['id' => 'site_logo']);?>
