@@ -217,11 +217,13 @@ function legendary_toolkit_theme_options_css() {
     $primary_color                = (array_key_exists('primary_color', $theme_options) && $theme_options['primary_color']) ? $theme_options['primary_color'] : '#0f8bf5';
     $secondary_color              = (array_key_exists('secondary_color', $theme_options) && $theme_options['secondary_color']) ? $theme_options['secondary_color'] : '#f56f0f';
     $logo_height                  = (array_key_exists('logo_height', $theme_options) && $theme_options['logo_height']) ? $theme_options['logo_height'] . 'px' : '100px';
+    $sticky_header                = (array_key_exists('sticky_header', $theme_options) && $theme_options['sticky_header']) ? $theme_options['sticky_header'] : false;
     $scrolling_logo_height        = (array_key_exists('scrolling_header_height', $theme_options) && $theme_options['scrolling_header_height']) ? $theme_options['scrolling_header_height'] . 'px' : $logo_height;
     $header_background            = (array_key_exists('header_background', $theme_options) && $theme_options['header_background']) ? $theme_options['header_background'] : 'black';
     $scrolling_header_background  = (array_key_exists('scrolling_header_background', $theme_options) && $theme_options['scrolling_header_background']) ? $theme_options['scrolling_header_background'] : 'white';
     $header_background            = (array_key_exists('transparent_header', $theme_options) && $theme_options['transparent_header']) ? 'transparent' : $header_background;
     $top_bar_background           = (array_key_exists('top_bar_background', $theme_options) && $theme_options['top_bar_background']) ? $theme_options['top_bar_background'] : '#111111';
+    $page_title                = (array_key_exists('page_title', $theme_options) && $theme_options['page_title']) ? $theme_options['page_title'] : false;
     $footer_background            = (array_key_exists('footer_background', $theme_options) && $theme_options['footer_background']) ? $theme_options['footer_background'] : '#111111';
     $copyright_background         = (array_key_exists('copyright_background', $theme_options) && $theme_options['copyright_background']) ? $theme_options['copyright_background'] : 'black';
     
@@ -335,7 +337,16 @@ function legendary_toolkit_theme_options_css() {
     
     // if is sticky_header
     // $custom_css .= "#page{margin-top:".$logo_height.";}\n";
-    $custom_css .= "#content{margin-top:".$logo_height.";}\n";
+
+    if ($sticky_header) {
+        $inside_page_first_element_selector = '#content';
+        if ($page_title) {
+            $inside_page_first_element_selector = '#page_title';
+        }
+
+        $custom_css .= "body.home#content, $inside_page_first_element_selector {margin-top:".$logo_height.";}\n";
+    }
+
     // $custom_css .= "#content{padding-top:".$logo_height.";}\n";
 
 
