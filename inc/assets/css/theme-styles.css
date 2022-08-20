@@ -152,7 +152,7 @@ body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li.current_page_it
 }
 
 body:not(.theme-preset-active) #masthead .navbar-nav>li>a {
-    padding: 0 var(--menu_item_padding, 14);
+    padding: 0 var(--menu_item_padding, 14px);
 }
 
 blockquote p {
