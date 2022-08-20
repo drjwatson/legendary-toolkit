@@ -44,9 +44,11 @@ $mobile_menu_bottom_content = legendary_toolkit_get_theme_option('mobile_menu_bo
                     <?php
                         wp_nav_menu(
                             array(
-                            'theme_location'    => 'primary',
-                            'container'         => false,
-                            'menu_id'           => 'mobile_menu',
+                                'theme_location'    => 'primary',
+                                'container'         => false,
+                                'menu_id'           => 'mobile_menu',
+                                'fallback_cb'       => 'toolkit_mobile_navwalker::fallback',
+                                'walker'            => new toolkit_mobile_navwalker()
                             )
                         );
                     ?>

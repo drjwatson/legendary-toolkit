@@ -6,7 +6,7 @@
     <div class="container py-3">
         <div class="row">
             <div class="col-12">
-                <?php echo wpautop($footer_bottom_content);?>
+                <?php echo do_shortcode(wpautop($footer_bottom_content));?>
             </div>
         </div><!-- close .site-info -->
     </div>

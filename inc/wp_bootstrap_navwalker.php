@@ -93,6 +93,29 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 		 * @param int      $id     Current item ID.
 		 */
 		public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+
+			$item_meta = get_post_meta($item->ID);
+			
+			$has_megamenu = ($item_meta && array_key_exists('_toolkit_enable_megamenu', $item_meta) && $item_meta['_toolkit_enable_megamenu']) ? 1 : 0;
+			$args->after = '';
+			if ($has_megamenu) {
+				$widget_id = $item_meta['_toolkit_megamenu_id'][0];
+				if ($widget_id) {
+					$content_post = get_post($widget_id);
+					$content = $content_post->post_content;
+					$content = apply_filters('the_content', $content);
+					$content = str_replace(']]>', ']]&gt;', $content);
+				}
+				else {
+					$content = 'No mega menu widget selected.';
+				}
+				
+				$markup = '<ul class="dropdown-menu"><li class="container-fluid">';
+				$markup .= $content;
+				$markup .= "</li></ul>";
+				$args->after = $markup;
+			}
+
 			if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
 				$t = '';
 				$n = '';
@@ -134,8 +157,12 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			$args = apply_filters( 'nav_menu_item_args', $args, $item, $depth );
 
 			// Add .dropdown or .active classes where they are needed.
-			if ( isset( $args->has_children ) && $args->has_children ) {
+			if ( ( isset( $args->has_children ) && $args->has_children ) || $has_megamenu) {
 				$classes[] = 'dropdown';
+				if ($has_megamenu) {
+					$classes[] = 'mega-menu';
+					$classes[] = 'menu-item-has-children';
+				}
 			}
 			if ( in_array( 'current-menu-item', $classes, true ) || in_array( 'current-menu-parent', $classes, true ) ) {
 				$classes[] = 'active';
@@ -184,7 +211,7 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			$atts['target'] = ! empty( $item->target ) ? $item->target : '';
 			$atts['rel']    = ! empty( $item->xfn ) ? $item->xfn : '';
 			// If the item has children, add atts to the <a>.
-			if ( isset( $args->has_children ) && $args->has_children && 0 === $depth && $args->depth > 1 ) {
+			if (( isset( $args->has_children ) && $args->has_children && 0 === $depth && $args->depth > 1 ) || $has_megamenu ) {
 				$atts['href']          = '#';
 				$atts['data-toggle']   = 'dropdown';
 				$atts['aria-haspopup'] = 'true';

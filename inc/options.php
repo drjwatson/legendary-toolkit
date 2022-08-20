@@ -304,6 +304,16 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 </td>
                             </tr>
                             <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Logo Padding', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <div class="legendary-toolkit-input-group">
+                                        <?php $value = self::get_theme_option( 'logo_padding' );?>
+                                        <input type="number" name="theme_options[logo_padding]" value="<?=(esc_attr($value)) ? esc_attr($value) : '10';?>">
+                                        <label class="suffix" for="theme_options[logo_padding]">px</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Favicon', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'favicon' ); ?>
@@ -474,6 +484,16 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Menu Items', 'legendary-toolkit' );?></th>
                                 <td><?php echo self::typography_field('menu_items', true, true);?></td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Menu Item Padding', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <div class="legendary-toolkit-input-group">
+                                        <?php $value = self::get_theme_option( 'menu_item_padding' );?>
+                                        <input type="number" name="theme_options[menu_item_padding]" value="<?=(esc_attr($value)) ? esc_attr($value) : '14';?>">
+                                        <label class="suffix" for="theme_options[menu_item_padding]">px</label>
+                                    </div>
+                                </td>
                             </tr>
                         </table>
                         <hr>
@@ -903,7 +923,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                 echo '<pre style="height:200px; width: 100%; overflow:scroll; white-space: pre-wrap; resize:vertical">';
 
                     echo '<hr><strong>get_theme_options()</strong><hr>';
-                    print_r(self::get_theme_options());
+                    print htmlentities(print_r(self::get_theme_options(), true));
 
                     echo '<hr><strong>Available Shortcodes</strong><hr>';
                     print htmlspecialchars( print_r( $GLOBALS['shortcode_tags'], TRUE ) );

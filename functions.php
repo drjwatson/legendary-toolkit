@@ -213,7 +213,7 @@ function legendary_toolkit_theme_options_css() {
     }
 
     // Get options used for CSS variables
-
+    $logo_padding                 = (array_key_exists('logo_padding', $theme_options) && $theme_options['logo_padding']) ? $theme_options['logo_padding'] : '10';
     $primary_color                = (array_key_exists('primary_color', $theme_options) && $theme_options['primary_color']) ? $theme_options['primary_color'] : '#0f8bf5';
     $secondary_color              = (array_key_exists('secondary_color', $theme_options) && $theme_options['secondary_color']) ? $theme_options['secondary_color'] : '#f56f0f';
     $logo_height                  = (array_key_exists('logo_height', $theme_options) && $theme_options['logo_height']) ? $theme_options['logo_height'] . 'px' : '100px';
@@ -223,7 +223,8 @@ function legendary_toolkit_theme_options_css() {
     $scrolling_header_background  = (array_key_exists('scrolling_header_background', $theme_options) && $theme_options['scrolling_header_background']) ? $theme_options['scrolling_header_background'] : 'white';
     $header_background            = (array_key_exists('transparent_header', $theme_options) && $theme_options['transparent_header']) ? 'transparent' : $header_background;
     $top_bar_background           = (array_key_exists('top_bar_background', $theme_options) && $theme_options['top_bar_background']) ? $theme_options['top_bar_background'] : '#111111';
-    $page_title                = (array_key_exists('page_title', $theme_options) && $theme_options['page_title']) ? $theme_options['page_title'] : false;
+    $menu_item_padding            = (array_key_exists('menu_item_padding', $theme_options) && $theme_options['menu_item_padding']) ? $theme_options['menu_item_padding'] : '14';
+    $page_title                   = (array_key_exists('page_title', $theme_options) && $theme_options['page_title']) ? $theme_options['page_title'] : false;
     $footer_background            = (array_key_exists('footer_background', $theme_options) && $theme_options['footer_background']) ? $theme_options['footer_background'] : '#111111';
     $copyright_background         = (array_key_exists('copyright_background', $theme_options) && $theme_options['copyright_background']) ? $theme_options['copyright_background'] : 'black';
     
@@ -307,6 +308,7 @@ function legendary_toolkit_theme_options_css() {
     // Add CSS variables
     $custom_css .= "
         :root {
+            --logo_padding : $logo_padding"."px;
             --primary_color : $primary_color;
             --secondary_color : $secondary_color;
             --logo_height : $logo_height;
@@ -314,6 +316,7 @@ function legendary_toolkit_theme_options_css() {
             --scrolling_header_background : $scrolling_header_background;
             --header_background : $header_background;
             --top_bar_background : $top_bar_background;
+            --menu_item_padding : $menu_item_padding"."px;
             --footer_background : $footer_background;
             --copyright_background : $copyright_background;
             --favicon_url : $favicon_url;
@@ -433,6 +436,13 @@ require get_template_directory() . '/inc/plugin-compatibility/plugin-compatibili
  */
 if ( ! class_exists( 'wp_bootstrap_navwalker' )) {
     require_once(get_template_directory() . '/inc/wp_bootstrap_navwalker.php');
+}
+
+/**
+ * Load mobile WordPress nav walker.
+ */
+if ( ! class_exists( 'toolkit_mobile_navwalker' )) {
+    require_once(get_template_directory() . '/inc/toolkit_mobile_navwalker.php');
 }
 
 /**
@@ -1040,10 +1050,121 @@ function toolkit_get_sidebar_column_classes() {
 add_action( 'wp', 'enable_gdpr_compliance' );
 function enable_gdpr_compliance(){
     if(legendary_toolkit_get_theme_option('enable_gdpr_compliance')){
-
-        // include the script
         wp_enqueue_script( 'enable_gdpr_compliance', get_template_directory_uri().'/inc/assets/js/gdpr.js', '', '', false );
+    }
+}
 
+function render_toolkit_menu($atts, $content = null) {
+    extract(shortcode_atts(array( 'id' => null, 'class' => null ), $atts));
+    return wp_nav_menu( array( 'menu' => $id, 'menu_class' => $class, 'echo' => false ) );
+}
+add_shortcode('toolkit_menu', 'render_toolkit_menu');
+
+function render_toolkit_logo() {
+    ob_start();
+    get_template_part('template-parts/header', 'logo', ['id' => '']);
+    return ob_get_clean();
+}
+add_shortcode('toolkit_logo', 'render_toolkit_logo');
+
+function get_widget_options() {
+    $widgets = [];
+    $args = array(
+        'post_type' => 'll_widgets',
+    );
+    $q_widgets = new wp_query($args);
+    if (!$q_widgets->have_posts()) {
+        return false;
+    }
+    while ($q_widgets->have_posts()) {
+        $q_widgets->the_post();
+        $id = get_the_id();
+        $widget_title = get_the_title();
+        $widgets[] = ['id' => $id, 'title' => $widget_title];
+    }
+    wp_reset_postdata();
+    return $widgets;
+}
+
+function toolkit_add_nav_item_meta($item_id, $item) {
+
+    wp_nonce_field('toolkit_enable_megamenu_nonce', '_toolkit_enable_megamenu_nonce_name');
+    wp_nonce_field('toolkit_megamenu_id_nonce', '_toolkit_megamenu_id_nonce_name');
+
+    $toolkit_enable_megamenu_post_meta = get_post_meta($item_id, '_toolkit_enable_megamenu', true);
+    $toolkit_megamenu_id_post_meta = get_post_meta($item_id, '_toolkit_megamenu_id', true);
+
+    $enable_megamenu_value = esc_attr($toolkit_enable_megamenu_post_meta);
+    $megamenu_id_value = esc_attr($toolkit_megamenu_id_post_meta);
+
+
+    $toolkit_enable_megamenu_checked = ($enable_megamenu_value) ? 'checked' : '';
+
+    $selected_widget_none = (!$megamenu_id_value) ? 'selected' : '';
+    $widget_select = '';
+    if (!get_widget_options()) {
+        $widget_select = '<strong>No Widgets Found</strong></br><a href="/wp-admin/post-new.php?post_type=ll_widgets">Create your first widget</a>';
+    }
+    else {
+        $widget_select = "<select name='toolkit_megamenu_id[$item_id]' id='toolkit-megamenu-id-for-$item_id'>";
+            $widget_select .= "<option value='0' $selected_widget_none>None</option>";
+        foreach (get_widget_options() as $i => $widget) {
+            $widget_id = $widget['id'];
+            $widget_title = $widget['title'];
+            $selected = ($megamenu_id_value == $widget_id) ? 'selected' : '';
+            $widget_select .= "<option value='$widget_id' $selected>$widget_title</option>";
+        }
     }
 
+    $output = '';
+    $output .= "
+        <div class='description-wide' style='margin: 5px 0;'>
+            <h4 class='description'>Mega Menu</h4>
+            <p class='field-toolkit-enable-megamenu description'>
+                <label for='toolkit-enable-megamenu-for-$item_id'>
+                <input type='checkbox' name='toolkit_enable_megamenu[$item_id]' id='toolkit-enable-megamenu-for-$item_id' $toolkit_enable_megamenu_checked />
+                    Enable Mega Menu
+                </label>
+            </p>
+            <p class='field-toolkit-megamenu-id description'>
+            <label for='toolkit-megamenu-id-for-$item_id'>Select Dropdown Widget</label><br/>
+                $widget_select
+            </p>
+        </div>
+    ";
+    echo $output;
 }
+
+add_action('wp_nav_menu_item_custom_fields', 'toolkit_add_nav_item_meta', 10, 2);
+
+function toolkit_save_nav_item_meta($menu_id, $menu_item_db_id)
+{
+    // toolkit_enable_megamenu
+    if (!isset($_POST['_toolkit_enable_megamenu_nonce_name']) || !wp_verify_nonce($_POST['_toolkit_enable_megamenu_nonce_name'], 'toolkit_enable_megamenu_nonce')) {
+        return $menu_id;
+    }
+    if (isset($_POST['toolkit_enable_megamenu'][$menu_item_db_id])) {
+        $sanitized_data = sanitize_text_field($_POST['toolkit_enable_megamenu'][$menu_item_db_id]);
+        update_post_meta($menu_item_db_id, '_toolkit_enable_megamenu', $sanitized_data);
+    } else {
+        delete_post_meta($menu_item_db_id, '_toolkit_enable_megamenu');
+    }
+
+    // toolkit_megamenu_id
+    if (!isset($_POST['_toolkit_megamenu_id_nonce_name']) || !wp_verify_nonce($_POST['_toolkit_megamenu_id_nonce_name'], 'toolkit_megamenu_id_nonce')) {
+        return $menu_id;
+    }
+    if (isset($_POST['toolkit_megamenu_id'][$menu_item_db_id])) {
+        $sanitized_data = sanitize_text_field($_POST['toolkit_megamenu_id'][$menu_item_db_id]);
+        update_post_meta($menu_item_db_id, '_toolkit_megamenu_id', $sanitized_data);
+    } else {
+        delete_post_meta($menu_item_db_id, '_toolkit_megamenu_id');
+    }
+}
+add_action('wp_update_nav_menu_item', 'toolkit_save_nav_item_meta', 10, 2);
+
+function render_menu_items() {
+    echo '<pre>' . print_r(get_post_meta(60), true) . '</pre>';
+    echo '<pre>' . print_r(wp_get_nav_menu_items(18), true) . '</pre>';
+}
+add_shortcode('toolkit_menu_items', 'render_menu_items');

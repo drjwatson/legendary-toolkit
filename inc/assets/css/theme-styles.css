@@ -152,7 +152,7 @@ body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li.current_page_it
 }
 
 body:not(.theme-preset-active) #masthead .navbar-nav>li>a {
-    padding:0 14px;
+    padding: 0 var(--menu_item_padding, 14);
 }
 
 blockquote p {
@@ -211,7 +211,17 @@ header#masthead #site_logo {
     position:relative;
     top:0;
 }
-
+header#masthead #site_logo {
+    padding-top: var(--logo_padding, 10px);
+    padding-bottom: var(--logo_padding, 10px);
+}
+header#masthead .navbar-brand .site-title {
+    line-height: var(--logo_height, 100px);
+    transition: line-height 275ms ease-in-out;
+}
+header#masthead.sticky_header.is-stuck .navbar-brand .site-title {
+    line-height: var(--scrolling_logo_height);
+}
 header#masthead.is-stuck #site_logo {
     height: var(--scrolling_logo_height);
 }
@@ -307,4 +317,17 @@ a:hover {
 
 .btn, button, .nav-link{
     transition: .25s;
+}
+:target {
+    scroll-margin-top: var(--scrolling_logo_height, 10px);
+}
+.mega-menu {
+    position: inherit;
+    width: 100%;
+}
+.mega-menu .dropdown-menu {
+    width: 100%;
+}
+.dropdown-menu .container-fluid > .vc_row {
+    width: 100%;
 }
