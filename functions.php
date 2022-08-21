@@ -1114,6 +1114,7 @@ function toolkit_add_nav_item_meta($item_id, $item) {
             $selected = ($megamenu_id_value == $widget_id) ? 'selected' : '';
             $widget_select .= "<option value='$widget_id' $selected>$widget_title</option>";
         }
+        $widget_select .= "</select>";
     }
 
     $output = '';
