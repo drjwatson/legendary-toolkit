@@ -348,9 +348,7 @@ a.page-scroller {
   margin-top: 2rem;
 }
 
-.navbar li.btn {
-  margin-left: 30px;
-}
+
 
 @media screen and (min-width: 768px) {
   body:not(.theme-preset-active) #page-sub-header h1 {
@@ -388,7 +386,6 @@ body:not(.theme-preset-active) #masthead .navbar-nav > li > a:hover,
 body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a {
   color: #fff;
   font-weight: 600;
-  /*background: #f9f9f9;*/
 }
 
 
@@ -398,19 +395,48 @@ body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a 
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    -ms-flex-align: center;
-    align-items: center;
+    -ms-flex-align: stretch;
+    align-items: stretch;
     -ms-flex-pack: justify;
     justify-content: space-between;
     padding: 0.5rem 1rem;
     flex-direction: row;
 }
 
-
-#main-nav .btn.btn-primary{
-  margin:4px 80px;
+a.nav-link {
+  padding: 0 16px;
 }
 
+.navbar-nav {
+  align-items: center;
+}
+
+.menu-cart {
+  width: 100px;
+  text-align: center;
+}
+
+.navbar-nav {
+  align-items: stretch;
+}
+
+.navbar-nav li {
+  display: flex;
+  align-items: stretch;
+}
+
+#menu-primary li a {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-expand .navbar-collapse{
+  align-items:stretch;
+}
+
+.navbar-nav li.button {
+  align-items: center;
+}
 
 .navbar-brand {
   height: auto;

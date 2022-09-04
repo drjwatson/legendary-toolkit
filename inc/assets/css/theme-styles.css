@@ -89,33 +89,6 @@ body:not(.theme-preset-active) #masthead .navbar-nav>li.current_page_item>a {
     opacity:1;
 }
 
-a.nav-link{
-    padding:0 16px;
-}
-
-.navbar-nav{
-    align-items: center;
-}
-
-.menu-cart {
-    width: 100px;
-    text-align: center;
-}
-
-.navbar-nav {
-    align-items: stretch;
-}
-
-.navbar-nav li {
-    display: flex;
-    align-items: stretch;
-}
-
-#menu-primary li a {
-    display: flex;
-    align-items: center;
-}
-
 .btn:not(:disabled):not(.disabled),
 .btn-primary:not(:disabled):not(.disabled).active,
 .btn-primary:not(:disabled):not(.disabled):active,
