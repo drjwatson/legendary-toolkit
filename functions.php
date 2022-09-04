@@ -1169,3 +1169,10 @@ function render_menu_items() {
     echo '<pre>' . print_r(wp_get_nav_menu_items(18), true) . '</pre>';
 }
 add_shortcode('toolkit_menu_items', 'render_menu_items');
+
+
+function current_year()
+{
+    return date("Y");;
+}
+add_shortcode('year', 'current_year');

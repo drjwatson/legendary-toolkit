@@ -331,3 +331,8 @@ a:hover {
 .dropdown-menu .container-fluid > .vc_row {
     width: 100%;
 }
+
+.dropdown-menu .wpb_single_image, .dropdown-menu .wpb_content_element{
+    padding:0;
+    margin:0;
+}
