@@ -97,6 +97,7 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 			$item_meta = get_post_meta($item->ID);
 			
 			$has_megamenu = ($item_meta && array_key_exists('_toolkit_enable_megamenu', $item_meta) && $item_meta['_toolkit_enable_megamenu']) ? 1 : 0;
+			$is_button = ($item_meta && array_key_exists('_toolkit_make_button', $item_meta) && $item_meta['_toolkit_make_button']) ? 1 : 0;
 			$args->after = '';
 			if ($has_megamenu) {
 				$widget_id = $item_meta['_toolkit_megamenu_id'][0];
@@ -225,6 +226,9 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 					$atts['class'] = 'dropdown-item';
 				} else {
 					$atts['class'] = 'nav-link';
+					if($is_button){
+						$atts['class'] = 'nav-link btn btn-primary';
+					}
 				}
 			}
 

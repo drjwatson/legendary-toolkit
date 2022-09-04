@@ -1088,16 +1088,20 @@ function get_widget_options() {
 
 function toolkit_add_nav_item_meta($item_id, $item) {
 
+    wp_nonce_field('toolkit_make_button_nonce', '_toolkit_make_button_nonce_name');
     wp_nonce_field('toolkit_enable_megamenu_nonce', '_toolkit_enable_megamenu_nonce_name');
     wp_nonce_field('toolkit_megamenu_id_nonce', '_toolkit_megamenu_id_nonce_name');
 
     $toolkit_enable_megamenu_post_meta = get_post_meta($item_id, '_toolkit_enable_megamenu', true);
+    $toolkit_make_button_post_meta = get_post_meta($item_id, '_toolkit_make_button', true);
     $toolkit_megamenu_id_post_meta = get_post_meta($item_id, '_toolkit_megamenu_id', true);
 
+    $make_button_value = esc_attr($toolkit_make_button_post_meta);
     $enable_megamenu_value = esc_attr($toolkit_enable_megamenu_post_meta);
     $megamenu_id_value = esc_attr($toolkit_megamenu_id_post_meta);
 
 
+    $toolkit_make_button_checked = ($make_button_value) ? 'checked' : '';
     $toolkit_enable_megamenu_checked = ($enable_megamenu_value) ? 'checked' : '';
 
     $selected_widget_none = (!$megamenu_id_value) ? 'selected' : '';
@@ -1120,7 +1124,15 @@ function toolkit_add_nav_item_meta($item_id, $item) {
     $output = '';
     $output .= "
         <div class='description-wide' style='margin: 5px 0;'>
-            <h4 class='description'>Mega Menu</h4>
+            <h4 class='description' style='margin-bottom:0;'>Button</h4>
+            <p class='field-toolkit-make-button description'>
+                <label for='toolkit-make-button-for-$item_id'>
+                <input type='checkbox' name='toolkit_make_button[$item_id]' id='toolkit-make-button-for-$item_id' $toolkit_make_button_checked />
+                    Make this a button
+                </label>
+            </p>
+
+        <h4 class='description' style='margin-bottom:0;'>Mega Menu</h4>
             <p class='field-toolkit-enable-megamenu description'>
                 <label for='toolkit-enable-megamenu-for-$item_id'>
                 <input type='checkbox' name='toolkit_enable_megamenu[$item_id]' id='toolkit-enable-megamenu-for-$item_id' $toolkit_enable_megamenu_checked />
@@ -1151,6 +1163,13 @@ function toolkit_save_nav_item_meta($menu_id, $menu_item_db_id)
         delete_post_meta($menu_item_db_id, '_toolkit_enable_megamenu');
     }
 
+    if (isset($_POST['toolkit_make_button'][$menu_item_db_id])) {
+        $sanitized_data = sanitize_text_field($_POST['toolkit_make_button'][$menu_item_db_id]);
+        update_post_meta($menu_item_db_id, '_toolkit_make_button', $sanitized_data);
+    } else {
+        delete_post_meta($menu_item_db_id, '_toolkit_make_button');
+    }
+
     // toolkit_megamenu_id
     if (!isset($_POST['_toolkit_megamenu_id_nonce_name']) || !wp_verify_nonce($_POST['_toolkit_megamenu_id_nonce_name'], 'toolkit_megamenu_id_nonce')) {
         return $menu_id;
@@ -1164,11 +1183,11 @@ function toolkit_save_nav_item_meta($menu_id, $menu_item_db_id)
 }
 add_action('wp_update_nav_menu_item', 'toolkit_save_nav_item_meta', 10, 2);
 
-function render_menu_items() {
-    echo '<pre>' . print_r(get_post_meta(60), true) . '</pre>';
-    echo '<pre>' . print_r(wp_get_nav_menu_items(18), true) . '</pre>';
-}
-add_shortcode('toolkit_menu_items', 'render_menu_items');
+// function render_menu_items() {
+//     echo '<pre>' . print_r(get_post_meta(60), true) . '</pre>';
+//     echo '<pre>' . print_r(wp_get_nav_menu_items(18), true) . '</pre>';
+// }
+// add_shortcode('toolkit_menu_items', 'render_menu_items');
 
 
 function current_year()
