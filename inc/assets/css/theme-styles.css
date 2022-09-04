@@ -102,20 +102,18 @@ a.nav-link{
     text-align: center;
 }
 
-#main-nav>ul.navbar-nav>li>a:not(li.btn a),
-body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(li.btn a),
-body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li>a:not(li.btn a):hover,
-body:not(.theme-preset-active) #masthead:not(.is-stuck) .navbar-nav>li.current_page_item>a:not(li.btn a) {
-    line-height: var(--logo_height, 100px);
+.navbar-nav {
+    align-items: stretch;
 }
 
-#main-nav>ul.navbar-nav>li>a:not(li.btn a),
-body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(li.btn a),
-body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(li.btn a):hover,
-body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(li.btn a),
-body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(li.btn a):hover,
-body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li.current_page_item>a:not(li.btn a) {
-    line-height: var(--scrolling_logo_height, 100px);
+.navbar-nav li {
+    display: flex;
+    align-items: stretch;
+}
+
+#menu-primary li a {
+    display: flex;
+    align-items: center;
 }
 
 .btn:not(:disabled):not(.disabled),
@@ -323,10 +321,6 @@ a:hover {
 }
 .mega-menu {
     position: inherit;
-    width: 100%;
-}
-.mega-menu .dropdown-menu {
-    width: 100%;
 }
 .dropdown-menu .container-fluid > .vc_row {
     width: 100%;

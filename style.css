@@ -407,6 +407,10 @@ body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a 
 }
 
 
+#main-nav .btn.btn-primary{
+  margin:4px 80px;
+}
+
 
 .navbar-brand {
   height: auto;
