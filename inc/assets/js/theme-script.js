@@ -109,4 +109,15 @@ jQuery( function ( $ ) {
             'scrollTop': $target.offset().top
         }, 1000, 'swing');
     });
+    // on scroll detect if nav .is-stuck
+    $( window ).on('scroll', function(e){
+        if ($('#scrolling_site_logo') && $('#masthead').hasClass('is-stuck')) {
+            $('#scrolling_site_logo').removeClass('d-none opacity-100');
+            $('#site_logo').addClass('d-none opacity-0');
+        }
+        else {
+            $('#scrolling_site_logo').addClass('d-none opacity-0');
+            $('#site_logo').removeClass('d-none opacity-100');
+        }
+    });
 });
