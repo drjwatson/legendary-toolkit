@@ -165,6 +165,9 @@ if ( ! class_exists( 'WP_Bootstrap_Navwalker' ) ) {
 					$classes[] = 'menu-item-has-children';
 				}
 			}
+			if ($is_button) {
+				$classes[] = 'button';
+			}
 			if ( in_array( 'current-menu-item', $classes, true ) || in_array( 'current-menu-parent', $classes, true ) ) {
 				$classes[] = 'active';
 			}
