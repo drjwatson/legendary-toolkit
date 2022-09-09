@@ -285,6 +285,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_typography')">Typography</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_blog')">Blog</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_pages_posts')">Pages &amp; Posts</button>
+                        <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_tools')">Tools</button>
                     </div>
                 </div>
 				<form method="post" action="options.php" id="legendary_toolkit_form">
@@ -301,6 +302,15 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                     <input type="hidden" name="theme_options[logo]" id="logo" value="<?php echo $value; ?>" />
                                     <div id="logo_preview" class="logo btn_logo toolkit-media-upload" style="background-image:url(<?php echo wp_get_attachment_image_url($value, 'medium'); ?>)" ></div>
                                     <button id="btn_logo" data-id="logo" class="button default btn_logo btn-upload">Select Logo</button>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Scrolling Logo', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'scrolling_logo' ); ?>
+                                    <input type="hidden" name="theme_options[scrolling_logo]" id="scrolling_logo" value="<?php echo $value; ?>" />
+                                    <div id="scrolling_logo_preview" class="logo btn_logo toolkit-media-upload" style="background-image:url(<?php echo wp_get_attachment_image_url($value, 'medium'); ?>)" ></div>
+                                    <button id="btn_logo" data-id="scrolling_logo" class="button default btn_logo btn-upload">Select Logo</button>
                                 </td>
                             </tr>
                             <tr valign="top">
@@ -344,13 +354,6 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                         <input type="number" name="theme_options[page_container_width]" value="<?=(esc_attr($value)) ? esc_attr($value) : '1320';?>">
                                         <label class="suffix" for="theme_options[page_container_width]">px</label>
                                     </div>
-                                </td>
-                            </tr>
-                            <tr valign="top">
-                                <th scope="row"><?php esc_html_e( 'Enable GDPR Compliance?', 'legendary-toolkit' );?></th>
-                                <td>
-                                    <?php $value = self::get_theme_option( 'enable_gdpr_compliance' );?>
-                                    <label><input type="checkbox" name="theme_options[enable_gdpr_compliance]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
                                 </td>
                             </tr>
                         </table>
@@ -861,6 +864,39 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 ?>
                                 </td>
                             </tr>
+                        </table>
+                    </div>
+                    <div id="legendary_toolkit_tools" class="tabcontent">
+                        <h3>Tools</h3>
+                        <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Enable GDPR Compliance?', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'enable_gdpr_compliance' );?>
+                                    <label><input type="checkbox" name="theme_options[enable_gdpr_compliance]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                </td>
+                            </tr>                            
+                            <?php if (current_user_can('administrator')) : 
+                                $hidden_menu_items = self::get_theme_option( 'hide_menu_items' );
+                                global $menu;
+                                $hide_menu_items_options = '';
+                                foreach ($menu as $i => $menu_item) {
+                                    if (!$menu_item[0]) {
+                                        continue;
+                                    }
+                                    $label = $menu_item[0];
+                                    $label = preg_replace( "/(<span.*?<\/span>)/is", '', $label );
+                                    $key = $menu_item[2];
+                                    $value = (array_key_exists($key, $hidden_menu_items)) ? $hidden_menu_items[$key] : '';
+                                    $checked = checked( $value, 'on', false );
+                                    $hide_menu_items_options .= "<label style='display:block; margin-bottom: 8px;'><input type='checkbox' name='theme_options[hide_menu_items][$key]' $checked />$label</label>";
+                                }
+                            ?>
+                                <tr valign="top">
+                                    <th scope="row"><?php esc_html_e( 'Hide Menu Items', 'legendary-toolkit' );?></th>
+                                    <td style="columns:3;"><?=$hide_menu_items_options;?></td>
+                                </tr>
+                            <?php endif;?>
                         </table>
                     </div>
                     <?php if (defined('TOOLKIT_DEBUG') && TOOLKIT_DEBUG) : ?>

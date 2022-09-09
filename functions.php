@@ -1195,3 +1195,18 @@ function current_year()
     return date("Y");;
 }
 add_shortcode('year', 'current_year');
+
+add_action('admin_init', 'hide_menu_items_from_non_admins');
+function hide_menu_items_from_non_admins() {
+    if (current_user_can('administrator')) {
+        return;
+    }
+    $hidden_items = legendary_toolkit_get_theme_option('hide_menu_items');
+    if ($hidden_items) {
+        foreach ($hidden_items as $key => $value) {
+            if ($value == 'on') {
+                remove_menu_page($key);
+            }
+        }
+    }
+}
