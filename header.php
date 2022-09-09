@@ -8,21 +8,12 @@
  *
  * @package WP_Bootstrap_Starter
  */
-    $favicon = esc_url(wp_get_attachment_image_url(legendary_toolkit_get_theme_option('favicon'), 'medium'));
-    $content_container = (toolkit_get_sidebar_selection() || is_page_template('blank-page.php') || is_page_template('page-full-width.php')) ? 'container-fluid' : 'container';
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
-    <head>
-        <meta charset="<?php bloginfo( 'charset' ); ?>">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link rel="profile" href="http://gmpg.org/xfn/11">
-        <?php wp_head(); ?>
-        <?php if ( $favicon ) : ?>
-            <link rel="shortcut icon" href="<?=$favicon;?>" />
-        <?php endif; ?>
-    </head>
+    <?php
+        get_template_part('template-parts/header', 'head');
+    ?>
     <body <?php body_class(); ?>>
         <?php 
             if ( function_exists( 'wp_body_open' ) ) {
@@ -38,8 +29,7 @@
                     get_template_part('template-parts/header', 'topbar');
                     get_template_part('template-parts/header', 'menu');
                     get_template_part('template-parts/header', 'title');
+                    get_template_part('template-parts/header', 'content');
                 }
             ?>
-            <div id="content" class="site-content <?=$content_container;?>">
-                <div class="row">
             
