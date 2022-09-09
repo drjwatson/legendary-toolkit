@@ -182,7 +182,13 @@ header#masthead #site_logo {
     position:relative;
     top:0;
 }
-header#masthead #site_logo {
+header#masthead #scrolling_site_logo {
+    height: var(--scrolling_logo_height, 100px);
+    transition: height 275ms ease-in-out;
+    position:relative;
+    top:0;
+}
+header#masthead #site_logo, header#masthead #scrolling_site_logo, header#masthead .navbar-brand .site-title {
     padding-top: var(--logo_padding, 10px);
     padding-bottom: var(--logo_padding, 10px);
 }
@@ -294,6 +300,10 @@ a:hover {
 }
 .mega-menu {
     position: inherit;
+    width: 100%;
+}
+.mega-menu .dropdown-menu {
+    width: 100%;
 }
 .dropdown-menu .container-fluid > .vc_row {
     width: 100%;
@@ -302,4 +312,7 @@ a:hover {
 .dropdown-menu .wpb_single_image, .dropdown-menu .wpb_content_element{
     padding:0;
     margin:0;
+}
+.vc_row.wpb_row {
+    margin-bottom: 0px;
 }
