@@ -176,7 +176,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
             return $google_fonts;
         }
 
-        public static function typography_field($id, $has_size = true, $has_transform = false) {
+        public static function typography_field($id, $has_size = true, $has_transform = false, $has_color = true) {
             
             ob_start();
             ?>
@@ -203,10 +203,12 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                             <select data-type="<?=$id;?>" data-selected="<?=esc_attr( $value );?>" name="theme_options[<?=$id;?>_font_weight]" class="font-selector-weight"></select>
                         </div>
                     </td>
-                    <td>
-                        <?php $value = self::get_theme_option( $id . '_font_color' );?>
-                        <input class="color-field" type="text" name="theme_options[<?=$id;?>_font_color]" value="<?=esc_attr( $value );?>">
-                    </td>
+                    <?php if ($has_color) : ?>
+                        <td>
+                            <?php $value = self::get_theme_option( $id . '_font_color' );?>
+                            <input class="color-field" type="text" name="theme_options[<?=$id;?>_font_color]" value="<?=esc_attr( $value );?>">
+                        </td>
+                    <?php endif;?>
                     <td>
                         <?php if ($has_size) : ?>
                             <div class="legendary-toolkit-input-group">
@@ -283,6 +285,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_menu')">Menu</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_footer')">Footer</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_typography')">Typography</button>
+                        <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_buttons')">Buttons</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_blog')">Blog</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_pages_posts')">Pages &amp; Posts</button>
                         <button class="tablinks" onclick="open_settings_tab(event, 'legendary_toolkit_tools')">Tools</button>
@@ -442,7 +445,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <th scope="row"><?php esc_html_e( 'Top Bar Content', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'top_bar_content' );?>
-                                    <?php echo wp_editor( $value, 'top_bar_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[top_bar_content]') );?>
+                                    <?php echo wp_editor( stripslashes($value), 'top_bar_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[top_bar_content]') );?>
                                 </td>
                             </tr>
                         </table>
@@ -468,8 +471,8 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                             $value = "<h1>[page_title]</h1><p>[breadcrumbs]</p>";
                                         }
                                     ?>
-                                    <?php echo wp_editor( $value, 'page_title_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[page_title_content]') );?>
-                                    <label for="theme_options[mobile_menu_width]"><small><strong>Default:</strong><code>&lt;h1&gt;[page_title]&lt;/h1&gt;&lt;p&gt;[breadcrumbs]&lt;/p&gt;</code></small></label>
+                                    <?php echo wp_editor( stripslashes($value), 'page_title_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[page_title_content]') );?>
+                                    <label for="theme_options[page_title_content]"><small><strong>Default:</strong><code>&lt;h1&gt;[page_title]&lt;/h1&gt;&lt;p&gt;[breadcrumbs]&lt;/p&gt;</code></small></label>
                                 </td>
                             </tr>
                         </table>
@@ -545,14 +548,14 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <th scope="row"><?php esc_html_e( 'Mobile Menu Top Content', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'mobile_menu_top_content' );?>
-                                    <?php echo wp_editor( $value, 'mobile_menu_top_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[mobile_menu_top_content]') );?>
+                                    <?php echo wp_editor( stripslashes($value), 'mobile_menu_top_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[mobile_menu_top_content]') );?>
                                 </td>
                             </tr>
                             <tr valign="top" id="" class="">
                                 <th scope="row"><?php esc_html_e( 'Mobile Menu Bottom Content', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'mobile_menu_bottom_content' );?>
-                                    <?php echo wp_editor( $value, 'mobile_menu_bottom_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[mobile_menu_bottom_content]') );?>
+                                    <?php echo wp_editor( stripslashes($value), 'mobile_menu_bottom_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[mobile_menu_bottom_content]') );?>
                                 </td>
                             </tr>
                         </table>
@@ -568,10 +571,24 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 </td>
                             </tr>
                             <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Footer Content Color', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'footer_content_color' );?>
+                                    <input class="color-field" type="text" name="theme_options[footer_content_color]" value="<?=esc_attr( $value );?>">
+                                </td>
+                            </tr>
+                            <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Copyright Background', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'copyright_background' );?>
                                     <input class="color-field" type="text" name="theme_options[copyright_background]" value="<?=esc_attr( $value );?>">
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Copyright Content Color', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'copyright_content_color' );?>
+                                    <input class="color-field" type="text" name="theme_options[copyright_content_color]" value="<?=esc_attr( $value );?>">
                                 </td>
                             </tr>
                             <tr valign="top">
@@ -595,7 +612,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <th scope="row"><?php esc_html_e( 'Footer Column 1', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'footer_column_1' );?>
-                                    <?php echo wp_editor( $value, 'footer_column_1', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_column_1]') );?>
+                                    <?php echo wp_editor( stripslashes($value), 'footer_column_1', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_column_1]') );?>
                                 </td>
                             </tr>
                             <?php $hidden = ( $footer_column_count < 2 ) ? 'hidden' : '';?>
@@ -603,7 +620,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <th scope="row"><?php esc_html_e( 'Footer Column 2', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'footer_column_2' );?>
-                                    <?php echo wp_editor( $value, 'footer_column_2', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_column_2]') );?>
+                                    <?php echo wp_editor( stripslashes($value), 'footer_column_2', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_column_2]') );?>
                                 </td>
                             </tr>
                             <?php $hidden = ( $footer_column_count < 3 ) ? 'hidden' : '';?>
@@ -611,7 +628,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <th scope="row"><?php esc_html_e( 'Footer Column 3', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'footer_column_3' );?>
-                                    <?php echo wp_editor( $value, 'footer_column_3', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_column_3]') );?>
+                                    <?php echo wp_editor( stripslashes($value), 'footer_column_3', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_column_3]') );?>
                                 </td>
                             </tr>
                             <?php $hidden = ( $footer_column_count < 4 ) ? 'hidden' : '';?>
@@ -619,14 +636,14 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <th scope="row"><?php esc_html_e( 'Footer Column 4', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'footer_column_4' );?>
-                                    <?php echo wp_editor( $value, 'footer_column_4', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_column_4]') );?>
+                                    <?php echo wp_editor( stripslashes($value), 'footer_column_4', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_column_4]') );?>
                                 </td>
                             </tr>
                             <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Footer Bottom', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'footer_bottom_content' );?>
-                                    <?php echo wp_editor( $value, 'footer_bottom_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_bottom_content]') );?>
+                                    <?php echo wp_editor( stripslashes($value), 'footer_bottom_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_bottom_content]') );?>
                                 </td>
                             </tr>
                         </table>
@@ -668,6 +685,32 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                             </tr>
                         </table>
                     </div>
+                    <div id="legendary_toolkit_buttons" class="tabcontent">
+                        <h3>Buttons</h3>
+                        <table class="form-table">
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'All Buttons', 'legendary-toolkit' );?></th>
+                                <td><?php echo self::typography_field('btn', true, true, false);?></td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Border Radius', 'legendary-toolkit' );?><p style="font-weight: 400;" class="description"><small>Include CSS Units</small></p></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'btn_border_radius' );?>
+                                    <input type="text" name="theme_options[btn_border_radius]" value="<?=(esc_attr($value)) ? esc_attr($value) : '4px';?>">
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Border Width', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <div class="legendary-toolkit-input-group">
+                                        <?php $value = self::get_theme_option( 'btn_border_width' );?>
+                                        <input type="number" name="theme_options[btn_border_width]" value="<?=(esc_attr($value)) ? esc_attr($value) : '1';?>">
+                                        <label class="suffix" for="theme_options[btn_border_width]">px</label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                     <div id="legendary_toolkit_blog" class="tabcontent">
                         <h3>Blog</h3>
                         <table class="form-table">
@@ -700,6 +743,16 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <td>
                                     <?php $value = self::get_theme_option( 'enable_comments' );?>
                                     <label><input type="checkbox" name="theme_options[enable_comments]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Blog Container Width', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <div class="legendary-toolkit-input-group">
+                                        <?php $value = self::get_theme_option( 'blog_container_width' );?>
+                                        <input type="number" name="theme_options[blog_container_width]" value="<?=(esc_attr($value)) ? esc_attr($value) : '1320';?>">
+                                        <label class="suffix" for="theme_options[blog_container_width]">px</label>
+                                    </div>
                                 </td>
                             </tr>
                         </table>
@@ -870,12 +923,70 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                         <h3>Tools</h3>
                         <table class="form-table">
                             <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Enable Classic Editor?', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'enable_classic_editor' );?>
+                                    <label><input type="checkbox" name="theme_options[enable_classic_editor]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                </td>
+                            </tr>
+                            <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Enable GDPR Compliance?', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'enable_gdpr_compliance' );?>
                                     <label><input type="checkbox" name="theme_options[enable_gdpr_compliance]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
                                 </td>
-                            </tr>                            
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Enable Developer Mode?', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'enable_developer_mode' );?>
+                                    <label><input type="checkbox" name="theme_options[enable_developer_mode]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Enable Maintenance Mode?', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'enable_maintenance_mode' );?>
+                                    <label><input type="checkbox" name="theme_options[enable_maintenance_mode]" <?php checked( $value, 'on' );?>> <?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                </td>
+                            </tr>
+                            <?php 
+                            $enable_maintenance_mode = self::get_theme_option( 'enable_maintenance_mode' );
+                            $hidden = ( !$enable_maintenance_mode ) ? 'hidden' : '';?>
+                            <tr valign="top" id="maintenance_mode_background_row" class="<?=$hidden;?>">
+                                <th scope="row"><?php esc_html_e( 'Maintenance Mode Background', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'maintenance_mode_background' ); ?>
+                                    <input type="hidden" name="theme_options[maintenance_mode_background]" id="maintenance_mode_background" value="<?php echo $value; ?>" />
+                                    <div id="maintenance_mode_background_preview" class="maintenance_mode_background btn_maintenance_mode_background toolkit-media-upload" style="background-image:url(<?php echo wp_get_attachment_image_url($value, 'medium'); ?>)" ></div>
+                                    <button id="btn_maintenance_mode_background" data-id="maintenance_mode_background" class="button default btn_maintenance_mode_background btn-upload">Select Image</button>
+                                </td>
+                            </tr>
+                            <tr valign="top" id="maintenance_mode_content_row" class="<?=$hidden;?>">
+                                <th scope="row"><?php esc_html_e( 'Maintenance Mode Content', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php 
+                                        $value = self::get_theme_option( 'maintenance_mode_content' );
+                                        if (!$value) {
+                                            $value = "<h1>Coming Soon!</h1>";
+                                        }
+                                    ?>
+                                    <?php echo wp_editor( stripslashes($value), 'maintenance_mode_content', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[maintenance_mode_content]') );?>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Export Settings', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <button class="button default" id="export_theme_settings">Export Theme Settings</button>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Import Settings', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <input type="file" id="import_theme_settings_file" name="import_theme_settings_file" accept="application/json"><br/><br/>
+                                    <button class="button default" id="import_theme_settings">Import Theme Settings</button>
+                                </td>
+                            </tr>
                             <?php if (current_user_can('administrator')) : 
                                 $hidden_menu_items = self::get_theme_option( 'hide_menu_items' );
                                 global $menu;
@@ -887,7 +998,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                     $label = $menu_item[0];
                                     $label = preg_replace( "/(<span.*?<\/span>)/is", '', $label );
                                     $key = $menu_item[2];
-                                    $value = (array_key_exists($key, $hidden_menu_items)) ? $hidden_menu_items[$key] : '';
+                                    $value = ($hidden_menu_items && array_key_exists($key, $hidden_menu_items)) ? $hidden_menu_items[$key] : '';
                                     $checked = checked( $value, 'on', false );
                                     $hide_menu_items_options .= "<label style='display:block; margin-bottom: 8px;'><input type='checkbox' name='theme_options[hide_menu_items][$key]' $checked />$label</label>";
                                 }
@@ -899,7 +1010,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                             <?php endif;?>
                         </table>
                     </div>
-                    <?php if (defined('TOOLKIT_DEBUG') && TOOLKIT_DEBUG) : ?>
+                    <?php if (self::get_theme_option( 'enable_developer_mode' )) : ?>
                         <div id="legendary_toolkit_examples" class="tabcontent">
                             <h3>Option Examples</h3>
                             <table class="form-table">
@@ -951,7 +1062,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
 
 			</div><!-- .wrap -->
             <?php 
-            if (defined('TOOLKIT_DEBUG') && TOOLKIT_DEBUG) {
+            if (self::get_theme_option( 'enable_developer_mode' )) {
                 // =================
                 // Debug Console
                 // =================
@@ -978,12 +1089,12 @@ new Legendary_Toolkit_Theme_Options();
 
 // Helper function to use in your theme to return a theme option value
 function legendary_toolkit_get_theme_option( $id = '' ) {
-	return Legendary_Toolkit_Theme_Options::get_theme_option( $id );
+	return stripslashes(Legendary_Toolkit_Theme_Options::get_theme_option( $id ));
 }
 function legendary_toolkit_get_theme_options() {
     $options = Legendary_Toolkit_Theme_Options::get_theme_options();
     if (is_array($options)) {
-        return $options;    
+        return $options;
     }
 	return [];
 }

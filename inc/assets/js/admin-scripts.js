@@ -81,6 +81,17 @@ jQuery(document).ready(function( $ ) {
             $('#header_background_row').removeClass('hidden');
         }
     });
+    $('[name="theme_options[enable_maintenance_mode]"]').on('click', function(ev) {
+        if ($(this).is(':checked')) {
+            $('#maintenance_mode_content_row').removeClass('hidden');
+            $('#maintenance_mode_background_row').removeClass('hidden');
+        }
+        else {
+            $('#maintenance_mode_content_row').addClass('hidden');
+            $('#maintenance_mode_background_row').addClass('hidden');
+
+        }
+    });
     $(document).on("submit", "form#legendary_toolkit_form", function(event) {
         $('.save-toast').hide();
         $('.save-toast.save-loading').fadeIn();
@@ -90,7 +101,7 @@ jQuery(document).ready(function( $ ) {
         if (name == "submit") {
             event.preventDefault();
             var settings = $(this).serialize();
-            console.log('settings: ', settings)
+            // console.log('settings: ', settings);
             $.post( 'options.php', settings ).error( 
                 function() {
                     $('.save-toast').hide();
@@ -141,5 +152,72 @@ jQuery(document).ready(function( $ ) {
     });
     $(document).on('click', '.delete-sidebar', function(e){
         e.preventDefault();
+    });
+
+    $(document).on('click', '#export_theme_settings', function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/wp-admin/admin-ajax.php",
+            data: {
+                action:'get_theme_settings_json',
+            },
+            success: function(result){
+                var theme_settings_json = result.data;
+                var json = JSON.stringify(theme_settings_json);
+                var json_parsed = JSON.parse(json);
+                // console.log(json);
+                var blob = new Blob([json]);
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "theme_settings.json";
+                link.click();
+            }
+        });
+    });
+
+    function readJsonFile(file, callback) {
+        var rawFile = new XMLHttpRequest();
+        rawFile.overrideMimeType("application/json");
+        rawFile.open("GET", file, true);
+        rawFile.onreadystatechange = function() {
+            if (rawFile.readyState === 4 && rawFile.status == "200") {
+                callback(rawFile.responseText);
+            }
+        }
+        rawFile.send(null);
+    }
+
+    $(document).on('click', '#import_theme_settings', function(e) {
+        e.preventDefault();
+        var file = $('#import_theme_settings_file')[0].files[0];
+        if (!file) {
+            alert('No theme settings file found.');
+            return;
+        }
+        var path = (window.URL || window.webkitURL).createObjectURL(file);
+        readJsonFile(path, function(contents){
+            var data = JSON.parse(contents);
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "/wp-admin/admin-ajax.php",
+                data: {
+                    action:'import_theme_settings_json',
+                    data: data
+                },
+                success: function(result){
+                    // console.log(result.data);
+                    location.reload();
+                },
+                error: function(error){
+                    alert('Unable to import settings.');
+                    console.log(error);
+                }
+            });
+        });
+
     });
 });

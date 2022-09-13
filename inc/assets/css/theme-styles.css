@@ -89,6 +89,16 @@ body:not(.theme-preset-active) #masthead .navbar-nav>li.current_page_item>a {
     opacity:1;
 }
 
+.btn {
+    font-family: var(--btn_font_family, var(--all_font_family), sans-serif)!important;
+    font-style: var(--btn_font_style, var(--all_font_style), normal)!important;
+    font-weight: var(--btn_font_weight, var(--all_font_weight), bold)!important;
+    text-transform: var(--btn_font_transform, var(--all_font_weight), none)!important;
+    font-size: var(--btn_font_size, 14px)!important;
+    border-width: var(--btn_border_width, 1px)!important;
+    border-radius: var(--btn_border_radius, 4px)!important;
+}
+
 .btn:not(:disabled):not(.disabled),
 .btn-primary:not(:disabled):not(.disabled).active,
 .btn-primary:not(:disabled):not(.disabled):active,
@@ -146,9 +156,15 @@ header#masthead {
 #footer_columns {
     background-color: var(--footer_background);
 }
+#footer_columns * {
+    color: var(--footer_content_color);
+}
 
 body:not(.theme-preset-active) footer#colophon {
     background-color: var(--copyright_background);
+}
+body:not(.theme-preset-active) footer#colophon * {
+    color: var(--copyright_content_color);
 }
 
 /* Header Behavior */
@@ -279,10 +295,12 @@ a:hover {
 .menu-cart th, .menu-cart td {
     padding: 15px;
 }
-.container{
-    max-width:var(--page_container_width);
+.container {
+    max-width: var(--page_container_width);
 }
-
+.single-post #page_title .container, .single-post #content.container {
+    max-width: var(--blog_container_width);
+}
 .frm_style_formidable-style.with_frm_style .frm_compact .frm_dropzone.dz-clickable .dz-message, .frm_style_formidable-style.with_frm_style input[type=submit], .frm_style_formidable-style.with_frm_style .frm_submit input[type=button], .frm_style_formidable-style.with_frm_style .frm_submit button, .frm_form_submit_style, .frm_style_formidable-style.with_frm_style .frm-edit-page-btn{
     border:0;
 }
@@ -315,4 +333,21 @@ a:hover {
 }
 .vc_row.wpb_row {
     margin-bottom: 0px;
+}
+.maintenance-mode-section {
+    background: var(--maintenance_mode_background, black);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.maintenance-mode-section * {
+    color: white;
 }

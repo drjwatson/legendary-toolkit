@@ -163,52 +163,53 @@ function legendary_toolkit_theme_options_css() {
     // Add Google Fonts to stylesheet
 
     $font_files = (array_key_exists('font_files', $theme_options)) ? $theme_options['font_files'] : [];
+    if ($font_files) {
+        foreach ($font_files as $family => $files) {
+            foreach ($files as $style => $file_url) {
+                $font_style = (strpos($style, 'italic') !== false) ? 'italic' : 'normal';
 
-    foreach ($font_files as $family => $files) {
-        foreach ($files as $style => $file_url) {
-            $font_style = (strpos($style, 'italic') !== false) ? 'italic' : 'normal';
+                $weight = (!preg_match('/\\d/', $style)) ? 'normal' : (int) filter_var($style, FILTER_SANITIZE_NUMBER_INT);
 
-            $weight = (!preg_match('/\\d/', $style)) ? 'normal' : (int) filter_var($style, FILTER_SANITIZE_NUMBER_INT);
+                $ext = pathinfo($file_url, PATHINFO_EXTENSION);
 
-            $ext = pathinfo($file_url, PATHINFO_EXTENSION);
+                $format = 'truetype';
 
-            $format = 'truetype';
+                $parsed_file_url = parse_url($file_url);
 
-            $parsed_file_url = parse_url($file_url);
+                $parsed_file_url['scheme'] = (is_ssl()) ? 'https' : 'http';
 
-            $parsed_file_url['scheme'] = (is_ssl()) ? 'https' : 'http';
+                $file_url = unparse_url($parsed_file_url);
 
-            $file_url = unparse_url($parsed_file_url);
-
-            switch ($ext) {
-                case "ttf":
-                    $format = 'truetype';
-                    break;
-                case "otf":
-                    $format = 'opentype';
-                    break;
-                case "woff":
-                    $format = 'woff';
-                    break;
-                case "woff2":
-                    $format = 'woff2';
-                    break;
-                case "svg":
-                    $format = 'svg';
-                    break;
-                default:
-                    $format = 'truetype';
-            }
-
-            $custom_css .= "
-                @font-face {
-                    font-family: '$family';
-                    src: url('$file_url') format('$format');
-                    font-weight: $weight;
-                    font-style: $font_style;
+                switch ($ext) {
+                    case "ttf":
+                        $format = 'truetype';
+                        break;
+                    case "otf":
+                        $format = 'opentype';
+                        break;
+                    case "woff":
+                        $format = 'woff';
+                        break;
+                    case "woff2":
+                        $format = 'woff2';
+                        break;
+                    case "svg":
+                        $format = 'svg';
+                        break;
+                    default:
+                        $format = 'truetype';
                 }
-            ";
 
+                $custom_css .= "
+                    @font-face {
+                        font-family: '$family';
+                        src: url('$file_url') format('$format');
+                        font-weight: $weight;
+                        font-style: $font_style;
+                    }
+                ";
+
+            }
         }
     }
 
@@ -226,11 +227,22 @@ function legendary_toolkit_theme_options_css() {
     $menu_item_padding            = (array_key_exists('menu_item_padding', $theme_options) && $theme_options['menu_item_padding']) ? $theme_options['menu_item_padding'] : '14';
     $page_title                   = (array_key_exists('page_title', $theme_options) && $theme_options['page_title']) ? $theme_options['page_title'] : false;
     $footer_background            = (array_key_exists('footer_background', $theme_options) && $theme_options['footer_background']) ? $theme_options['footer_background'] : '#111111';
+    $footer_content_color         = (array_key_exists('footer_content_color', $theme_options) && $theme_options['footer_content_color']) ? $theme_options['footer_content_color'] : '#ffffff';
     $copyright_background         = (array_key_exists('copyright_background', $theme_options) && $theme_options['copyright_background']) ? $theme_options['copyright_background'] : 'black';
-    
+    $copyright_content_color      = (array_key_exists('copyright_content_color', $theme_options) && $theme_options['copyright_content_color']) ? $theme_options['copyright_content_color'] : '#ffffff';
+
+    $btn_border_width        = (array_key_exists('btn_border_width', $theme_options) && $theme_options['btn_border_width']) ? $theme_options['btn_border_width'] . 'px' : '1px';
+    $btn_border_radius        = (array_key_exists('btn_border_radius', $theme_options) && $theme_options['btn_border_radius']) ? $theme_options['btn_border_radius'] : '4px';
+
     $mobile_menu_breakpoint       = (array_key_exists('mobile_menu_breakpoint', $theme_options) && $theme_options['mobile_menu_breakpoint']) ? $theme_options['mobile_menu_breakpoint'] - 1 . 'px' : '1200px';
 
     $page_container_width         = (array_key_exists('page_container_width', $theme_options) && $theme_options['page_container_width']) ? $theme_options['page_container_width'] : '1320';
+    $blog_container_width         = (array_key_exists('blog_container_width', $theme_options) && $theme_options['blog_container_width']) ? $theme_options['blog_container_width'] : '1320';
+
+    // $maintenance_mode_background  = (array_key_exists('maintenance_mode_background', $theme_options) && $theme_options['maintenance_mode_background']) ? $theme_options['maintenance_mode_background'] : 'black';
+
+    $maintenance_mode_background  = (array_key_exists('maintenance_mode_background', $theme_options) && $theme_options['maintenance_mode_background']) ? $theme_options['maintenance_mode_background'] : '';
+    $maintenance_mode_background_url = ($maintenance_mode_background) ? 'url(' . esc_url(wp_get_attachment_image_url($maintenance_mode_background, 'full')) . ')' : 'black';
 
     $favicon                      = (array_key_exists('favicon', $theme_options) && $theme_options['favicon']) ? $theme_options['favicon'] : '';
     $favicon_url                  = ($favicon) ? esc_url(wp_get_attachment_image_url($favicon, 'medium')) : '';
@@ -318,9 +330,15 @@ function legendary_toolkit_theme_options_css() {
             --top_bar_background : $top_bar_background;
             --menu_item_padding : $menu_item_padding"."px;
             --footer_background : $footer_background;
+            --footer_content_color : $footer_content_color;
             --copyright_background : $copyright_background;
+            --copyright_content_color : $copyright_content_color;
+            --maintenance_mode_background : $maintenance_mode_background_url;
             --favicon_url : $favicon_url;
+            --btn_border_width: $btn_border_width"."px;
+            --btn_border_radius: $btn_border_radius;
             --page_container_width : $page_container_width"."px;
+            --blog_container_width : $blog_container_width"."px;
             " . define_font_variables('all', $theme_options) . " 
             " . define_font_variables('body', $theme_options) . " 
             " . define_font_variables('h1', $theme_options) . " 
@@ -330,6 +348,7 @@ function legendary_toolkit_theme_options_css() {
             " . define_font_variables('h5', $theme_options) . " 
             " . define_font_variables('h6', $theme_options) . " 
             " . define_font_variables('menu_items', $theme_options) . "
+            " . define_font_variables('btn', $theme_options) . "
         }
         @media all and (max-width: $mobile_menu_breakpoint) {
             #main-nav {
@@ -450,9 +469,6 @@ if ( ! class_exists( 'toolkit_mobile_navwalker' )) {
  */
 
 require get_template_directory() . '/inc/options.php';
-
-
-
 
 // skip cropping
 function logo_size_change(){
@@ -1150,8 +1166,7 @@ function toolkit_add_nav_item_meta($item_id, $item) {
 
 add_action('wp_nav_menu_item_custom_fields', 'toolkit_add_nav_item_meta', 10, 2);
 
-function toolkit_save_nav_item_meta($menu_id, $menu_item_db_id)
-{
+function toolkit_save_nav_item_meta($menu_id, $menu_item_db_id) {
     // toolkit_enable_megamenu
     if (!isset($_POST['_toolkit_enable_megamenu_nonce_name']) || !wp_verify_nonce($_POST['_toolkit_enable_megamenu_nonce_name'], 'toolkit_enable_megamenu_nonce')) {
         return $menu_id;
@@ -1190,8 +1205,7 @@ add_action('wp_update_nav_menu_item', 'toolkit_save_nav_item_meta', 10, 2);
 // add_shortcode('toolkit_menu_items', 'render_menu_items');
 
 
-function current_year()
-{
+function current_year() {
     return date("Y");;
 }
 add_shortcode('year', 'current_year');
@@ -1210,3 +1224,43 @@ function hide_menu_items_from_non_admins() {
         }
     }
 }
+
+add_filter('use_block_editor_for_post_type', 'toolkit_disable_block_editor', 10, 2);
+function toolkit_disable_block_editor($current_status) {
+    $enable_classic_editor = legendary_toolkit_get_theme_option('enable_classic_editor');
+    if ( $enable_classic_editor == 'on' ) {
+        return false;
+    }
+    return $current_status;
+}
+
+
+function toolkit_enable_maintenance_mode_template( $template ) {
+    $enable_maintenance_mode = legendary_toolkit_get_theme_option('enable_maintenance_mode');
+    if ($enable_maintenance_mode && !is_user_logged_in()) {
+        $template = get_template_directory() . '/page-maintenance.php';
+    }
+    return $template;
+}
+add_filter( 'page_template', 'toolkit_enable_maintenance_mode_template', 10, 2 );
+add_filter( 'single_template', 'toolkit_enable_maintenance_mode_template', 10, 2 );
+
+
+function get_theme_settings_json() {
+    wp_send_json_success( get_option('theme_options'));
+    exit();
+}
+add_action( 'wp_ajax_nopriv_get_theme_settings_json', 'get_theme_settings_json' );
+add_action( 'wp_ajax_get_theme_settings_json', 'get_theme_settings_json' );
+
+function import_theme_settings_json()  {
+    $theme_settings = $_POST['data'];
+    if ($theme_settings) {
+        update_option( 'theme_options', $theme_settings );
+        wp_send_json_success($theme_settings);
+    }
+    wp_send_json_error('Unable to read file.');
+    exit();
+}
+add_action( 'wp_ajax_nopriv_import_theme_settings_json', 'import_theme_settings_json' );
+add_action( 'wp_ajax_import_theme_settings_json', 'import_theme_settings_json' );
