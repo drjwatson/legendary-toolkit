@@ -8,6 +8,7 @@
  *
  * @package WP_Bootstrap_Starter
  */
+global $template;
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -25,7 +26,7 @@
         <div id="page" class="site">
             <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'legendary-toolkit' ); ?></a>
             <?php 
-                if (!is_page_template( 'blank-page.php' ) && !is_page_template( 'blank-page-with-container.php' )) {
+                if (!is_page_template( 'blank-page.php' ) && !is_page_template( 'blank-page-with-container.php' ) && basename( $template ) != 'page-maintenance.php') {
                     get_template_part('template-parts/header', 'topbar');
                     get_template_part('template-parts/header', 'menu');
                     get_template_part('template-parts/header', 'title');

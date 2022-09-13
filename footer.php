@@ -8,9 +8,10 @@
  *
  * @package WP_Bootstrap_Starter
  */
+global $template;
 ?>
 
-<?php if (!is_page_template( 'blank-page.php' ) && !is_page_template( 'blank-page-with-container.php' )) : ?>
+<?php if (!is_page_template( 'blank-page.php' ) && !is_page_template( 'blank-page-with-container.php' ) && basename( $template ) != 'page-maintenance.php') : ?>
 			</div><!-- .row -->
 		</div><!-- .container -->
 		<div id="footer">
