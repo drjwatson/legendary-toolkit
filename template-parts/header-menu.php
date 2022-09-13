@@ -1,4 +1,5 @@
 <?php
+$scrolling_logo = legendary_toolkit_get_theme_option('scrolling_logo');
 $header_container_class = (legendary_toolkit_get_theme_option('full_width_header')) ? 'container-fluid' : 'container';
 $header_behavior_class = (legendary_toolkit_get_theme_option('sticky_header')) ? 'sticky_header' : '';
 $transparent_class = (legendary_toolkit_get_theme_option('transparent_header')) ? 'is_transparent' : '';
@@ -15,8 +16,8 @@ $mobile_menu_bottom_content = legendary_toolkit_get_theme_option('mobile_menu_bo
             <div class="navbar-brand">
                 <?php get_template_part('template-parts/header', 'logo', ['id' => 'site_logo']);?>
                 <?php
-                    if ($header_behavior_class == 'sticky_header') {
-                        get_template_part('template-parts/header', 'logo', ['id' => 'scrolling_site_logo', 'type' => 'scrolling', 'class' => 'd-none']);        
+                    if ($header_behavior_class == 'sticky_header' && $scrolling_logo) {
+                        get_template_part('template-parts/header', 'logo', ['id' => 'scrolling_site_logo', 'type' => 'scrolling', 'class' => 'd-none']);
                     } 
                 ?>
             </div>

@@ -112,12 +112,12 @@ jQuery( function ( $ ) {
     // on scroll detect if nav .is-stuck
     $( window ).on('scroll', function(e){
         if ($('#scrolling_site_logo') && $('#masthead').hasClass('is-stuck')) {
-            $('#scrolling_site_logo').removeClass('d-none opacity-100');
-            $('#site_logo').addClass('d-none opacity-0');
+            $('#scrolling_site_logo').removeClass('d-none');
+            $('#site_logo').addClass('d-none');
         }
         else {
-            $('#scrolling_site_logo').addClass('d-none opacity-0');
-            $('#site_logo').removeClass('d-none opacity-100');
+            $('#scrolling_site_logo').addClass('d-none');
+            $('#site_logo').removeClass('d-none');
         }
     });
 });

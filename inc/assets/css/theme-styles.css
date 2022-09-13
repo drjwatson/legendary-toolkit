@@ -191,16 +191,26 @@ header#masthead.sticky_header.is-stuck {
 .home header#masthead.is_transparent+#content {
     margin-top: var(--logo_height, 100px);
 }
-
-header#masthead #site_logo {
+.navbar-brand {
+    display: flex;
+}
+header#masthead .navbar-brand a {
+    display:block;
     height: var(--logo_height, 100px);
-    transition: height 275ms ease-in-out;
+    transition: all 275ms ease-in-out;
+}
+header#masthead.is-stuck .navbar-brand a {
+    height: var(--scrolling_logo_height, 100px);
+}
+header#masthead #site_logo {
+    object-fit: contain;
+    height: 100%;
     position:relative;
     top:0;
 }
 header#masthead #scrolling_site_logo {
-    height: var(--scrolling_logo_height, 100px);
-    transition: height 275ms ease-in-out;
+    object-fit: contain;
+    height: 100%;
     position:relative;
     top:0;
 }
