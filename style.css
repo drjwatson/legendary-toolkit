@@ -323,6 +323,15 @@ header#masthead {
   background-size: cover !important;
 }
 
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+a.nav-link.btn.btn-primary {
+  width: max-content;
+}
+
 body:not(.theme-preset-active) #page-sub-header h1 {
   line-height: 1.6;
   font-size: 4rem;
