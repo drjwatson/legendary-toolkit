@@ -36,6 +36,7 @@ Tested up to: 5.4
 # Woocommerce
 # Footer
 # GDPR
+# Mobile Menu
 --------------------------------------------------------------*/
 /*--------------------------------------------------------------
 # Normalize
@@ -517,12 +518,6 @@ a.nav-link {
     -webkit-border-radius: 6px 0 6px 6px;
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
-}
-
-#mobile_site_logo {
-  padding: 15px;
-  margin: 20px auto;
-  display: block;
 }
 
 /* Small menu. */
@@ -1141,6 +1136,60 @@ WooCommerce Toolkit General
  */
 
 
+nav.woocommerce-MyAccount-navigation ul {
+  margin: 30px 0px;
+  list-style-type: none;
+  padding: 0;
+}
+
+nav.woocommerce-MyAccount-navigation ul li {
+  margin-bottom: 10px;
+}
+
+.woocommerce-MyAccount-content {
+  margin-top: 30px;
+}
+
+.woocommerce-info::before {
+  display: none;
+}
+
+.woocommerce-Message.woocommerce-Message--info.woocommerce-info {
+  display: flex;
+  align-items: center;
+}
+
+a.woocommerce-Button.btn.btn-primary.mt-2 {
+  margin: 0 20px !important;
+}
+
+.woocommerce-form-row.form-row {
+  flex-direction: column;
+}
+
+.woocommerce form .show-password-input,
+.woocommerce-page form .show-password-input {
+  top: 7px;
+}
+
+.woocommerce-MyAccount-content fieldset {
+  margin-top: 40px;
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation {
+  width: 20%;
+}
+
+.woocommerce-account .woocommerce-MyAccount-content {
+  width: 80%;
+}
+
+.woocommerce span.onsale {
+  border-radius: 10px;
+  font-weight: 300;
+}
+
+
 @media all and (max-width: 1470px) and (min-width:1000px) {
 
 }
@@ -1211,6 +1260,41 @@ body:not(.theme-preset-active) footer#colophon {
   color: inherit;
 }
 
+
+#footer_columns p {
+  margin: 0;
+  color: white;
+  font-size: 14px;
+}
+
+#footer_columns a {
+  transition: .45s ease all;
+  display: inline-block;
+  opacity: 1;
+  padding: 6px 0;
+}
+
+#footer_columns a:hover {
+  -webkit-transform: translateX(6px);
+  -moz-transform: translateX(6px);
+  -ms-transform: translateX(6px);
+  -o-transform: translateX(6px);
+  transform: translateX(6px);
+  color: var(--primary_color);
+  font-weight: 400;
+}
+
+#footer_columns {
+  padding: 30px 0 100px;
+}
+
+.site-footer p {
+  padding: 0;
+  margin: 0;
+}
+
+
+
 @media screen and (max-width: 767px) {
   #masthead .navbar-nav > li > a {
     padding-bottom: 0.938rem;
@@ -1244,6 +1328,18 @@ body:not(.theme-preset-active) footer#colophon {
 
 } */
 
+
+
+/*--------------------------------------------------------------
+# Mobile Menu
+--------------------------------------------------------------*/
+
+#mobile_site_logo {
+  max-width: 50%;
+  margin:20px auto 0;
+  padding: 15px;
+  display: block;
+}
 
 /*--------------------------------------------------------------
 # Media Query
