@@ -2,7 +2,26 @@
 $scrolling_logo = legendary_toolkit_get_theme_option('scrolling_logo');
 $header_container_class = (legendary_toolkit_get_theme_option('full_width_header')) ? 'container-fluid' : 'container';
 $header_behavior_class = (legendary_toolkit_get_theme_option('sticky_header')) ? 'sticky_header' : '';
-$transparent_class = (legendary_toolkit_get_theme_option('transparent_header')) ? 'is_transparent' : '';
+$transparent_header = (legendary_toolkit_get_theme_option('transparent_header')) ? legendary_toolkit_get_theme_option('transparent_header') : '';
+switch ($transparent_header) {
+    case 'home':
+        if (is_front_page()) {
+            $transparent_class = 'is_transparent';
+        }
+        break;
+    case 'inside':
+        if (!is_front_page()) {
+            $transparent_class = 'is_transparent';
+        }
+        break;
+    case 'all':
+        $transparent_class = 'is_transparent';
+        break;
+    default:
+        $transparent_class = '';
+        break;
+}
+// $transparent_class = (legendary_toolkit_get_theme_option('transparent_header')) ? 'is_transparent' : '';
 $mobile_menu_width = (legendary_toolkit_get_theme_option('mobile_menu_width')) ? legendary_toolkit_get_theme_option('mobile_menu_width') . 'px' : '100%';
 $mobile_menu_breakpoint = (legendary_toolkit_get_theme_option('mobile_menu_breakpoint')) ? legendary_toolkit_get_theme_option('mobile_menu_breakpoint') : 1200;
 $mobile_menu_position = (legendary_toolkit_get_theme_option('mobile_menu_position')) ? legendary_toolkit_get_theme_option('mobile_menu_position') : 'right';

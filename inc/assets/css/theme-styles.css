@@ -187,7 +187,9 @@ header#masthead:not(.is-stuck) {
 header#masthead.sticky_header.is-stuck {
     background-color: var(--scrolling_header_background);
 }
-
+header#masthead.is_transparent {
+    background-color: transparent;
+}
 .home header#masthead.is_transparent+#content {
     margin-top: var(--logo_height, 100px);
 }

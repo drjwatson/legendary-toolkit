@@ -380,15 +380,28 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 </td>
                             </tr>
                             <tr valign="top">
-                                <th scope="row"><?php esc_html_e( 'Enable Transparent Header?', 'legendary-toolkit' );?></th>
+                                <th scope="row"><?php esc_html_e( 'Transparent Header', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'transparent_header' );?>
-                                    <label><input type="checkbox" name="theme_options[transparent_header]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                    <select name="theme_options[transparent_header]">
+                                        <?php
+                                        $options = array(
+                                            '' => esc_html__('Disabled', 'legendary-toolkit' ),
+                                            'home' => esc_html__( 'Home Page Only', 'legendary-toolkit' ),
+                                            'inside' => esc_html__( 'Inside Pages Only', 'legendary-toolkit' ),
+                                            'all' => esc_html__( 'All Pages', 'legendary-toolkit' ),
+                                        );
+                                        foreach ( $options as $id => $label ) { ?>
+                                            <option value="<?=esc_attr( $id );?>" <?php selected( $value, $id, true );?>>
+                                                <?=strip_tags( $label );?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
                                 </td>
                             </tr>
                             <?php
                                 $transparent_background = self::get_theme_option( 'transparent_header' );
-                                $hidden = ( $transparent_background ) ? 'hidden' : '';
+                                $hidden = ( $transparent_background == 'all') ? 'hidden' : '';
                             ?>
                             <tr valign="top" id="header_background_row" class="<?php echo $hidden;?>">
                                 <th scope="row"><?php esc_html_e( 'Header Background', 'legendary-toolkit' );?></th>

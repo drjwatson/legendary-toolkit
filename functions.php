@@ -113,7 +113,7 @@ function legendary_toolkit_scripts() {
 	wp_enqueue_script('jquery');
     
     // Internet Explorer HTML5 support
-    wp_enqueue_script( 'html5hiv',get_template_directory_uri().'/inc/assets/js/html5.js', array(), '3.7.0', false );
+    wp_enqueue_script( 'html5hiv', get_template_directory_uri().'/inc/assets/js/html5.js', array(), '3.7.0', false );
     wp_script_add_data( 'html5hiv', 'conditional', 'lt IE 9' );
 
     // bootstrap and popperjs
@@ -222,7 +222,6 @@ function legendary_toolkit_theme_options_css() {
     $scrolling_logo_height        = (array_key_exists('scrolling_header_height', $theme_options) && $theme_options['scrolling_header_height']) ? $theme_options['scrolling_header_height'] . 'px' : $logo_height;
     $header_background            = (array_key_exists('header_background', $theme_options) && $theme_options['header_background']) ? $theme_options['header_background'] : 'black';
     $scrolling_header_background  = (array_key_exists('scrolling_header_background', $theme_options) && $theme_options['scrolling_header_background']) ? $theme_options['scrolling_header_background'] : 'white';
-    $header_background            = (array_key_exists('transparent_header', $theme_options) && $theme_options['transparent_header']) ? 'transparent' : $header_background;
     $top_bar_background           = (array_key_exists('top_bar_background', $theme_options) && $theme_options['top_bar_background']) ? $theme_options['top_bar_background'] : '#111111';
     $menu_item_padding            = (array_key_exists('menu_item_padding', $theme_options) && $theme_options['menu_item_padding']) ? $theme_options['menu_item_padding'] : '14';
     $page_title                   = (array_key_exists('page_title', $theme_options) && $theme_options['page_title']) ? $theme_options['page_title'] : false;

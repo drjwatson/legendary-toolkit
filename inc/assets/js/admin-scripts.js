@@ -73,8 +73,8 @@ jQuery(document).ready(function( $ ) {
             $('#page_title_content_row').addClass('hidden');
         }
     });
-    $('[name="theme_options[transparent_header]"]').on('click', function(ev) {
-        if ($(this).is(':checked')) {
+    $('[name="theme_options[transparent_header]"]').on('change', function(ev) {
+        if ($(this).val() == 'all') {
             $('#header_background_row').addClass('hidden');
         }
         else {
