@@ -329,8 +329,11 @@ header#masthead {
   align-items: center;
 }
 
-a.nav-link.btn.btn-primary {
+#main-nav a.nav-link.btn.btn-primary {
   width: max-content;
+}
+#mobile_menu a.nav-link.btn.btn-primary {
+  display: block;
 }
 
 body:not(.theme-preset-active) #page-sub-header h1 {

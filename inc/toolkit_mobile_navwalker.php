@@ -1,12 +1,46 @@
 <?php
 if ( ! class_exists( 'Toolkit_Mobile_Navwalker' ) ) {
+		/**
+	 * WP_Bootstrap_Navwalker class.
+	 *
+	 * @extends Walker_Nav_Menu
+	 */
 
     class Toolkit_Mobile_Navwalker extends Walker_Nav_Menu {
+
+		/**
+		 * Starts the list before the elements are added.
+		 *
+		 * @since WP 3.0.0
+		 *
+		 * @see Walker_Nav_Menu::start_lvl()
+		 *
+		 * @param string   $output Used to append additional content (passed by reference).
+		 * @param int      $depth  Depth of menu item. Used for padding.
+		 * @param stdClass $args   An object of wp_nav_menu() arguments.
+		 */
+
+		
+		/**
+		 * Starts the element output.
+		 *
+		 * @since WP 3.0.0
+		 * @since WP 4.4.0 The {@see 'nav_menu_item_args'} filter was added.
+		 *
+		 * @see Walker_Nav_Menu::start_el()
+		 *
+		 * @param string   $output Used to append additional content (passed by reference).
+		 * @param WP_Post  $item   Menu item data object.
+		 * @param int      $depth  Depth of menu item. Used for padding.
+		 * @param stdClass $args   An object of wp_nav_menu() arguments.
+		 * @param int      $id     Current item ID.
+		 */
         public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 
             $item_meta = get_post_meta($item->ID);
             
             $has_megamenu = ($item_meta && array_key_exists('_toolkit_enable_megamenu', $item_meta) && $item_meta['_toolkit_enable_megamenu']) ? 1 : 0;
+			$is_button = ($item_meta && array_key_exists('_toolkit_make_button', $item_meta) && $item_meta['_toolkit_make_button']) ? 1 : 0;
             $args->after = '';
             if ($has_megamenu) {
                 $widget_id = $item_meta['_toolkit_megamenu_id'][0];
@@ -74,6 +108,9 @@ if ( ! class_exists( 'Toolkit_Mobile_Navwalker' ) ) {
                     $classes[] = 'menu-item-has-children';
                 }
             }
+			if ($is_button) {
+				$classes[] = 'button';
+			}
             if ( in_array( 'current-menu-item', $classes, true ) || in_array( 'current-menu-parent', $classes, true ) ) {
                 $classes[] = 'active';
             }
@@ -121,6 +158,25 @@ if ( ! class_exists( 'Toolkit_Mobile_Navwalker' ) ) {
             $atts['target'] = ! empty( $item->target ) ? $item->target : '';
             $atts['rel']    = ! empty( $item->xfn ) ? $item->xfn : '';
             // If the item has children, add atts to the <a>.
+			if (( isset( $args->has_children ) && $args->has_children && 0 === $depth && $args->depth > 1 ) || $has_megamenu ) {
+				$atts['href']          = '#';
+				$atts['data-toggle']   = 'dropdown';
+				$atts['aria-haspopup'] = 'true';
+				$atts['aria-expanded'] = 'false';
+				// $atts['class']         = 'dropdown-toggle nav-link';
+				$atts['id']            = 'menu-item-dropdown-' . $item->ID;
+			} else {
+				$atts['href'] = ! empty( $item->url ) ? $item->url : '#';
+				// For items in dropdowns use .dropdown-item instead of .nav-link.
+				if ( $depth > 0 ) {
+					$atts['class'] = 'dropdown-item';
+				} else {
+					$atts['class'] = 'nav-link';
+					if($is_button){
+						$atts['class'] = 'nav-link btn btn-primary';
+					}
+				}
+			}
 
             $atts['aria-current'] = $item->current ? 'page' : '';
 
