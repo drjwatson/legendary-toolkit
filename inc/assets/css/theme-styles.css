@@ -361,3 +361,33 @@ a:hover {
 .maintenance-mode-section * {
     color: white;
 }
+@media all and (max-width: 768px) {
+    body,
+    p {
+        font-size: var(--body_font_size_mobile, 16px);
+    }
+
+    h1 {
+        font-size: var(--h1_font_size_mobile, 2em);
+    }
+
+    h2 {
+        font-size: var(--h2_font_size_mobile, 1.5em);
+    }
+
+    h3 {
+        font-size: var(--h3_font_size_mobile, 1.17em);
+    }
+
+    h4 {
+        font-size: var(--h4_font_size_mobile, 1em);
+    }
+
+    h5 {
+        font-size: var(--h5_font_size_mobile, .83em);
+    }
+
+    h6 {
+        font-size: var(--h6_font_size_mobile, 14px);
+    }
+}

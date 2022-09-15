@@ -123,10 +123,24 @@
 .legendary-toolkit-input-group {
     display:flex;
     align-items: center;
-    /* justify-content:  */
+    margin-right: 5px;
 }
 .legendary-toolkit-input-group input, .legendary-toolkit-input-group select {
     margin: 0px;
+    line-height: 28px;
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
+}
+@media screen and (max-width: 782px) {
+    .legendary-toolkit-input-group {
+        margin-bottom: 5px;
+    }
+    .wp-admin .form-table .legendary-toolkit-input-group input, .wp-admin .form-table .legendary-toolkit-input-group select {
+        min-height: 28px;
+        line-height: 28px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
 }
 .legendary-toolkit-input-group label.prefix, .legendary-toolkit-input-group label.suffix {
     padding: 0px 5px;
@@ -136,12 +150,16 @@
     font-weight: 600;
     z-index:3;
     font-size: 11px;
-    line-height: 2.54545455;
+    line-height: 28px;
 }
 .legendary-toolkit-input-group label.prefix {
+    flex: none;
+    word-break: keep-all;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
-    margin-right:-3px;
+}
+.legendary-toolkit-input-group label.prefix + input, .legendary-toolkit-input-group label.prefix + select {
+    margin-left: -3px;
 }
 .legendary-toolkit-input-group label.suffix {
     border-top-left-radius: 0px;
@@ -153,7 +171,7 @@
 }
 .inner-form-table td {
     vertical-align: top;
-    width: 10%;
+    width: 21%;
     min-width: 200px;
     padding: 0;
     margin: 0;
@@ -233,6 +251,15 @@
 .tabcontent button.delete-button {
     color: #d63638;
 }
+.multi-field {
+    display:flex;
+}
+
+#legendary_toolkit_form input[type=checkbox]:focus, #legendary_toolkit_form input[type=color]:focus, #legendary_toolkit_form input[type=date]:focus, #legendary_toolkit_form input[type=datetime-local]:focus, #legendary_toolkit_form input[type=datetime]:focus, #legendary_toolkit_form input[type=email]:focus, #legendary_toolkit_form input[type=month]:focus, #legendary_toolkit_form input[type=number]:focus, #legendary_toolkit_form input[type=password]:focus, #legendary_toolkit_form input[type=radio]:focus, #legendary_toolkit_form input[type=search]:focus, #legendary_toolkit_form input[type=tel]:focus, #legendary_toolkit_form input[type=text]:focus, #legendary_toolkit_form input[type=time]:focus, #legendary_toolkit_form input[type=url]:focus, #legendary_toolkit_form input[type=week]:focus, #legendary_toolkit_form select:focus, #legendary_toolkit_form textarea:focus {
+    outline: 0px;
+    box-shadow: none;
+}
+
 @-webkit-keyframes spin1 {
     from {
         -webkit-transform: rotate(0deg);

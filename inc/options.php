@@ -211,11 +211,19 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                     <?php endif;?>
                     <td>
                         <?php if ($has_size) : ?>
-                            <div class="legendary-toolkit-input-group">
-                                <?php $value = self::get_theme_option( $id . '_font_size' );?>
-                                <label class="prefix" for="theme_options[<?=$id;?>_font_size]">Size</label>
-                                <input type="number" name="theme_options[<?=$id;?>_font_size]" value="<?=esc_attr($value);?>">
-                                <label class="suffix" for="theme_options[<?=$id;?>_font_size]">px</label>
+                            <div class="multi-field">
+                                <div class="legendary-toolkit-input-group">
+                                    <?php $value = self::get_theme_option( $id . '_font_size' );?>
+                                    <label class="prefix" for="theme_options[<?=$id;?>_font_size]">Size</label>
+                                    <input type="number" name="theme_options[<?=$id;?>_font_size]" value="<?=esc_attr($value);?>">
+                                    <label class="suffix" for="theme_options[<?=$id;?>_font_size]">px</label>
+                                </div>
+                                <div class="legendary-toolkit-input-group">
+                                    <?php $value = self::get_theme_option( $id . '_font_size_mobile' );?>
+                                    <label class="prefix" for="theme_options[<?=$id;?>_font_size_mobile]">Mobile Size</label>
+                                    <input type="number" name="theme_options[<?=$id;?>_font_size_mobile]" value="<?=esc_attr($value);?>">
+                                    <label class="suffix" for="theme_options[<?=$id;?>_font_size_mobile]">px</label>
+                                </div>
                             </div>
                         <?php endif;?>
                     </td>

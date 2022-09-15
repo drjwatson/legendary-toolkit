@@ -303,6 +303,7 @@ function legendary_toolkit_theme_options_css() {
             $font_style = get_saved_font_style($id . '_font_style', $options);
             $font_weight = get_saved_font_weight($id . '_font_weight', $options);
             $font_size = get_saved_font_size($id . '_font_size', $options);
+            $font_size_mobile = get_saved_font_size($id . '_font_size_mobile', $options);
             $font_transform = get_saved_font_transform($id . '_font_transform', $options);
             $spacer = "            ";
             $style_return = "";
@@ -311,6 +312,7 @@ function legendary_toolkit_theme_options_css() {
             $style_return .= ($font_style) ? $spacer . "--".$id."_font_style : ".$font_style.";\n" : '';
             $style_return .= ($font_weight) ? $spacer . "--".$id."_font_weight : ".$font_weight.";\n" : '';
             $style_return .= ($font_size) ? $spacer . "--".$id."_font_size : ".$font_size.";\n" : '';
+            $style_return .= ($font_size_mobile) ? $spacer . "--".$id."_font_size_mobile : ".$font_size_mobile.";\n" : '';
             $style_return .= ($font_transform) ? $spacer . "--".$id."_font_transform : ".$font_transform.";\n" : '';
 
             return $style_return;
