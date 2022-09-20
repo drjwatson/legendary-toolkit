@@ -1207,7 +1207,7 @@ add_action('wp_update_nav_menu_item', 'toolkit_save_nav_item_meta', 10, 2);
 
 
 function current_year() {
-    return date("Y");;
+    return date("Y");
 }
 add_shortcode('year', 'current_year');
 
