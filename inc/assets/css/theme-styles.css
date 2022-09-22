@@ -99,26 +99,26 @@ body:not(.theme-preset-active) #masthead .navbar-nav>li.current_page_item>a {
     border-radius: var(--btn_border_radius, 4px)!important;
 }
 
-.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary, .btn-primary:not(:disabled):not(.disabled).active,
 .btn-primary:not(:disabled):not(.disabled):active,
 .show>.btn-primary.dropdown-toggle {
     background: var(--primary_color);
     border-color: var(--primary_color);
 }
 
-.btn-secondary:not(:disabled):not(.disabled).active,
+.btn-secondary .btn-secondary:not(:disabled):not(.disabled).active,
 .btn-secondary:not(:disabled):not(.disabled):active,
 .show>.btn-secondary.dropdown-toggle {
     background: var(--secondary_color);
     border-color: var(--secondary_color);
 }
-.btn-outline-primary:not(:disabled):not(.disabled).active,
+.btn-outline-primary, .btn-outline-primary:not(:disabled):not(.disabled).active,
 .btn-outline-primary:not(:disabled):not(.disabled):active,
 .show>.btn-outline-primary.dropdown-toggle {
     border-color: var(--primary_color);
     color: var(--primary_color);
 }
-.btn-outline-secondary:not(:disabled):not(.disabled).active,
+.btn-outline-secondary, .btn-outline-secondary:not(:disabled):not(.disabled).active,
 .btn-outline-secondary:not(:disabled):not(.disabled):active,
 .show>.btn-outline-secondary.dropdown-toggle {
     border-color: var(--secondary_color);

@@ -336,7 +336,7 @@ function legendary_toolkit_theme_options_css() {
             --copyright_content_color : $copyright_content_color;
             --maintenance_mode_background : $maintenance_mode_background_url;
             --favicon_url : $favicon_url;
-            --btn_border_width: $btn_border_width"."px;
+            --btn_border_width: $btn_border_width;
             --btn_border_radius: $btn_border_radius;
             --page_container_width : $page_container_width"."px;
             --blog_container_width : $blog_container_width"."px;
