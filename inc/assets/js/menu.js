@@ -180,11 +180,11 @@ class SlideDrawer extends HTMLElement {
 	// Add event listeners once web component mounts
 
 	connectedCallback() {
-		this.grab.addEventListener('mousedown', this.handleMouseDown)
-		this.grab.addEventListener('touchstart', this.handleMouseDown)
-		window.addEventListener('resize', this.handleResize)
+		this.grab.addEventListener('mousedown', this.handleMouseDown, { passive: true })
+		this.grab.addEventListener('touchstart', this.handleMouseDown, { passive: true })
+		window.addEventListener('resize', this.handleResize, { passive: true })
 		this.toggles.forEach(toggle => {
-			toggle.addEventListener('click', this.toggleDrawer)
+			toggle.addEventListener('click', this.toggleDrawer, { passive: true })
 		})
 
 		const items = Array.from(this.querySelectorAll('ul'))
@@ -270,8 +270,8 @@ class SlideDrawer extends HTMLElement {
 		}
 
 		// event listener added on mouse down for dragging
-		this.grab.addEventListener('mousemove', onMouseMove)
-		this.grab.addEventListener('touchmove', onMouseMove)
+		this.grab.addEventListener('mousemove', onMouseMove, { passive: true })
+		this.grab.addEventListener('touchmove', onMouseMove, { passive: true })
 
 		// on mouse up checks current drawer position for open/close threshold and kills mouse move listener
 		this.grab.onmouseup = () => {
@@ -330,8 +330,8 @@ class SlideDrawer extends HTMLElement {
 		this.overlay.style.opacity = 1
 
 
-		this.overlay.addEventListener('mousedown', this.handleOpenMouseDown)
-		this.overlay.addEventListener('touchstart', this.handleOpenMouseDown)
+		this.overlay.addEventListener('mousedown', this.handleOpenMouseDown, { passive: true })
+		this.overlay.addEventListener('touchstart', this.handleOpenMouseDown, { passive: true })
 
 	}
 
@@ -402,8 +402,8 @@ class SlideDrawer extends HTMLElement {
 			this.distance = this.right ? x2 - x1 : x1 - x2
 			this.drawer.classList.remove('animate')
 
-			this.grab.addEventListener('mousemove', onMove)
-			this.grab.addEventListener('touchmove', onMove)
+			this.grab.addEventListener('mousemove', onMove, { passive: true })
+			this.grab.addEventListener('touchmove', onMove, { passive: true })
 
 			this.overlay.removeEventListener('mousedown', this.handleOpenMouseDown)
 			this.overlay.removeEventListener('touchstart', this.handleOpenMouseDown)
@@ -611,7 +611,7 @@ if (stickyElm.classList.contains('sticky_header')) {
 		}
 
 
-	});
+	}, { passive: true });
 }
 
 
