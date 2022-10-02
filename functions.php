@@ -206,6 +206,7 @@ function legendary_toolkit_theme_options_css() {
                         src: url('$file_url') format('$format');
                         font-weight: $weight;
                         font-style: $font_style;
+                        font-display: swap;
                     }
                 ";
 
