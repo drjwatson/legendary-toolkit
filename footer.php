@@ -15,6 +15,7 @@ global $template;
 			</div><!-- .row -->
 		</div><!-- .container -->
 		<div id="footer">
+			<?php get_template_part('template-parts/footer', 'prefooter');?>
 			<?php get_template_part('template-parts/footer', 'widgets');?>
 			<?php get_template_part('template-parts/footer', 'copyright');?>
 		</div><!--#footer-->

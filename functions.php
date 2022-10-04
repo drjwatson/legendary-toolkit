@@ -224,6 +224,7 @@ function legendary_toolkit_theme_options_css() {
     $header_background            = (array_key_exists('header_background', $theme_options) && $theme_options['header_background']) ? $theme_options['header_background'] : 'black';
     $scrolling_header_background  = (array_key_exists('scrolling_header_background', $theme_options) && $theme_options['scrolling_header_background']) ? $theme_options['scrolling_header_background'] : 'white';
     $top_bar_background           = (array_key_exists('top_bar_background', $theme_options) && $theme_options['top_bar_background']) ? $theme_options['top_bar_background'] : '#111111';
+    $scrolling_menu_item_color    = (array_key_exists('scrolling_menu_item_color', $theme_options) && $theme_options['scrolling_menu_item_color']) ? $theme_options['scrolling_menu_item_color'] : 'var(--menu_items_font_color)';
     $menu_item_padding            = (array_key_exists('menu_item_padding', $theme_options) && $theme_options['menu_item_padding']) ? $theme_options['menu_item_padding'] : '14';
     $page_title                   = (array_key_exists('page_title', $theme_options) && $theme_options['page_title']) ? $theme_options['page_title'] : false;
     $footer_background            = (array_key_exists('footer_background', $theme_options) && $theme_options['footer_background']) ? $theme_options['footer_background'] : '#111111';
@@ -330,6 +331,7 @@ function legendary_toolkit_theme_options_css() {
             --scrolling_header_background : $scrolling_header_background;
             --header_background : $header_background;
             --top_bar_background : $top_bar_background;
+            --scrolling_menu_item_color : $scrolling_menu_item_color;
             --menu_item_padding : $menu_item_padding"."px;
             --footer_background : $footer_background;
             --footer_content_color : $footer_content_color;
@@ -486,6 +488,12 @@ add_action( 'after_setup_theme', 'logo_size_change', 11 );
 
 add_shortcode( 'page_title', 'legendary_toolkit_page_title' );
 function legendary_toolkit_page_title() {
+    if (is_home()) {
+        return get_the_title( get_option('page_for_posts', true) );
+    }
+    if (toolkit_get_view_type() == 'archive') {
+        return get_the_archive_title();
+    }
     return get_the_title();
 }
 
@@ -819,9 +827,13 @@ if( ! function_exists('is_woocommerce_page') ){
 /**
  * Custom function to simplify addition of admin columns
  */
+if ( ! function_exists ( 'add_admin_column' ) ) {
 
 function add_admin_column($column_title, $post_type, $field_id, $index = 0){
-
+    // use keyword introduced in PHP 5.3
+    if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+        return;
+    }
     // Callback function to retrieve field value
     $cb = function($post_id) use ($field_id, $index) {
         $value = ($index) ? get_post_meta( $post_id, $field_id, true )[$index] : get_post_meta( $post_id, $field_id, true );
@@ -848,7 +860,7 @@ function add_admin_column($column_title, $post_type, $field_id, $index = 0){
         }
     );
 }
-
+}
 /**
  * Custom Widgets to use a template library
  */
@@ -907,6 +919,14 @@ function render_widget_markup( $atts = '' ) {
     $content = $widget_post->post_content;
     $content = apply_filters('the_content', $content);
     $content = str_replace(']]>', ']]&gt;', $content);
+    
+    $widget_custom_css = get_post_meta( $params['id'], '_wpb_shortcodes_custom_css', true );
+    if ( ! empty( $widget_custom_css ) ) {
+        $widget_custom_css = strip_tags( $widget_custom_css );
+        $content .= '<style type="text/css" data-type="vc_shortcodes-custom-css">';
+        $content .= $widget_custom_css;
+        $content .= '</style>';
+    }
 
     return $content;
 }
@@ -929,6 +949,7 @@ function save_custom_page_options_meta_box( $post_id ) {
     $fields = [
         'll_page_sidebar',
         'll_sidebar_position',
+        'll_page_prefooter',
     ];
     foreach ( $fields as $field ) {
         if ( array_key_exists( $field, $_POST ) ) {
@@ -967,7 +988,20 @@ function toolkit_get_view_type() {
 
     return $loop;
 }
-
+function toolkit_get_prefooter_selection() {
+    $option_prefooter = legendary_toolkit_get_theme_option('pre_footer');
+    $page_prefooter = esc_attr( get_post_meta( get_the_ID(), 'll_page_prefooter', true ) );
+    if ($page_prefooter == 'prefooter_off') {
+        return 0;
+    }
+    if ($page_prefooter) {
+        return $page_prefooter;
+    }
+    if ($option_prefooter) {
+        return $option_prefooter;
+    }
+    return 0;
+}
 function toolkit_get_sidebar_selection() {
     $view_type = toolkit_get_view_type();
 
@@ -1072,15 +1106,16 @@ function enable_gdpr_compliance(){
     }
 }
 
-function render_toolkit_menu($atts, $content = null) {
-    extract(shortcode_atts(array( 'id' => null, 'class' => null ), $atts));
+function render_toolkit_menu($atts) {
+    extract(shortcode_atts(array( 'id' => null, 'class' => 'toolkit-custom-menu' ), $atts));
     return wp_nav_menu( array( 'menu' => $id, 'menu_class' => $class, 'echo' => false ) );
 }
 add_shortcode('toolkit_menu', 'render_toolkit_menu');
 
-function render_toolkit_logo() {
+function render_toolkit_logo($atts) {
+    extract(shortcode_atts(array( 'id' => null, 'class' => '' ), $atts));
     ob_start();
-    get_template_part('template-parts/header', 'logo', ['id' => '']);
+    get_template_part('template-parts/header', 'logo', ['id' => $id, 'class' => $class]);
     return ob_get_clean();
 }
 add_shortcode('toolkit_logo', 'render_toolkit_logo');

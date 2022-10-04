@@ -389,7 +389,6 @@ a.page-scroller {
 }
 
 body:not(.theme-preset-active) #masthead .navbar-nav > li > a {
-  color: #cdbfe3;
   padding: 0.5rem;
   font-weight: 500;
   font-size: 0.875rem;
@@ -397,7 +396,6 @@ body:not(.theme-preset-active) #masthead .navbar-nav > li > a {
 
 body:not(.theme-preset-active) #masthead .navbar-nav > li > a:hover,
 body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a {
-  color: #fff;
   font-weight: 600;
 }
 
@@ -1263,13 +1261,6 @@ body:not(.theme-preset-active) footer#colophon {
   color: inherit;
 }
 
-
-#footer_columns p {
-  margin: 0;
-  color: white;
-  font-size: 14px;
-}
-
 #footer_columns a {
   transition: .45s ease all;
   display: inline-block;
@@ -1284,18 +1275,20 @@ body:not(.theme-preset-active) footer#colophon {
   -o-transform: translateX(6px);
   transform: translateX(6px);
   color: var(--primary_color);
-  font-weight: 400;
 }
 
 #footer_columns {
-  padding: 30px 0 100px;
+  padding: 30px 0;
 }
 
 .site-footer p {
   padding: 0;
   margin: 0;
 }
-
+#footer_columns ul.toolkit-custom-menu {
+  list-style-type: none;
+  padding-left: 0px;
+}
 
 
 @media screen and (max-width: 767px) {
@@ -1338,12 +1331,10 @@ body:not(.theme-preset-active) footer#colophon {
 --------------------------------------------------------------*/
 
 #mobile_site_logo {
-  max-width: 50%;
   margin:20px auto 0;
   padding: 15px;
   display: block;
 }
-
 /*--------------------------------------------------------------
 # Media Query
 --------------------------------------------------------------*/

@@ -187,7 +187,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                             <?php $value = self::get_theme_option( $id . '_font_family' );?>
                             <label class="prefix" for="theme_options[<?=$id;?>_font_family]">Family</label>
                             <select data-type="<?=$id;?>" class="font-selector" name="theme_options[<?=$id;?>_font_family]">
-                                <option>Select Font Family</option>
+                                <option value="">Select Font Family</option>
                                 <?php foreach (self::get_google_fonts() as $i => $font) : ?>
                                     <option value="<?=$font['family'];?>" <?php selected( $value, $font['family'], true );?>>
                                         <?=$font['family'];?>
@@ -233,9 +233,10 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <?php $value = self::get_theme_option( $id . '_font_transform' );?>
                                 <label class="prefix" for="theme_options[<?=$id;?>_font_transform]">Transform</label>
                                 <select name="theme_options[<?=$id;?>_font_transform]">
-                                    <option value="none">None</option>
+                                    <option value="">Default</option>
                                     <?php
                                     $options = array(
+                                        'none' => 'None',
                                         'uppercase' => 'Uppercase',
                                         'lowercase' => 'Lowercase',
                                     );
@@ -513,6 +514,13 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <td><?php echo self::typography_field('menu_items', true, true);?></td>
                             </tr>
                             <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Scrolling Menu Item Color', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'scrolling_menu_item_color' );?>
+                                    <input class="color-field" type="text" name="theme_options[scrolling_menu_item_color]" value="<?=esc_attr( $value );?>">
+                                </td>
+                            </tr>
+                            <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Menu Item Padding', 'legendary-toolkit' );?></th>
                                 <td>
                                     <div class="legendary-toolkit-input-group">
@@ -613,6 +621,52 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 </td>
                             </tr>
                             <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Pre-Footer', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php 
+                                        $value = self::get_theme_option( 'pre_footer' );
+                                        
+                                        // Get widgets for sidebar
+
+                                        function get_widget_option_options() {
+                                            $widget_options = [];
+                                            $args = array(
+                                                'post_type' => 'll_widgets',
+                                            );
+                                            $q_widget_options = new wp_query($args);
+                                            if (!$q_widget_options->have_posts()) {
+                                                return false;
+                                            }
+                                            while ($q_widget_options->have_posts()) {
+                                                $q_widget_options->the_post();
+                                                $id = get_the_id();
+                                                $widget_option_name = get_the_title();
+                                                $widget_options[] = ['id' => $id, 'name' => $widget_option_name];
+                                            }
+                                            wp_reset_postdata();
+                                            return $widget_options;
+                                        }
+
+                                        $selected_widget_option = self::get_theme_option( 'pre_footer' );
+                                        $selected_widget_option_none = (!$selected_widget_option) ? 'selected' : '';
+                                        if (!get_widget_option_options()) {
+                                            echo '<strong>No Widgets Found</strong></br><a href="/wp-admin/post-new.php?post_type=ll_widgets">Create your first widget</a>';
+                                        }
+                                        else {
+                                            echo "<select name='theme_options[pre_footer]' id='theme_options[pre_footer]'>";
+                                                echo "<option value='0' $selected_widget_option_none>No Widget</option>";
+                                                foreach (get_widget_option_options() as $i => $widget_option) {
+                                                    $id = $widget_option['id'];
+                                                    $name = $widget_option['name'];
+                                                    $selected = ($selected_widget_option == $id) ? 'selected' : '';
+                                                    echo "<option value='$id' $selected>$name</option>";
+                                                }
+                                            echo "</select>";
+                                        }
+                                    ?>
+                                </td>
+                            </tr>
+                            <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Full Width Footer?', 'legendary-toolkit' );?></th>
                                 <td>
                                     <?php $value = self::get_theme_option( 'full_width_footer' );?>
@@ -634,6 +688,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <td>
                                     <?php $value = self::get_theme_option( 'footer_column_1' );?>
                                     <?php echo wp_editor( stripslashes($value), 'footer_column_1', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_column_1]') );?>
+                                    <label><small><strong>Tip:</strong> Use <code>[toolkit_logo]</code> for logo display and <code>[toolkit_menu id="X"]</code> for footer links.</small></label>
                                 </td>
                             </tr>
                             <?php $hidden = ( $footer_column_count < 2 ) ? 'hidden' : '';?>
@@ -642,6 +697,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <td>
                                     <?php $value = self::get_theme_option( 'footer_column_2' );?>
                                     <?php echo wp_editor( stripslashes($value), 'footer_column_2', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_column_2]') );?>
+                                    <label><small><strong>Tip:</strong> Use <code>[toolkit_logo]</code> for logo display and <code>[toolkit_menu id="X"]</code> for footer links.</small></label>
                                 </td>
                             </tr>
                             <?php $hidden = ( $footer_column_count < 3 ) ? 'hidden' : '';?>
@@ -650,6 +706,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <td>
                                     <?php $value = self::get_theme_option( 'footer_column_3' );?>
                                     <?php echo wp_editor( stripslashes($value), 'footer_column_3', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_column_3]') );?>
+                                    <label><small><strong>Tip:</strong> Use <code>[toolkit_logo]</code> for logo display and <code>[toolkit_menu id="X"]</code> for footer links.</small></label>
                                 </td>
                             </tr>
                             <?php $hidden = ( $footer_column_count < 4 ) ? 'hidden' : '';?>
@@ -658,6 +715,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                                 <td>
                                     <?php $value = self::get_theme_option( 'footer_column_4' );?>
                                     <?php echo wp_editor( stripslashes($value), 'footer_column_4', $settings = array('textarea_rows'=> '10', 'textarea_name' => 'theme_options[footer_column_4]') );?>
+                                    <label><small><strong>Tip:</strong> Use <code>[toolkit_logo]</code> for logo display and <code>[toolkit_menu id="X"]</code> for footer links.</small></label>
                                 </td>
                             </tr>
                             <tr valign="top">

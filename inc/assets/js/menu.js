@@ -62,7 +62,7 @@ template.innerHTML = `
             height: 2px;
 			display:block;
             width: 30px;
-			background: var(--menu_items_font_color, var(--all_font_color), black);
+			background: var(--menu_items_font_color, var(--all_font_color, black));
             opacity: 1;
             left: 0;
             -webkit-transition: .25s ease-in-out;
@@ -120,10 +120,10 @@ template.innerHTML = `
 		}
 
 	</style>
-	<div id="toggle" class="tkmm-toggle">
-		<span></span>
-		<span></span>
-		<span></span>
+	<div id="toggle" part="toggle" class="tkmm-toggle">
+		<span part="toggle-bar"></span>
+		<span part="toggle-bar"></span>
+		<span part="toggle-bar"></span>
 	</div>
     <div id="drawer">
 		<div id="grab"></div>
@@ -530,6 +530,8 @@ window.customElements.define('slide-drawer', SlideDrawer)
 
 // get the sticky element
 const stickyElm = document.querySelector('header#masthead')
+const drawer = document.querySelector('slide-drawer')
+
 
 // if the header is set to sticky...
 if (stickyElm.classList.contains('sticky_header')) {
@@ -588,9 +590,11 @@ if (stickyElm.classList.contains('sticky_header')) {
 			// no top bar is present, behave normally
 			if (window.scrollY > (header_height + top_bar_height) / 2) {
 				stickyElm.classList.add('is-stuck');
+				drawer.classList.add('is-stuck');
 			}
 			if (window.scrollY < (header_height + top_bar_height) / 4) {
 				stickyElm.classList.remove('is-stuck');
+				drawer.classList.remove('is-stuck');
 			}
 
 		} else {

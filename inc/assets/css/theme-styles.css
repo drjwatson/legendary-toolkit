@@ -23,77 +23,86 @@ h6 {
 }
 
 h1 {
-    font-family: var(--h1_font_family, var(--all_font_family), sans-serif);
-    color: var(--h1_font_color, var(--all_font_color), black);
-    font-style: var(--h1_font_style, var(--all_font_style), normal);
-    font-weight: var(--h1_font_weight, var(--all_font_weight), bold);
-    text-transform: var(--h1_font_transform, var(--all_font_transform), none);
+    font-family: var(--h1_font_family, var(--all_font_family, sans-serif));
+    color: var(--h1_font_color, var(--all_font_color, black));
+    font-style: var(--h1_font_style, var(--all_font_style, normal));
+    font-weight: var(--h1_font_weight, var(--all_font_weight, bold));
+    text-transform: var(--h1_font_transform, var(--all_font_transform, none));
     font-size: var(--h1_font_size, 2em);
 }
 
 h2 {
-    font-family: var(--h2_font_family, var(--all_font_family), sans-serif);
-    color: var(--h2_font_color, var(--all_font_color), black);
-    font-style: var(--h2_font_style, var(--all_font_style), normal);
-    font-weight: var(--h2_font_weight, var(--all_font_weight), bold);
-    text-transform: var(--h2_font_transform, var(--all_font_transform), none);
+    font-family: var(--h2_font_family, var(--all_font_family, sans-serif));
+    color: var(--h2_font_color, var(--all_font_color, black));
+    font-style: var(--h2_font_style, var(--all_font_style, normal));
+    font-weight: var(--h2_font_weight, var(--all_font_weight, bold));
+    text-transform: var(--h2_font_transform, var(--all_font_transform, none));
     font-size: var(--h2_font_size, 1.5em);
 }
 
 h3 {
-    font-family: var(--h3_font_family, var(--all_font_family), sans-serif);
-    color: var(--h3_font_color, var(--all_font_color), black);
-    font-style: var(--h3_font_style, var(--all_font_style), normal);
-    font-weight: var(--h3_font_weight, var(--all_font_weight), bold);
-    text-transform: var(--h3_font_transform, var(--all_font_transform), none);
+    font-family: var(--h3_font_family, var(--all_font_family, sans-serif));
+    color: var(--h3_font_color, var(--all_font_color, black));
+    font-style: var(--h3_font_style, var(--all_font_style, normal));
+    font-weight: var(--h3_font_weight, var(--all_font_weight, bold));
+    text-transform: var(--h3_font_transform, var(--all_font_transform, none));
     font-size: var(--h3_font_size, 1.17em);
 }
 
 h4 {
-    font-family: var(--h4_font_family, var(--all_font_family), sans-serif);
-    color: var(--h4_font_color, var(--all_font_color), black);
-    font-style: var(--h4_font_style, var(--all_font_style), normal);
-    font-weight: var(--h4_font_weight, var(--all_font_weight), bold);
-    text-transform: var(--h4_font_transform, var(--all_font_transform), none);
+    font-family: var(--h4_font_family, var(--all_font_family, sans-serif));
+    color: var(--h4_font_color, var(--all_font_color, black));
+    font-style: var(--h4_font_style, var(--all_font_style, normal));
+    font-weight: var(--h4_font_weight, var(--all_font_weight, bold));
+    text-transform: var(--h4_font_transform, var(--all_font_transform, none));
     font-size: var(--h4_font_size, 1em);
 }
 
 h5 {
-    font-family: var(--h5_font_family, var(--all_font_family), sans-serif);
-    color: var(--h5_font_color, var(--all_font_color), black);
-    font-style: var(--h5_font_style, var(--all_font_style), normal);
-    font-weight: var(--h5_font_weight, var(--all_font_weight), bold);
-    text-transform: var(--h5_font_transform, var(--all_font_transform), none);
+    font-family: var(--h5_font_family, var(--all_font_family, sans-serif));
+    color: var(--h5_font_color, var(--all_font_color, black));
+    font-style: var(--h5_font_style, var(--all_font_style, normal));
+    font-weight: var(--h5_font_weight, var(--all_font_weight, bold));
+    text-transform: var(--h5_font_transform, var(--all_font_transform, none));
     font-size: var(--h5_font_size, .83em);
 }
 
 h6 {
-    font-family: var(--h6_font_family, var(--all_font_family), sans-serif);
-    color: var(--h6_font_color, var(--all_font_color), black);
-    font-style: var(--h6_font_style, var(--all_font_style), normal);
-    font-weight: var(--h6_font_weight, var(--all_font_weight), bold);
-    text-transform: var(--h6_font_transform, var(--all_font_weight), none);
+    font-family: var(--h6_font_family, var(--all_font_family, sans-serif));
+    color: var(--h6_font_color, var(--all_font_color, black));
+    font-style: var(--h6_font_style, var(--all_font_style, normal));
+    font-weight: var(--h6_font_weight, var(--all_font_weight, bold));
+    text-transform: var(--h6_font_transform, var(--all_font_weight, none));
     font-size: var(--h6_font_size, 14px);
 }
 
-#main-nav>ul.navbar-nav>li>a,
-body:not(.theme-preset-active) #masthead .navbar-nav>li>a,
-body:not(.theme-preset-active) #masthead .navbar-nav>li>a:hover,
-body:not(.theme-preset-active) #masthead .navbar-nav>li.current_page_item>a {
-    font-family: var(--menu_items_font_family, var(--all_font_family), sans-serif);
+#main-nav>ul.navbar-nav>li>a:not(.btn),
+body:not(.theme-preset-active) #masthead .navbar-nav>li>a:not(.btn),
+body:not(.theme-preset-active) #masthead .navbar-nav>li>a:not(.btn):hover,
+body:not(.theme-preset-active) #masthead .navbar-nav>li.current_page_item>a:not(.btn) {
+    font-family: var(--menu_items_font_family, var(--all_font_family, sans-serif));
     color: var(--menu_items_font_color, white);
-    font-style: var(--menu_items_font_style, var(--all_font_style), normal);
-    font-weight: var(--menu_items_font_weight, var(--all_font_weight), bold);
-    text-transform: var(--menu_items_font_transform, var(--all_font_weight), none);
+    font-style: var(--menu_items_font_style, var(--all_font_style, normal));
+    font-weight: var(--menu_items_font_weight, var(--all_font_weight, bold));
+    text-transform: var(--menu_items_font_transform, var(--all_font_weight, none));
     font-size: var(--menu_items_font_size, 14px);
     opacity:1;
 }
+#masthead.is-stuck .navbar-nav>li>a:not(.btn),
+body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(.btn),
+body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a:not(.btn):hover,
+body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li.current_page_item:not(.btn)>a {
+    color: var(--scrolling_menu_item_color, var(--menu_items_font_color, #111111));
+}
+slide-drawer.is-stuck::part(toggle-bar) {
+    background-color: var(--scrolling_menu_item_color, var(--menu_items_font_color));
+}
 
 .btn {
-    font-family: var(--btn_font_family, var(--all_font_family), sans-serif)!important;
-    font-style: var(--btn_font_style, var(--all_font_style), normal)!important;
-    font-weight: var(--btn_font_weight, var(--all_font_weight), bold)!important;
-    text-transform: var(--btn_font_transform, var(--all_font_weight), none)!important;
+    font-family: var(--btn_font_family, var(--all_font_family, sans-serif))!important;
+    font-style: var(--btn_font_style, var(--all_font_style, normal))!important;
+    font-weight: var(--btn_font_weight, var(--all_font_weight, bold))!important;
+    text-transform: var(--btn_font_transform, var(--all_font_weight, none))!important;
     font-size: var(--btn_font_size, 14px)!important;
     border-width: var(--btn_border_width, 1px)!important;
     border-radius: var(--btn_border_radius, 4px)!important;
@@ -136,15 +145,18 @@ body:not(.theme-preset-active) #masthead .navbar-nav>li.current_page_item>a {
 }
 
 .dropdown-menu .dropdown-item {
-    font-family: var(--menu_items_font_family, var(--all_font_family), sans-serif);
-    font-style: var(--menu_items_font_style, var(--all_font_style), normal);
-    font-weight: var(--menu_items_font_weight, var(--all_font_weight), bold);
-    text-transform: var(--menu_items_font_transform, var(--all_font_weight), none);
+    font-family: var(--menu_items_font_family, var(--all_font_family, sans-serif));
+    font-style: var(--menu_items_font_style, var(--all_font_style, normal));
+    font-weight: var(--menu_items_font_weight, var(--all_font_weight, bold));
+    text-transform: var(--menu_items_font_transform, var(--all_font_weight, none));
     font-size: var(--menu_items_font_size, 14px);
 }
 
-.dropdown-toggle::after{
+#masthead .dropdown-toggle::after{
     color: var(--menu_items_font_color);
+}
+#masthead.is-stuck .dropdown-toggle::after {
+    color: var(--scrolling_menu_item_color, var(--menu_items_font_color));
 }
 #site_logo {
     height: var(--logo_height, 100px);
@@ -209,8 +221,12 @@ header#masthead.sticky_header.is-stuck {
 header#masthead.is_transparent {
     background-color: transparent;
 }
-.home header#masthead.is_transparent+#content {
+header#masthead:not(.is_transparent) + #content {
     margin-top: var(--logo_height, 100px);
+}
+header#masthead.is_transparent + #page_title {
+    margin-top: 0px;
+    padding-top: var(--logo_height, 100px);
 }
 .navbar-brand {
     display: flex;

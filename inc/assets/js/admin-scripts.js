@@ -188,7 +188,11 @@ jQuery(document).ready(function( $ ) {
         }
         rawFile.send(null);
     }
-
+    $('#legendary_toolkit_form input').on('keyup keydown', function(e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+        }
+    });
     $(document).on('click', '#import_theme_settings', function(e) {
         e.preventDefault();
         var file = $('#import_theme_settings_file')[0].files[0];

@@ -29,6 +29,10 @@ $selected_sidebar_position = esc_attr( get_post_meta( get_the_ID(), 'll_sidebar_
 $selected_no_sidebar = (!$selected_sidebar_position) ? 'selected' : '';
 $sidebar_position_options = ['left','right'];
 
+$selected_prefooter = esc_attr( get_post_meta( get_the_ID(), 'll_page_prefooter', true ) );
+$selected_prefooter_none = (!$selected_prefooter) ? 'selected' : '';
+$selected_prefooter_off = ($selected_prefooter == 'prefooter_off') ? 'selected' : '';
+
 ?>
 <h3>Sidebar</h3>
 <div class="ll_custom_meta_box">
@@ -75,6 +79,41 @@ $sidebar_position_options = ['left','right'];
                     echo "<option value='$value' $selected>$label</option>";
                 }
             echo "</select>";
+        ?>
+    </p>
+</div>
+<h3>Footer</h3>
+<div class="ll_custom_meta_box">
+    <style scoped>
+        .ll_custom_meta_box{
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            grid-row-gap: 10px;
+            grid-column-gap: 20px;
+            align-items:center;
+        }
+        .ll-custom-meta-field {
+            display: contents;
+        }
+    </style>
+    <p class="meta-options ll-custom-meta-field">
+        <label for="ll_page_prefooter"><strong>Pre-Footer</strong></label>
+        <?php 
+            if (!get_sidebar_options()) {
+                echo '<strong>No Widgets Found</strong></br><a href="/wp-admin/post-new.php?post_type=ll_widgets">Create your first widget</a>';
+            }
+            else {
+                echo "<select name='ll_page_prefooter' id='ll_page_prefooter'>";
+                    echo "<option value='0' $selected_prefooter_none>- Theme Settings Default</option>";
+                    echo "<option value='prefooter_off' $selected_prefooter_off>- No Pre-Footer</option>";
+                    foreach (get_sidebar_options() as $i => $prefooter) {
+                        $id = $prefooter['id'];
+                        $name = $prefooter['name'];
+                        $selected = ($selected_prefooter == $id) ? 'selected' : '';
+                        echo "<option value='$id' $selected>$name</option>";
+                    }
+                echo "</select>";
+            }
         ?>
     </p>
 </div>
