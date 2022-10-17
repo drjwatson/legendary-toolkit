@@ -1249,6 +1249,10 @@ a.woocommerce-Button.btn.btn-primary.mt-2 {
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
+#footer p{
+  margin-bottom:0;
+}
+
 footer#colophon {
   font-size: 85%;
 }
