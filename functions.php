@@ -599,7 +599,7 @@ function legendary_toolkit_breadcrumbs($atts) {
         } elseif (is_author()) {
             global $author;
             $userdata = get_userdata($author);
-            $output .= $before . 'Articles posted by ' . $userdata->display_name . $after;
+            $output .= $before . 'Articles posted by ' . $userdata->first_name . " " . $userdata->last_name . $after;
         } elseif (is_404()) {
             $output .= $before . 'Error 404' . $after;
         }
