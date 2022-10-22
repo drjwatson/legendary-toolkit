@@ -24,7 +24,8 @@ function wp_bootstrap_starter_posted_on() {
 
 	$posted_on = sprintf(
 		esc_html_x( 'Posted on %s', 'post date', 'wp-bootstrap-starter' ),
-		'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
+		// '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
+		$time_string
 	);
 
 	$byline = sprintf(
