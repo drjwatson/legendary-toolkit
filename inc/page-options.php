@@ -21,6 +21,13 @@ function get_sidebar_options() {
     return $sidebars;
 }
 
+
+$selected_title = esc_attr( get_post_meta( get_the_ID(), 'll_page_title', true ) );
+$selected_title_none = (!$selected_title) ? 'selected' : '';
+$selected_title_off = ($selected_title == 'title_off') ? 'selected' : '';
+$selected_title_on = ($selected_title == 'title_on') ? 'selected' : '';
+
+
 $selected_sidebar = esc_attr( get_post_meta( get_the_ID(), 'll_page_sidebar', true ) );
 $selected_sidebar_none = (!$selected_sidebar) ? 'selected' : '';
 $selected_sidebar_off = ($selected_sidebar == 'sidebar_off') ? 'selected' : '';
@@ -34,6 +41,21 @@ $selected_prefooter_none = (!$selected_prefooter) ? 'selected' : '';
 $selected_prefooter_off = ($selected_prefooter == 'prefooter_off') ? 'selected' : '';
 
 ?>
+<h3>Page Title</h3>
+<div class="ll_custom_meta_box">
+    <?php 
+    // print_r($selected_title);
+    ?>
+    <p class="meta-options ll-custom-meta-field">
+        <label for="ll_page_title"><strong>Title</strong></label>
+        <select name="ll_page_title" id="ll_page_title">
+            <option value="0" <?php echo $selected_title_none;?>>Theme Settings Default</option>
+            <option value="title_off" <?php echo $selected_title_off;?>>Hide Title</option>
+            <option value="title_on" <?php echo $selected_title_on;?>>Show Title</option>
+        </select>
+    </p>
+</div>
+
 <h3>Sidebar</h3>
 <div class="ll_custom_meta_box">
     <style scoped>

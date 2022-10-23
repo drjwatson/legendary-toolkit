@@ -947,6 +947,7 @@ function save_custom_page_options_meta_box( $post_id ) {
         $post_id = $parent_id;
     }
     $fields = [
+        'll_page_title',
         'll_page_sidebar',
         'll_sidebar_position',
         'll_page_prefooter',
