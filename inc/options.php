@@ -794,6 +794,64 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                         <h3>Blog</h3>
                         <table class="form-table">
                             <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Archive Layout', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'archive_layout' );?>
+                                    <select name="theme_options[archive_layout]">
+                                        <?php
+                                        $options = array(
+                                            '' => esc_html__('Default', 'legendary-toolkit' ),
+                                            'grid' => esc_html__( 'Modern - Grid', 'legendary-toolkit' ),
+                                            // 'list' => esc_html__( 'Modern - List', 'legendary-toolkit' ),
+                                        );
+                                        foreach ( $options as $id => $label ) { ?>
+                                            <option value="<?=esc_attr( $id );?>" <?php selected( $value, $id, true );?>>
+                                                <?=strip_tags( $label );?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Single Layout', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'single_layout' );?>
+                                    <select name="theme_options[single_layout]">
+                                        <?php
+                                        $options = array(
+                                            '' => esc_html__('Default', 'legendary-toolkit' ),
+                                            'single-modern' => esc_html__( 'Modern', 'legendary-toolkit' ),
+                                        );
+                                        foreach ( $options as $id => $label ) { ?>
+                                            <option value="<?=esc_attr( $id );?>" <?php selected( $value, $id, true );?>>
+                                                <?=strip_tags( $label );?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Preserve Blog Image Aspect Ratio?', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'preserve_aspect_ratio' );?>
+                                    <label><input type="checkbox" name="theme_options[preserve_aspect_ratio]" <?php checked( $value, 'on' );?>><?php esc_html_e( 'Enable', 'legendary-toolkit' );?></label>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Blog Header Background', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'blog_header_background' );?>
+                                    <input class="color-field" type="text" name="theme_options[blog_header_background]" value="<?=esc_attr( $value );?>">
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <th scope="row"><?php esc_html_e( 'Blog Header Content Color', 'legendary-toolkit' );?></th>
+                                <td>
+                                    <?php $value = self::get_theme_option( 'blog_header_content_color' );?>
+                                    <input class="color-field" type="text" name="theme_options[blog_header_content_color]" value="<?=esc_attr( $value );?>">
+                                </td>
+                            </tr>
+                            <tr valign="top">
                                 <th scope="row"><?php esc_html_e( 'Excerpt Length', 'legendary-toolkit' );?></th>
                                 <td>
                                     <div class="legendary-toolkit-input-group">

@@ -6,35 +6,33 @@
  *
  * @package WP_Bootstrap_Starter
  */
-get_header(); ?>
+get_header(); 
+$archive_layout = legendary_toolkit_get_theme_option('archive_layout');
+$preserve_aspect_ratio = legendary_toolkit_get_theme_option('preserve_aspect_ratio');
+$preserve_aspect_ratio_class = ($preserve_aspect_ratio) ? 'preserve-aspect-ratio' : '';
+?>
 
 	<section id="primary" class="content-area col-sm-12 <?=toolkit_get_primary_column_classes();?>">
 		<div id="main" class="site-main" role="main">
-
 		<?php
-		// echo $show_sidebar_archive;
-		if ( have_posts() ) : ?>
-
-			<?php
-			/* Start the Loop */
+		if ( have_posts() ) {
+			$layout_classes = ($archive_layout) ? 'archive-wrapper-' . $archive_layout : '';
+			echo "<div class='$layout_classes $preserve_aspect_ratio_class'>";
 			while ( have_posts() ) : the_post();
-
-				/*
-				 * Include the Post-Format-specific template for the content.
-				 * If you want to override this in a child theme, then include a file
-				 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', get_post_format() );
-
+				if ($archive_layout) {
+					get_template_part( 'template-parts/content', $archive_layout );	
+				}
+				else {
+					get_template_part( 'template-parts/content', get_post_format() );
+				}
 			endwhile;
-
-			the_posts_navigation();
-
-		else :
-
+			echo "</div>";
+			the_posts_pagination();
+		}
+		else {
 			get_template_part( 'template-parts/content', 'none' );
-
-		endif; ?>
+		}
+		?>
 
 		</div><!-- #main -->
 	</section><!-- #primary -->
