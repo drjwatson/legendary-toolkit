@@ -1152,7 +1152,9 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                     print htmlentities(print_r(self::get_theme_options(), true));
 
                     echo '<hr><strong>Available Shortcodes</strong><hr>';
-                    print htmlspecialchars( print_r( $GLOBALS['shortcode_tags'], TRUE ) );
+                    foreach (array_keys($GLOBALS['shortcode_tags']) as $i => $shortcode) {
+                        echo '[' . $shortcode .']<br/>';
+                    }
 
                     // echo '<hr><strong>get_google_fonts()</strong><hr>';
                     // print_r(self::get_google_fonts());
