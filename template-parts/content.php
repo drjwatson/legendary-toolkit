@@ -12,9 +12,15 @@
 <div class="container content-item">
 	<?php if(has_post_thumbnail()):?>
 	
-		<div class="blog-img">
-			<div class="post-thumbnail">
-				<?php the_post_thumbnail(); ?>
+		<div class="blog-img" style="margin-top:40px;">
+			<div class="post-thumbnail" style="background:url('<?php echo the_post_thumbnail_url('full');?>');background-size:cover;height:500px;background-position:center center;">
+				<?php 
+				// the_post_thumbnail();
+				// the_post_thumbnail();
+				// echo the_post_thumbnail_url('small');
+				// echo 'test';
+				
+				?>
 			</div>
 		</div>
 	

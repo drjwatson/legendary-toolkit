@@ -163,7 +163,7 @@ slide-drawer.is-stuck::part(toggle-bar) {
     padding: 0px 0px;
 }
 
-body:not(.theme-preset-active) #masthead .navbar-nav>li>a {
+body:not(.theme-preset-active) #masthead .navbar-nav>li>a:not(.btn){
     padding: 0 var(--menu_item_padding, 14px);
 }
 
