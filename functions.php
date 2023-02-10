@@ -8,7 +8,9 @@
  */
 
 require 'plugin-update-checker/plugin-update-checker.php';
-$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
+$myUpdateChecker = PucFactory::buildUpdateChecker(
 	'https://github.com/legendary-lion/legendary-toolkit',
 	__FILE__,
 	'legendary-toolkit'
