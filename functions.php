@@ -129,7 +129,7 @@ function legendary_toolkit_scripts() {
     wp_enqueue_script('legendary_toolkit_mobile_menu_script', get_template_directory_uri() . '/inc/assets/js/menu.js', array(), '', true);
 
     // parent styles
-    wp_enqueue_style('legendary-toolkit-parent-styles', get_template_directory_uri() . '/style.css');
+    wp_enqueue_style('legendary-toolkit-parent-styles', get_template_directodry_uri() . '/style.css');
 
     // append theme options stylesheet after parent theme styles
     wp_add_inline_style( 'legendary-toolkit-parent-styles', legendary_toolkit_theme_options_css() );  
