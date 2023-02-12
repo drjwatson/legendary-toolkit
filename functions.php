@@ -7,16 +7,16 @@
  * @package legendary_toolkit
  */
 
-// require 'plugin-update-checker/plugin-update-checker.php';
-// use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+require 'plugin-update-checker/plugin-update-checker.php';
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
-// $myUpdateChecker = PucFactory::buildUpdateChecker(
-// 	'https://github.com/legendary-lion/legendary-toolkit',
-// 	__FILE__,
-// 	'legendary-toolkit'
-// );
-// $myUpdateChecker->setBranch('master');
-// $myUpdateChecker->getVcsApi()->enableReleaseAssets();
+$myUpdateChecker = PucFactory::buildUpdateChecker(
+	'https://github.com/legendary-lion/legendary-toolkit',
+	__FILE__,
+	'legendary-toolkit'
+);
+$myUpdateChecker->setBranch('master');
+$myUpdateChecker->getVcsApi()->enableReleaseAssets();
 
 if ( ! function_exists( 'legendary_toolkit_setup' ) ) :
     /**
