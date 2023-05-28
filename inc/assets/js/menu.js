@@ -462,13 +462,18 @@ class SlideDrawer extends HTMLElement {
 				title.style.fontWeight = 'bold'
 				title.style.transform = 'translateX(-50%)'
 				item.parentNode.firstChild.onclick = (e) => {
-					e.preventDefault()
-					item.style[drawer_position] = '0'
-					item.parentNode.style.position = 'absolute'
-					item.parentNode.style.top = '0'
-					item.parentNode.style.bottom = '0'
-					item.parentNode.style.left = '0'
-					title.innerText = item.parentNode.firstChild.innerText.replace('>', '')
+					e.preventDefault();
+
+					// Set the transition properties before making the changes
+					item.parentNode.style.transition = "top 0.3s, bottom 0.3s, left 0.3s";
+					item.style.transition = drawer_position + " 0.3s";
+
+					item.style[drawer_position] = '0';
+					item.parentNode.style.position = 'absolute';
+					item.parentNode.style.top = '0';
+					item.parentNode.style.bottom = '0';
+					item.parentNode.style.left = '0';
+					title.innerText = item.parentNode.firstChild.innerText.replace('>', '');
 
 					// set next menu position relative to scroll action
 					item.style.top = item.parentNode.getBoundingClientRect().top * -1 + 'px';
@@ -478,11 +483,10 @@ class SlideDrawer extends HTMLElement {
 					// hide overflow of parent submenu
 					item.parentNode.parentNode.style.overflow = 'hidden';
 
-					item.parentNode.style[drawer_position] = '0'
-					// console.log('clicked menu item', item)
-					// console.log('clicked parentNode', item.parentNode)
-					// console.log('parent menu item', item.parentNode.parentNode)
-
+					item.parentNode.style[drawer_position] = '0';
+					// console.log('clicked menu item', item);
+					// console.log('clicked parentNode', item.parentNode);
+					// console.log('parent menu item', item.parentNode.parentNode);
 				}
 				back.onclick = () => {
 					item.parentNode.style.position = 'initial'

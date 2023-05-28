@@ -401,7 +401,7 @@ a.page-scroller {
 ## Links
 --------------------------------------------------------------*/
 
-a.nav-link {
+#primary a.nav-link {
   width: max-content;
 }
 
