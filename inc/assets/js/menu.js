@@ -118,6 +118,9 @@ template.innerHTML = `
             transform: rotate(-45deg);
             top: 10px;
 		}
+		ul#mobile_menu ul.sub-menu{
+			 box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.3), 0px 14px 22px 2px rgba(0, 0, 0, 0.24), 0px 5px 20px 4px rgba(0, 0, 0, 0.22);
+		}
 
 	</style>
 	<div id="toggle" part="toggle" class="tkmm-toggle">
@@ -465,7 +468,7 @@ class SlideDrawer extends HTMLElement {
 					e.preventDefault();
 
 					// Set the transition properties before making the changes
-					item.parentNode.style.transition = "top 0.3s, bottom 0.3s, left 0.3s";
+					// item.parentNode.style.transition = "top 0.5s, bottom 0.5s, left 0.5s";
 					item.style.transition = drawer_position + " 0.3s";
 
 					item.style[drawer_position] = '0';
@@ -473,6 +476,7 @@ class SlideDrawer extends HTMLElement {
 					item.parentNode.style.top = '0';
 					item.parentNode.style.bottom = '0';
 					item.parentNode.style.left = '0';
+					item.style.boxShadow = '0px 10px 15px -3px rgba(0, 0, 0, 0.3), 0px 14px 22px 2px rgba(0, 0, 0, 0.24), 0px 5px 20px 4px rgba(0, 0, 0, 0.22)';
 					title.innerText = item.parentNode.firstChild.innerText.replace('>', '');
 
 					// set next menu position relative to scroll action
@@ -497,6 +501,7 @@ class SlideDrawer extends HTMLElement {
 					item.parentNode.style[drawer_position] = 'initial'
 					item.parentNode.parentNode.style.overflow = 'overflow';
 					console.log('parent menu item', item.parentNode.parentNode.id)
+					item.style.boxShadow = 'none';
 
 					// if it's back to the top of the menu, re-enable overflow scrolling
 					if (item.parentNode.parentNode.id == 'mobile_menu') {
@@ -516,6 +521,7 @@ class SlideDrawer extends HTMLElement {
 							item.parentNode.style.bottom = 'initial'
 							item.parentNode.style.left = 'initial'
 							item.parentNode.style[drawer_position] = 'initial'
+							item.style.boxShadow = 'none';
 							// if it's back to the top of the menu, re-enable overflow scrolling
 							if (item.parentNode.parentNode.id == 'mobile_menu') {
 								document.getElementById("menu-wrapper").style.overflowY = 'scroll';
