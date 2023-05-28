@@ -27,7 +27,7 @@
 	flex-direction: column;
 	justify-content: center;
 	list-style: none;
-	overflow-y: scroll;
+	overflow-y: auto;
 	overflow-x: hidden;
 }
 
