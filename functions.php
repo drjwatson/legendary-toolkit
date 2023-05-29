@@ -10,13 +10,18 @@
 require 'plugin-update-checker/plugin-update-checker.php';
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
-$myUpdateChecker = PucFactory::buildUpdateChecker(
+$themeUpdateChecker = PucFactory::buildUpdateChecker(
 	'https://github.com/legendary-lion/legendary-toolkit',
 	__FILE__,
 	'legendary-toolkit'
 );
-$myUpdateChecker->setBranch('master');
-$myUpdateChecker->getVcsApi()->enableReleaseAssets();
+
+//Set the branch that contains the stable release.
+$themeUpdateChecker->setBranch('master');
+
+//Optional: If you're using a private repository, specify the access token like this:
+
+$themeUpdateChecker->getVcsApi()->enableReleaseAssets();
 
 if ( ! function_exists( 'legendary_toolkit_setup' ) ) :
     /**
