@@ -65,7 +65,6 @@
 	justify-content: space-between;
 	cursor: pointer;
 	padding: 16px 20px;
-	margin: 2px;
 	font-family: var(--menu_items_font_family, var(--all_font_family), sans-serif);
 	color: var(--menu_items_font_color, var(--all_font_color), black);
 	font-style: var(--menu_items_font_style, var(--all_font_style), normal);
@@ -127,4 +126,19 @@
 
 #menu-wrapper ul.sub-menu {
 	padding-bottom: 50px;
+}
+
+.dropdown-item {
+	white-space: normal;
+}
+
+.dropdown-menu li:not(:last-child){
+	border-bottom:1px solid rgba(0, 0, 0, 0.05);
+}
+.dropdown-menu li{
+	padding: 10px 0;
+}
+
+.dropdown-menu li:hover{
+	background: rgba(0, 0, 0, 0.02);
 }
