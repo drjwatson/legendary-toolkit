@@ -435,7 +435,7 @@ class SlideDrawer extends HTMLElement {
 			item.style.width = this.drawer.offsetWidth + 'px'
 			if (item.parentNode.tagName != "DIV") item.style.position = 'absolute'
 			if (item.parentNode.tagName == "LI") {
-				let dropdownArrow = '<span class="fas fa-caret-down"></span>'
+				let dropdownArrow = '<span class="fas fa-angle-right"></span>'
 				item.parentNode.classList.contains('menu-item-has-children')
 					? item.parentNode.firstChild.innerHTML += dropdownArrow
 					: null
