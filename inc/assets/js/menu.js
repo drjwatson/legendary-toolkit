@@ -1,128 +1,5 @@
 const template = document.createElement('template')
 template.innerHTML = `
-	<style>
-		slide-drawer{
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-		}
-		#drawer {
-            position: fixed;
-            z-index: 9998;
-            top: 0;
-            bottom: 0;
-            user-select: none;
-		}
-		#overlay {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100vw;
-			height: 100vh;
-			z-index: 9991;
-			//background: rgba(0,0,0,.5);
-			opacity: 0;
-			visibility: hidden;
-		}
-		.on {
-			visibility: visible !important;
-		}
-		#grab {
-            position: absolute;
-            z-index: 9993;
-            top: 0;
-            height: 100vh;
-            width: 20px;
-		}
-		.animate {
-		  transition: all ease .25s;
-		}
-		.tkmm-toggle {
-            width: 70px;
-			height:100%;
-            z-index: 9994;
-            -webkit-transition: .5s ease-in-out;
-            -moz-transition: .5s ease-in-out;
-            -o-transition: .5s ease-in-out;
-            transition: .5s ease-in-out;
-            transition: right ease .25s;
-            transition: left ease .25s;
-            cursor: pointer;
-			flex-direction:column;
-			justify-content: center;
-			align-items: stretch;
-			align-items: center;
-		}
-		.tkmm-toggle:not(.close){
-		}
-		.tkmm-toggle span {
-			margin:4px auto;
-			right: 0;
-            height: 2px;
-			display:block;
-            width: 30px;
-			background: var(--menu_items_font_color, var(--all_font_color, black));
-            opacity: 1;
-            left: 0;
-            -webkit-transition: .25s ease-in-out;
-            -moz-transition: .25s ease-in-out;
-            -o-transition: .25s ease-in-out;
-            transition: .25s ease-in-out;
-		}
-		.tkmm-toggle.left {
-            right: -55px;
-		}
-		.tkmm-toggle.right {
-           left: -55px;
-		}
-		.tkmm-toggle.leftOpen {
-            right: 10px;
-		}
-		.tkmm-toggle.rightOpen {
-            left: 10px;
-		}
-		.tkmm-toggle span:nth-child(1) {
-            -webkit-transform-origin: center;
-            -moz-transform-origin: center;
-            -o-transform-origin: center;
-            transform-origin: center;
-		}
-		.tkmm-toggle span:nth-child(2) {
-            -webkit-transform-origin: left center;
-            -moz-transform-origin: left center;
-            -o-transform-origin: left center;
-            transform-origin: left center;
-		}
-		.tkmm-toggle span:nth-child(3) {
-            -webkit-transform-origin: center;
-            -moz-transform-origin: center;
-            -o-transform-origin: center;
-            transform-origin: center;
-		}
-		.tkmm-toggle.close span:nth-child(1) {
-            -webkit-transform: rotate(45deg);
-            -moz-transform: rotate(45deg);
-            -o-transform: rotate(45deg);
-            transform: rotate(45deg);
-            top: 10px;
-		}
-		.tkmm-toggle.close span:nth-child(2) {
-            width: 0%;
-            opacity: 0;
-		}
-		.tkmm-toggle.close span:nth-child(3) {
-            -webkit-transform: rotate(-45deg);
-            -moz-transform: rotate(-45deg);
-            -o-transform: rotate(-45deg);
-            transform: rotate(-45deg);
-            top: 10px;
-		}
-		ul#mobile_menu ul.sub-menu{
-			 box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.3), 0px 14px 22px 2px rgba(0, 0, 0, 0.24), 0px 5px 20px 4px rgba(0, 0, 0, 0.22);
-		}
-
-	</style>
 	<div id="toggle" part="toggle" class="tkmm-toggle">
 		<span part="toggle-bar"></span>
 		<span part="toggle-bar"></span>
@@ -130,31 +7,23 @@ template.innerHTML = `
 	</div>
     <div id="drawer">
 		<div id="grab"></div>
-		<!--<div id="toggle_close" class="tkmm-toggle open close">
-			<span></span>
-			<span></span>
-			<span></span>
-		</div>-->
-		<slot></slot>
 	</div>
-	<div id="overlay"></div>
-`
+	<div id="overlay"></div>`
 
 class SlideDrawer extends HTMLElement {
 	constructor() {
 		super()
 
-		const shadowRoot = this.attachShadow({ mode: "open" })
-		shadowRoot.appendChild(template.content.cloneNode(true))
-		this.overlay = shadowRoot.getElementById('overlay')
-		this.grab = shadowRoot.getElementById('grab')
-		this.drawer = shadowRoot.getElementById('drawer')
-		this.toggles = shadowRoot.querySelectorAll('.tkmm-toggle')
+		this.appendChild(template.content.cloneNode(true))
+		this.overlay = this.querySelector('#overlay')
+		this.grab = this.querySelector('#grab')
+		this.drawer = this.querySelector('#drawer')
+		this.toggles = this.querySelectorAll('.tkmm-toggle')
 
 		// Grab and set all options
 		this.right = this.hasAttribute('right')
 		this.drawer_position = 'left';
-		if (this.right) { this.drawer_position = 'right' };
+		if (this.right) { this.drawer_position = 'right' }
 		this.overlayOpacity = this.getAttribute('overlayOpacity') || .5
 		this.overlay.style.background = `rgba(0,0,0,${this.overlayOpacity})`
 		this.mobileWidth = this.getAttribute('mobileWidth') || '100%'
@@ -169,16 +38,15 @@ class SlideDrawer extends HTMLElement {
 		if (this.right) {
 			this.drawer.style.left = window.innerWidth + 'px'
 			this.grab.style.left = '-20px'
-			// this.toggle.classList.add('right')
 		} else {
 			this.drawer.style.left = -this.drawer.offsetWidth + 'px'
 			this.grab.style.right = '-20px'
-			// this.toggle.classList.add('left')
 		}
 		this.resizeId
 
-		document.getElementById("menu-wrapper").style.display = "block";
+		// document.getElementById("menu-wrapper").style.display = "none";
 	}
+
 
 	// Add event listeners once web component mounts
 
@@ -355,7 +223,7 @@ class SlideDrawer extends HTMLElement {
 	handleOpenClick = e => {
 		if (e.target == this.overlay) {
 			let x1 = e.clientX, x2 = this.drawer.getBoundingClientRect().left
-			console.log(x2 - x1)
+			// console.log(x2 - x1)
 			this.close()
 			this.overlay.removeEventListener('click', this.handleOpenClick)
 		}
@@ -500,7 +368,7 @@ class SlideDrawer extends HTMLElement {
 					item.parentNode.style.left = 'initial'
 					item.parentNode.style[drawer_position] = 'initial'
 					item.parentNode.parentNode.style.overflow = 'overflow';
-					console.log('parent menu item', item.parentNode.parentNode.id)
+					// console.log('parent menu item', item.parentNode.parentNode.id)
 					item.style.boxShadow = 'none';
 
 					// if it's back to the top of the menu, re-enable overflow scrolling
@@ -610,7 +478,7 @@ if (stickyElm.classList.contains('sticky_header')) {
 		} else {
 
 			// no top bar is present, behave normally
-			console.log('window.scrollY', window.scrollY)
+			// console.log('window.scrollY', window.scrollY)
 			if (window.scrollY > 1) {
 				header.style.position = "fixed";
 				header.style.top = wp_admin_bar_height + "px";
@@ -650,4 +518,13 @@ jQuery(document).ready(function ($) {
 	// });
 	// console.log('Set submenu height to', menu_wrapper_height)
 
+});
+
+window.addEventListener('DOMContentLoaded', (event) => {
+	const drawer = document.querySelector('#drawer');
+	const menuWrapper = document.querySelector('#menu-wrapper');
+
+	if (drawer && menuWrapper) {
+		drawer.appendChild(menuWrapper);
+	}
 });
