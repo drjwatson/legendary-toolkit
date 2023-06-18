@@ -53,15 +53,33 @@ class SlideDrawer extends HTMLElement {
 	connectedCallback() {
 		this.grab.addEventListener('mousedown', this.handleMouseDown, { passive: true })
 		this.grab.addEventListener('touchstart', this.handleMouseDown, { passive: true })
+		this.mobileBreak = this.getAttribute('mobileBreak');
+		console.log(this.mobileBreak)
 		window.addEventListener('resize', this.handleResize, { passive: true })
 		this.toggles.forEach(toggle => {
 			toggle.addEventListener('click', this.toggleDrawer, { passive: true })
 		})
+		this.updateVisibility();
 
+		// Listen for changes to viewport width
+		window.addEventListener('resize', () => this.updateVisibility());
 		const items = Array.from(this.querySelectorAll('ul'))
 		this.menuInit(items)
 
 	}
+
+	updateVisibility() {
+
+		const windowWidth = window.innerWidth;
+		console.log(windowWidth)
+		if (windowWidth <= this.mobileBreak) {
+			this.style.display = 'block';
+		} else {
+			this.style.display = 'none';
+		}
+	}
+
+
 
 	// handles window resize
 
