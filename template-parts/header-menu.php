@@ -57,7 +57,7 @@ $mobile_menu_bottom_content = legendary_toolkit_get_theme_option('mobile_menu_bo
                 );
             ?>
             <!-- Mobile Menu -->
-            <slide-drawer width="<?=$mobile_menu_width;?>" overlayOpacity=".7" mobileWidth="<?=$mobile_menu_width;?>" mobileBreak="<?=$mobile_menu_breakpoint;?>" <?=$mobile_menu_position;?>>
+            <slide-drawer style="display:none;" width="<?=$mobile_menu_width;?>" overlayOpacity=".7" mobileWidth="<?=$mobile_menu_width;?>" mobileBreak="<?=$mobile_menu_breakpoint;?>" <?=$mobile_menu_position;?>>
                 <div id="menu-wrapper";>
                     <div id="menu_top">
                         <?php 
