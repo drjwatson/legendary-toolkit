@@ -140,7 +140,6 @@ ul#mobile_menu ul.sub-menu {
 #drawer {
 	height: 100%;
 	width: 100%;
-	background: lightblue;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
