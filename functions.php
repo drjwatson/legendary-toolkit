@@ -150,8 +150,8 @@ function legendary_toolkit_scripts() {
 
 
     // fancybox
-    wp_enqueue_style('legendary_toolkit_slick_slider_styles', get_template_directory_uri() . '/inc/assets/plugins/fancybox/jquery.fancybox.min.css');
-    wp_enqueue_script('legendary_toolkit_slick_slider_script', get_template_directory_uri() . '/inc/assets/plugins/fancybox/jquery.fancybox.min.js', array(), '', true);
+    wp_enqueue_style('legendary_toolkit_fancybox_styles', get_template_directory_uri() . '/inc/assets/plugins/fancybox/jquery.fancybox.min.css');
+    wp_enqueue_script('legendary_toolkit_fancybox_script', get_template_directory_uri() . '/inc/assets/plugins/fancybox/jquery.fancybox.min.js', array(), '', true);
 
 }
 add_action( 'wp_enqueue_scripts', 'legendary_toolkit_scripts' );

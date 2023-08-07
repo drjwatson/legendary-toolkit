@@ -154,27 +154,6 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
 
 		}
 
-        // public static function get_google_fonts() {
-        //     $google_api_key = "AIzaSyCzOdFDkLRrWOePEGIribIpUV3BM2SuO9s";
-
-        //     $ch = curl_init();
-        //     curl_setopt($ch, CURLOPT_URL, "https://www.googleapis.com/webfonts/v1/webfonts?key=" . $google_api_key. "&sort=popularity");
-        //     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-        //         "Content-Type: application/json"
-        //     ));
-        //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        //     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);    
-        //     $fonts_list = json_decode(curl_exec($ch), true);
-        //     $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        //     curl_close($ch);
-        //     if($http_code != 200) 
-        //         exit('Error : Failed to get Google Fonts list');
-    
-        //     // echo out list of fonts
-            
-        //     $google_fonts = $fonts_list["items"];
-        //     return $google_fonts;
-        // }
 
 
         public static function get_google_fonts() {
