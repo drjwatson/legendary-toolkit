@@ -158,7 +158,6 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
 
         public static function get_google_fonts() {
             
-            // delete_transient('my_theme_google_fonts');
             // Try to get the result from the cache
             $google_fonts = get_transient('my_theme_google_fonts');
 
@@ -190,7 +189,7 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
 
 
                 // Store the result in the cache for one day
-                // set_transient('my_theme_google_fonts', $google_fonts, DAY_IN_SECONDS * 30);
+                set_transient('my_theme_google_fonts', $google_fonts, DAY_IN_SECONDS * 30);
 
             }
 
