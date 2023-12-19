@@ -3,6 +3,7 @@ $page_title = legendary_toolkit_get_theme_option('page_title');
 $page_meta_title = esc_attr( get_post_meta( get_queried_object_ID(), 'll_page_title', true ) );
 $page_title_content = legendary_toolkit_get_theme_option('page_title_content');
 $single_layout = legendary_toolkit_get_theme_option('single_layout');
+$tag_list = get_the_tag_list( '<ul class="tag-list"><li>', '</li><li>', '</li></ul>' );
 
 if ($page_title && !is_front_page() && $page_meta_title != 'title_off' && !is_single()) : ?>
     <div id="page_title">
@@ -29,15 +30,9 @@ if ($page_title && !is_front_page() && $page_meta_title != 'title_off' && !is_si
                     <div class="row">
                         <div class="col-lg-8 offset-lg-4">
                             <div class="pl-lg-4">
-                                <?php 
-                                    $tag_list = get_the_tag_list( '<ul class="tag-list"><li>', '</li><li>', '</li></ul>' );
-
-                                    if ( $tag_list && ! is_wp_error( $tag_list ) ) {
-                                        echo $tag_list;
-                                    }
-                                ?>
-                                <div class="entry-meta"><?=get_the_date();?></div>
                                 <h2><?php the_title() ; ?></h2>
+                                <div class="entry-meta"><?=get_the_date();?></div>
+                                <?php if ( $tag_list && ! is_wp_error( $tag_list ) ) { echo $tag_list; }?>
                             </div>
                         </div>
                     </div>

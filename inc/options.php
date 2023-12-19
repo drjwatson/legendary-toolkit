@@ -157,6 +157,8 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
 
 
         public static function get_google_fonts() {
+            
+            // delete_transient('my_theme_google_fonts');
             // Try to get the result from the cache
             $google_fonts = get_transient('my_theme_google_fonts');
 
@@ -165,7 +167,8 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                 $google_api_key = "AIzaSyCzOdFDkLRrWOePEGIribIpUV3BM2SuO9s";
 
                 $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, "https://www.googleapis.com/webfonts/v1/webfonts?key=" . $google_api_key. "&sort=popularity");
+                // curl_setopt($ch, CURLOPT_URL, "https://www.googleapis.com/webfonts/v1/webfonts?key=" . $google_api_key. "&sort=popularity");
+                curl_setopt($ch, CURLOPT_URL, "https://www.googleapis.com/webfonts/v1/webfonts?key=" . $google_api_key. "&sort=alpha");
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                     "Content-Type: application/json"
                 ));
@@ -180,8 +183,15 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                 // echo out list of fonts
                 $google_fonts = $fonts_list["items"];
 
+                // Sort the fonts alphabetically by their name
+                usort($google_fonts, function($a, $b) {
+                    return strcmp($a['family'], $b['family']);
+                });                
+
+
                 // Store the result in the cache for one day
-                set_transient('my_theme_google_fonts', $google_fonts, DAY_IN_SECONDS * 30);
+                // set_transient('my_theme_google_fonts', $google_fonts, DAY_IN_SECONDS * 30);
+
             }
 
             return $google_fonts;

@@ -38,6 +38,7 @@
 			if ( 'post' === get_post_type() ) : ?>
 			<div class="entry-meta">
 				<?php wp_bootstrap_starter_posted_on(); ?>
+				<div class="post-categories">Categories: <?php the_category(', '); ?> </div>
 			</div><!-- .entry-meta -->
 			<?php
 			endif; ?>

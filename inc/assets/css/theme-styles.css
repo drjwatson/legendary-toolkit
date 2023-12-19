@@ -370,6 +370,9 @@ a:hover {
 .mega-menu .dropdown-menu {
     width: 100%;
 }
+.mega-menu .dropdown-menu li{
+    padding: 20px;
+}
 .dropdown-menu .container-fluid > .vc_row {
     width: 100%;
 }
