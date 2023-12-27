@@ -43,9 +43,11 @@ class SlideDrawer extends HTMLElement {
 			this.grab.style.right = '-20px'
 		}
 		this.resizeId
-
-		// document.getElementById("menu-wrapper").style.display = "none";
+		
 	}
+
+
+
 
 
 	// Add event listeners once web component mounts
@@ -59,6 +61,8 @@ class SlideDrawer extends HTMLElement {
 		this.toggles.forEach(toggle => {
 			toggle.addEventListener('click', this.toggleDrawer, { passive: true })
 		})
+
+		// thhis must run before the resize event listener or the content will not show up on load
 		this.updateVisibility();
 
 		// Listen for changes to viewport width
@@ -66,6 +70,7 @@ class SlideDrawer extends HTMLElement {
 		const items = Array.from(this.querySelectorAll('ul'))
 		this.menuInit(items)
 
+		
 	}
 
 	updateVisibility() {
@@ -421,12 +426,20 @@ class SlideDrawer extends HTMLElement {
 		})
 	}
 }
-
 window.customElements.define('slide-drawer', SlideDrawer)
 
 // get the sticky element
 const stickyElm = document.querySelector('header#masthead')
 const drawer = document.querySelector('slide-drawer')
+
+
+// fix for flash of unstyled content
+document.addEventListener('DOMContentLoaded', function () {
+	var menuWrapper = document.getElementById("menu-wrapper");
+	if (menuWrapper) {
+		menuWrapper.style.opacity = "1";
+	}
+});
 
 
 // if the header is set to sticky...

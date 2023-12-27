@@ -1,4 +1,4 @@
-console.log('GDPR Enabled Now');
+console.log('GDPR Enabled');
 
 let show_gdpr = true;
 
