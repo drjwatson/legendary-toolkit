@@ -1093,7 +1093,6 @@ body:not(.theme-preset-active) #masthead.is-stuck .navbar-nav>li>a{
 }
 
 
-
 /*--------------------------------------------------------------
 ## Comments
 --------------------------------------------------------------*/
@@ -1639,3 +1638,46 @@ html{
 body #content{
   animation: fadeIn .75s ease-in-out;
 } */
+
+/*
+*
+* Blog Styles
+*
+*/
+
+/* .scroll-watcher{
+  height:10px;
+  position:fixed;
+  bottom:0;
+  transform-origin: left;
+  z-index:9999;
+  scale: 0 1;
+  background-color:lime;
+  width:100%;
+  animation: scroll-watcher linear;
+  animation-timeline: scroll();
+}
+*/
+
+
+
+
+/* @media (prefers-reduced-motion: no-preference){
+
+article p img {
+    scale: .8; opacity: 0;
+    animation: fade-in linear forwards;
+    animation-timeline: view();
+    animation-range: 250px 500px;
+  }
+
+  @keyframes fade-in {
+    to {scale: 1; opacity: 1;}
+  }
+
+}
+ */
+
+#footer .toolkit-logo{
+  height: 80px;
+}

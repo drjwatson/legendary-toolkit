@@ -9,20 +9,100 @@
 
 ?>
 
+<div class="zoom-container">
+	<div class="post-thumbnail zoom-image" style="background:url('<?php echo the_post_thumbnail_url('full');?>');background-size:cover;height:75vh;background-position:center center;">
+	</div>
+</div>
+
+<style>
+.single-post .container.content-item {
+  border: 6px solid white;
+  box-shadow: 0px 1px 8px rgb(0 0 0 / 25%);
+  position:relative;
+  top:-100px;
+  background:white;
+  padding:0 40px;
+
+}
+
+.single-post article p img {
+  border: 6px solid white;
+  box-shadow: 0px 1px 8px rgb(0 0 0 / 25%);
+}
+
+.single-post section#primary{
+  padding:0;
+}
+
+.zoom-container{
+  overflow:hidden;
+}
+
+.zoom-image {
+    transform: scale(1); /* Start slightly zoomed in */
+    transition: transform linear;
+    transform-origin: center;
+}
+
+html {
+  scroll-behavior: smooth !important;
+}
+
+
+</style>
+
+
+<script>
+function lerp(start, end, amount) {
+    return (1 - amount) * start + amount * end;
+}
+
+var targetScroll = 0;
+var currentScroll = 0;
+var lerpAmount = 0.1; // Adjust this for smoother or quicker transitions
+
+function updateScroll() {
+    targetScroll = window.scrollY;
+    requestAnimationFrame(animate);
+}
+
+function animate() {
+    currentScroll = lerp(currentScroll, targetScroll, lerpAmount);
+
+    // Calculate scale and opacity based on scroll
+    var divHeight = document.querySelector('.zoom-container').offsetHeight;
+    var scale = 1 + (currentScroll / divHeight) * 0.3; // Zooms in as you scroll
+    var opacity = 1 - (currentScroll / divHeight); // Fades out as you scroll
+
+    // Apply scale and opacity
+    var image = document.querySelector('.zoom-image');
+    image.style.transform = 'scale(' + scale + ')';
+    image.style.opacity = opacity;
+
+    // Continue the animation as long as there's a noticeable difference
+    if (Math.abs(currentScroll - targetScroll) > 0.5) {
+        requestAnimationFrame(animate);
+    }
+}
+
+window.addEventListener('scroll', updateScroll);
+
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute('href')).scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+});
+
+</script>
+
+
+
 <div class="container content-item">
 	<?php if(has_post_thumbnail()):?>
-	
-		<div class="blog-img" style="margin-top:40px;">
-			<div class="post-thumbnail" style="background:url('<?php echo the_post_thumbnail_url('full');?>');background-size:cover;height:500px;background-position:center center;">
-				<?php 
-				// the_post_thumbnail();
-				// the_post_thumbnail();
-				// echo the_post_thumbnail_url('small');
-				// echo 'test';
-				
-				?>
-			</div>
-		</div>
 	
 	<?php endif;?>
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

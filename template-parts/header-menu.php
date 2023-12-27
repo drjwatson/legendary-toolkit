@@ -33,12 +33,14 @@ $mobile_menu_bottom_content = legendary_toolkit_get_theme_option('mobile_menu_bo
     <div class="<?=$header_container_class;?>">
         <nav class="navbar navbar-expand p-0">
             <div class="navbar-brand">
-                <?php get_template_part('template-parts/header', 'logo', ['id' => 'site_logo']);?>
-                <?php
-                    if ($header_behavior_class == 'sticky_header' && $scrolling_logo) {
-                        get_template_part('template-parts/header', 'logo', ['id' => 'scrolling_site_logo', 'type' => 'scrolling', 'class' => 'd-none']);
-                    } 
-                ?>
+                <a href="<?=esc_url( home_url( '/' )); ?>">
+                    <?php get_template_part('template-parts/header', 'logo', ['id' => 'site_logo']);?>
+                    <?php
+                        if ($header_behavior_class == 'sticky_header' && $scrolling_logo) {
+                            get_template_part('template-parts/header', 'logo', ['id' => 'scrolling_site_logo', 'type' => 'scrolling', 'class' => 'd-none']);
+                        } 
+                    ?>
+                </a>
             </div>
             <?php
                 // Desktop Menu
@@ -60,12 +62,12 @@ $mobile_menu_bottom_content = legendary_toolkit_get_theme_option('mobile_menu_bo
             <slide-drawer style="display:none;" width="<?=$mobile_menu_width;?>" overlayOpacity=".7" mobileWidth="<?=$mobile_menu_width;?>" mobileBreak="<?=$mobile_menu_breakpoint;?>" <?=$mobile_menu_position;?>>
                 <div id="menu-wrapper";>
                     <div id="menu_top">
-                        <?php 
-                        $mobile_logo_template_args = ['id' => 'mobile_site_logo'];
-                        if ($scrolling_logo) {
-                            $mobile_logo_template_args['type'] = 'scrolling';
-                        }
-                        get_template_part('template-parts/header', 'logo', $mobile_logo_template_args);?>
+                            <?php 
+                            $mobile_logo_template_args = ['id' => 'mobile_site_logo'];
+                            if ($scrolling_logo) {
+                                $mobile_logo_template_args['type'] = 'scrolling';
+                            }
+                            get_template_part('template-parts/header', 'logo', $mobile_logo_template_args);?>
                         <div id="mobile-menu-top-content">
                             <?php echo wpautop($mobile_menu_top_content);?>
                         </div>

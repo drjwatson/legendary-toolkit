@@ -10,10 +10,11 @@ get_header();
 $single_layout = legendary_toolkit_get_theme_option('single_layout');
 ?>
 
+
 	<section id="primary" class="content-area <?=toolkit_get_primary_column_classes();?>">
 		<div id="main" class="site-main" role="main">
 		<?php
-		print_r($single_layout);
+		// print_r($single_layout);
 		while ( have_posts() ) : the_post();
 			if ($single_layout) {
 				get_template_part( 'template-parts/content', $single_layout );

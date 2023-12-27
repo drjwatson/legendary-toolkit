@@ -1139,7 +1139,7 @@ function render_toolkit_menu($atts) {
 add_shortcode('toolkit_menu', 'render_toolkit_menu');
 
 function render_toolkit_logo($atts) {
-    extract(shortcode_atts(array( 'id' => null, 'class' => '' ), $atts));
+    extract(shortcode_atts(array( 'id' => null, 'class' => 'toolkit-logo' ), $atts));
     ob_start();
     get_template_part('template-parts/header', 'logo', ['id' => $id, 'class' => $class]);
     return ob_get_clean();
