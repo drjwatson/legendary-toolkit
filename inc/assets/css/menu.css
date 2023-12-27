@@ -280,3 +280,7 @@ ul#mobile_menu ul.sub-menu {
 .dropdown-menu li:hover{
 	background: rgba(0, 0, 0, 0.02);
 }
+
+#mobile_menu .wpb_column{
+	width: auto;
+}
