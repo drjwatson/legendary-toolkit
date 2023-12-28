@@ -8,21 +8,29 @@
  */
 
 ?>
-
-<div class="zoom-container">
-	<div class="post-thumbnail zoom-image" style="background:url('<?php echo the_post_thumbnail_url('full');?>');background-size:cover;height:75vh;background-position:center center;">
-	</div>
-</div>
+	<?php if(has_post_thumbnail()):?>
+		<div class="zoom-container">
+		<?php if(!is_single()):?><a href="<?php the_permalink();?>"><?php endif;?>
+			<div class="post-thumbnail zoom-image" style="background:url('<?php echo the_post_thumbnail_url('full');?>');background-size:cover;height:75vh;background-position:center center;">
+			</div>
+			<?php if(!is_single()):?></a><?php endif;?>
+		</div>
+	<?php endif;?>
+	
+	<?php if(is_single() && !has_post_thumbnail()):?>
+		<div class="default-thumbnail-container">
+			<div class="post-thumbnail zoom-image" style="background:#454545;background-size:cover;height:50vh;background-position:center center;"></div>
+		</div>
+	<?php endif;?>
 
 <style>
 .single-post .container.content-item {
   border: 6px solid white;
   box-shadow: 0px 1px 8px rgb(0 0 0 / 25%);
   position:relative;
-  top:-100px;
   background:white;
+  top:-100px;
   padding:0 40px;
-
 }
 
 .single-post article p img {
@@ -47,8 +55,6 @@
 html {
   scroll-behavior: smooth !important;
 }
-
-
 </style>
 
 
@@ -71,7 +77,7 @@ function animate() {
 
     // Calculate scale and opacity based on scroll
     var divHeight = document.querySelector('.zoom-container').offsetHeight;
-    var scale = 1 + (currentScroll / divHeight) * 0.3; // Zooms in as you scroll
+    var scale = 1 + (currentScroll / divHeight) * 0.05; // Zooms in as you scroll
     var opacity = 1 - (currentScroll / divHeight); // Fades out as you scroll
 
     // Apply scale and opacity
@@ -88,23 +94,11 @@ function animate() {
 window.addEventListener('scroll', updateScroll);
 
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    document.querySelector(this.getAttribute('href')).scrollIntoView({
-      behavior: 'smooth'
-    });
-  });
-});
-
 </script>
 
 
 
 <div class="container content-item">
-	<?php if(has_post_thumbnail()):?>
-	
-	<?php endif;?>
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 		<header class="entry-header">
