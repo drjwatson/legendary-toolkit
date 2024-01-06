@@ -401,6 +401,18 @@ a:hover {
 .maintenance-mode-section * {
     color: white;
 }
+
+::selection {
+    background: var(--primary_color);
+    color: var(--secondary_color);
+}
+
+/* For Mozilla Firefox */
+::-moz-selection {
+    background: var(--primary_color);
+    color: var(--secondary_color);
+}
+
 @media all and (max-width: 768px) {
     body,
     p {

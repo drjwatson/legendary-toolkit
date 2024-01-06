@@ -121,9 +121,6 @@ class SlideDrawer extends HTMLElement {
 		const moveAt = e => {
 
 			let pageX = e.type == 'touch' ? e.pageX : e.touches[0].clientX
-			// count_thing++;
-			// console.log('mousedown:' + count_thing)
-
 
 			if (this.right) {
 				if (pageX > window.innerWidth - this.drawer.offsetWidth && this.drawer.getBoundingClientRect().left <= window.innerWidth + 10) {
