@@ -111,6 +111,11 @@ class SlideDrawer extends HTMLElement {
 
 	// handles mouse down and drag on drawer
 	handleMouseDown = e => {
+
+		this.isDragging = false;
+		this.startX = e.type.startsWith('touch') ? e.touches[0].clientX : e.pageX;
+		this.startTime = Date.now();
+
 		// console.log(e);
 		this.drawer.classList.remove('animate')
 		this.overlay.classList.add('on')
@@ -156,6 +161,7 @@ class SlideDrawer extends HTMLElement {
 
 		// calls both overlay and drawer move functions when mouse is moved
 		const onMouseMove = e => {
+			this.isDragging = true;
 			moveAt(e)
 			overlayPercentage(e)
 		}
@@ -165,16 +171,29 @@ class SlideDrawer extends HTMLElement {
 		this.grab.addEventListener('touchmove', onMouseMove, { passive: true })
 
 		// on mouse up checks current drawer position for open/close threshold and kills mouse move listener
-		this.grab.onmouseup = () => {
-			this.grab.removeEventListener('mousemove', onMouseMove)
-			this.grab.onmouseup = null
-			if (this.right) {
-				this.drawer.getBoundingClientRect().left < window.innerWidth - (this.drawer.offsetWidth / 4) ?
-					this.open() : this.close()
+		this.grab.onmouseup = this.grab.ontouchend = () => {
+			const endTime = Date.now();
+			const endX = e.type.startsWith('touch') ? e.changedTouches[0].clientX : e.pageX;
+			const timeDiff = endTime - this.startTime;
+			const distance = Math.abs(endX - this.startX);
+
+			// Check if it's a tap
+			if (timeDiff < 300 && distance < 10 && !this.isDragging) {
+				// It's a tap; toggle the drawer
+				this.drawer.classList.contains('open') ? this.close() : this.open();
 			} else {
-				this.drawer.getBoundingClientRect().right > this.drawer.offsetWidth / 4 ?
-					this.open() : this.close()
+				// It's a drag; decide to open or close based on position
+				if (this.right) {
+					this.drawer.getBoundingClientRect().left < window.innerWidth - (this.drawer.offsetWidth / 4) ?
+						this.open() : this.close();
+				} else {
+					this.drawer.getBoundingClientRect().right > this.drawer.offsetWidth / 4 ?
+						this.open() : this.close();
+				}
 			}
+
+			this.grab.removeEventListener('mousemove', onMouseMove);
+			this.grab.onmouseup = this.grab.ontouchend = null;
 		}
 
 		this.grab.ontouchend = () => {
