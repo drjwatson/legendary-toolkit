@@ -62,7 +62,7 @@ class SlideDrawer extends HTMLElement {
 			toggle.addEventListener('click', this.toggleDrawer, { passive: true })
 		})
 
-		// thhis must run before the resize event listener or the content will not show up on load
+		// this must run before the resize event listener or the content will not show up on load
 		this.updateVisibility();
 
 		// Listen for changes to viewport width
