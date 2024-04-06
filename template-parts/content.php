@@ -57,47 +57,6 @@ html {
 }
 </style>
 
-
-<script>
-function lerp(start, end, amount) {
-    return (1 - amount) * start + amount * end;
-}
-
-var targetScroll = 0;
-var currentScroll = 0;
-var lerpAmount = 0.1; // Adjust this for smoother or quicker transitions
-
-function updateScroll() {
-    targetScroll = window.scrollY;
-    requestAnimationFrame(animate);
-}
-
-function animate() {
-    currentScroll = lerp(currentScroll, targetScroll, lerpAmount);
-
-    // Calculate scale and opacity based on scroll
-    var divHeight = document.querySelector('.zoom-container').offsetHeight;
-    var scale = 1 + (currentScroll / divHeight) * 0.05; // Zooms in as you scroll
-    var opacity = 1 - (currentScroll / divHeight); // Fades out as you scroll
-
-    // Apply scale and opacity
-    var image = document.querySelector('.zoom-image');
-    image.style.transform = 'scale(' + scale + ')';
-    image.style.opacity = opacity;
-
-    // Continue the animation as long as there's a noticeable difference
-    if (Math.abs(currentScroll - targetScroll) > 0.5) {
-        requestAnimationFrame(animate);
-    }
-}
-
-window.addEventListener('scroll', updateScroll);
-
-
-</script>
-
-
-
 <div class="container content-item">
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
