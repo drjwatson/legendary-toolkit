@@ -43,7 +43,10 @@ if ( ! class_exists( 'Legendary_Toolkit_Theme_Options' ) ) {
                 wp_enqueue_script( 'legendary_toolkit_google_font_selector', get_template_directory_uri() . '/inc/assets/js/google-font-selector.js'); 
                 wp_enqueue_script( 'legendary_toolkit_admin_scripts', get_template_directory_uri() . '/inc/assets/js/admin-scripts.js', array('jquery'), false, true); 
             }
-            wp_enqueue_editor();
+            wp_enqueue_script('editor');
+            wp_enqueue_script('thickbox');
+            wp_enqueue_style('thickbox');
+            wp_enqueue_media();
         }
 
 		/**
