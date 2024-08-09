@@ -4,13 +4,13 @@ Theme URI: https://legendarylion.com/
 Author: Legendary Lion
 Author URI: https://legendarylion.com/
 Description: A theme built upon wp-bootstrap starter to allow rapid development.
-Version: 1.1.36
+Version: 1.1.37
 License: GNU General Public License v2 or later
 License URI: LICENSE
 Text Domain: legendary-toolkit
-Requires at least: 7.4
+Requires at least: 5.0
+Tested up to: 6.4.3
 Requires PHP: 7.4
-Tested up to: 8.0
 */
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
